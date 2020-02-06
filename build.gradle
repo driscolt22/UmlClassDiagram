@@ -13,7 +13,7 @@ repositories {
 }
 
 apply plugin: 'application'
-mainClassName = 'PACKAGE_NAME.Main'
+mainClassName = 'Main'
 
 run {
     standardInput = System.in
