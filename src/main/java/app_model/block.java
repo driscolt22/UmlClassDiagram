@@ -1,4 +1,4 @@
-package PACKAGE_NAME;
+package app_model;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.util.*;

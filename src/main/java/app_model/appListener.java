@@ -1,5 +1,5 @@
 package app_model;
 
-public interface appListener {
+public interface AppListener {
 	public void update();
 }

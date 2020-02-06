@@ -1,17 +1,22 @@
-package PACKAGE_NAME;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import gui.AppDisplay;
+import app_model.AppModel;
 
 public class Main extends JFrame{
 
   public Main() {
 
-    this.setVisible(true);
-     setTitle("Simple example");
-     setSize(300, 200);
-     setLocationRelativeTo(null);
-     setDefaultCloseOperation(EXIT_ON_CLOSE);
+      JFrame mainFrame = new JFrame("Main app");
+      AppModel app = new AppModel();
+
+      AppDisplay mainDisplay = new AppDisplay(app);
+
+      mainFrame.getContentPane().add(mainDisplay);
+      mainFrame.pack();
+      mainFrame.setVisible(true);
   }
 
   public static void main(String[] args) {

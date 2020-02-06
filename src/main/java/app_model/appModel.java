@@ -1,6 +1,7 @@
 package app_model;
 
-public class appModel{
-
-
+public class AppModel{
+    public AppModel(){
+        
+    }
 }
