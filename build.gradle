@@ -2,6 +2,7 @@ plugins {
     id 'java'
 }
 
+
 group 'org.example'
 version '1.0-SNAPSHOT'
 
@@ -9,6 +10,13 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+apply plugin: 'application'
+mainClassName = 'PACKAGE_NAME.Main'
+
+run {
+    standardInput = System.in
 }
 
 dependencies {
