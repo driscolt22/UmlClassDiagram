@@ -4,14 +4,14 @@ import javax.swing.SwingUtilities;
 import java.util.*;
 
 
-public class line{
+public class Line{
   private int x1;
   private int y1;
   private int x2;
   private int y2;
 
 
-  public line(int x1, int y1, int x2, int y2)
+  public Line(int x1, int y1, int x2, int y2)
   {
     this.x1 = 0;
     this.y1 = 0;
