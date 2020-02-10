@@ -4,7 +4,7 @@ import javax.swing.SwingUtilities;
 import java.util.*;
 
 
-public class Line{
+public class Line implements DisplayObject{
   private int x1;
   private int y1;
   private int x2;
@@ -49,6 +49,10 @@ public class Line{
 
   public int setSecondY_Value(int value){
     return this.y2 = value;
+  }
+
+  public void accept(Visitor v){
+      v.visit(this);
   }
 
 }

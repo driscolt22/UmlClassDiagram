@@ -4,90 +4,40 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 
-public class appModel{
-  private ArrayList<block> blocks;
+public class AppModel{
+  private ArrayList<DisplayObject> displayObjects;
   //private ArrayList<line> lines;
-  private Vector<appListener> listeners;
+  private Vector<AppListener> listeners;
 
-  public appModel(){
-    blocks = new ArrayList<block>(0);
+  public AppModel(){
+    displayObjects = new ArrayList<DisplayObject>(0);
     //lines = new ArrayList<line>(0);
-    listeners = new Vector<appListener>();
+    listeners = new Vector<AppListener>();
 
   }
 
-  public void addBlock(){
-    block b = blockFactory();
-    blocks.add(b);
+  public void addObj(DisplayObject o){
+    displayObjects.add(o);
     notifyListeners();
   }
 
-  public void addClassToBlock(block b, String className){
-    if(containsBlock(b)){
-      b.setClassName(className);
-      notifyListeners();
-    }
-    else
-      throw new IllegalArgumentException();
+  public boolean containsObject(DisplayObject b){
+    return displayObjects.contains(b);
   }
 
-  public boolean containsBlock(block b){
-    return blocks.contains(b);
-  }
-
-  public void addMethodToBlock(block b, String methods){
-    if(containsBlock(b)){
-      b.addMethod(methods);
-      notifyListeners();
-    }
-    else
-      throw new IllegalArgumentException();
-  }
-
-  public void addVariableToBlock(block b, String instanceVariable){
-    if(containsBlock(b)){
-      b.addInstanceVariable(instanceVariable);
-      notifyListeners();
-    }
-    else
-      throw new IllegalArgumentException();
-  }
-
-  public void newBlockSize(block b, int length, int width){
-    if(containsBlock(b)){
-      b.setLength(length);
-      b.setWidth(width);
-      notifyListeners();
-    }
-    else
-      throw new IllegalArgumentException();
-  }
-
-  public void newLocation(block b, int x, int y){
-
-    if(containsBlock(b)){
-    b.setLocation(x,y);
-      notifyListeners();
-    }
-    else
-      throw new IllegalArgumentException();
-  }
-
-
-
-  public void addListener(appListener l)
+  public void addListener(AppListener l)
   {
       listeners.add(l);
   }
 
-  public void removeListener(appListener l)
+  public void removeListener(AppListener l)
   {
       listeners.remove(l);
   }
 
   private void notifyListeners()
   {
-      for (appListener l : listeners) {
+      for (AppListener l : listeners) {
           l.update();
       }
   }

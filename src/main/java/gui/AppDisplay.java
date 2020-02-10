@@ -10,15 +10,15 @@ import java.awt.BasicStroke;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
-import app_model.appListener;
-import app_model.appModel;
+import app_model.AppListener;
+import app_model.AppModel;
 
 public class AppDisplay extends JComponent implements AppListener{
-    private appModel app;
+    private AppModel app;
     private static int WIDTH = 600;
     private static int HEIGHT = 500;
 
-    public AppDisplay(appModel app)
+    public AppDisplay(AppModel app)
     {
         this.app = app;
 

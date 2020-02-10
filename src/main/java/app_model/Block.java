@@ -4,7 +4,7 @@ import javax.swing.SwingUtilities;
 import java.util.*;
 
 
-public class Block{
+public class Block  implements DisplayObject{
   private int x;
   private int y;
   private int width;
@@ -60,5 +60,9 @@ public class Block{
   public void setLocation(int x, int y){
     this.x = x;
     this.y = y;
+  }
+
+  public void accept(Visitor v){
+      v.visit(this);
   }
 }

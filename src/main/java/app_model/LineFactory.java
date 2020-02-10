@@ -6,6 +6,6 @@ public class LineFactory{
   }
 
   public Line createLine(){
-    return new Line();
+    return new Line(0,0,0,0);
   }
 }
