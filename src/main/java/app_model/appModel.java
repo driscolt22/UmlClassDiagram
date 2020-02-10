@@ -1,10 +1,10 @@
 package app_model;
 
-import java.util.vector;
+import java.util.Vector;
 
 public class AppModel{
 
-    private vector<AppListener> listeners;
+    private Vector<AppListener> listeners;
 
     public AppModel(){
         listeners = new Vector<AppListener>();
