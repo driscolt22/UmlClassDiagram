@@ -12,8 +12,8 @@ public class Main extends JFrame{
         AppModel app = new AppModel();
 
         AppDisplay mainDisplay = new AppDisplay(app);
-        game.addListener(mainDisplay);
-        
+        app.addListener(mainDisplay);
+
         mainFrame.getContentPane().add(mainDisplay);
         mainFrame.pack();
         mainFrame.setVisible(true);
