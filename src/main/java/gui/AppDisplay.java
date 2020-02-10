@@ -10,7 +10,7 @@ import java.awt.BasicStroke;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
-import app_model.AppListener;
+import app_model.appListener;
 import app_model.appModel;
 
 public class AppDisplay extends JComponent implements AppListener{
