@@ -26,6 +26,11 @@ public class AppDisplay extends JComponent implements AppListener{
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+    }
+
     public void update()
 	{
 		repaint();

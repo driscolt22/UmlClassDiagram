@@ -1,4 +1,3 @@
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -6,23 +5,20 @@ import gui.AppDisplay;
 import app_model.AppModel;
 
 public class Main extends JFrame{
+    
+    public Main() {
 
-  public Main() {
+        JFrame mainFrame = new JFrame("Main app");
+        AppModel app = new AppModel();
 
-      JFrame mainFrame = new JFrame("Main app");
-      AppModel app = new AppModel();
+        AppDisplay mainDisplay = new AppDisplay(app);
 
-      AppDisplay mainDisplay = new AppDisplay(app);
+        mainFrame.getContentPane().add(mainDisplay);
+        mainFrame.pack();
+        mainFrame.setVisible(true);
+    }
 
-      mainFrame.getContentPane().add(mainDisplay);
-      mainFrame.pack();
-      mainFrame.setVisible(true);
-  }
-
-  public static void main(String[] args) {
-     Main ex = new Main();
-
-  }
-
-
-  }
+    public static void main(String[] args) {
+        Main ex = new Main();
+    }
+}
