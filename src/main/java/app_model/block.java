@@ -4,7 +4,7 @@ import javax.swing.SwingUtilities;
 import java.util.*;
 
 
-public class block{
+public class Block{
   private int x;
   private int y;
   private int width;
@@ -14,7 +14,7 @@ public class block{
   private ArrayList<String> contents;
 
 
-  public block()
+  public Block()
   {
     this.x = 0;
     this.y = 0;
