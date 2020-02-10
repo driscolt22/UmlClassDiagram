@@ -11,14 +11,14 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 import app_model.AppListener;
-import app_model.AppModel;
+import app_model.appModel;
 
 public class AppDisplay extends JComponent implements AppListener{
-    private AppModel app;
+    private appModel app;
     private static int WIDTH = 600;
     private static int HEIGHT = 500;
 
-    public AppDisplay(AppModel app)
+    public AppDisplay(appModel app)
     {
         this.app = app;
 

@@ -17,7 +17,7 @@ public class appModel{
   }
 
   public void addBlock(){
-    block b = new block();
+    block b = blockFactory();
     blocks.add(b);
     notifyListeners();
   }
