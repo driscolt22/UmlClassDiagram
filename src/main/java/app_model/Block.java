@@ -57,9 +57,25 @@ public class Block  implements DisplayObject{
     this.length = length;
   }
 
+  public int getLength(){
+    return length;
+  }
+
+  public int getWidth(){
+    return width;
+  }
+
   public void setLocation(int x, int y){
     this.x = x;
     this.y = y;
+  }
+
+  public int getXLocation(){
+    return x;
+  }
+
+  public int getYLocation(){
+    return y;
   }
 
   public void accept(Visitor v){
