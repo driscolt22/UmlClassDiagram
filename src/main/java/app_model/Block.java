@@ -70,13 +70,23 @@ public class Block  implements DisplayObject{
     this.y = y;
   }
 
-  public int getXLocation(){
+
+  public int getX(){
     return x;
   }
 
-  public int getYLocation(){
+  public int getY(){
     return y;
   }
+
+  public int getWidth(){
+      return this.width;
+  }
+
+  public int getLength(){
+      return this.length;
+  }
+
 
   public void accept(Visitor v){
       v.visit(this);

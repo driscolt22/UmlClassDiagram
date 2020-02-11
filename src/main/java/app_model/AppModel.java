@@ -1,7 +1,6 @@
 package app_model;
 import app_model.*;
-import java.util.ArrayList;
-import java.util.Vector;
+import java.util.*;
 
 
 public class AppModel{
@@ -19,6 +18,10 @@ public class AppModel{
   public void addObj(DisplayObject o){
     displayObjects.add(o);
     notifyListeners();
+  }
+
+  public Iterable<DisplayObject> getDisplayObjects(){
+      return displayObjects;
   }
 
   public boolean containsObject(DisplayObject b){

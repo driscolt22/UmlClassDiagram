@@ -5,7 +5,7 @@ public class BlockFactory{
   public BlockFactory(){
   }
 
-  public Block createBlock(){
+  public static Block createBlock(){
     return new Block();
   }
 }

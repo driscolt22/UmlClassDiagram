@@ -13,10 +13,10 @@ public class Line implements DisplayObject{
 
   public Line(int x1, int y1, int x2, int y2)
   {
-    this.x1 = 0;
-    this.y1 = 0;
-    this.x2 = 0;
-    this.y2 = 0;
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
   }
 
   public int getFirstX_Value(){
@@ -52,14 +52,14 @@ public class Line implements DisplayObject{
   }
 
   public boolean pointOneIsConnected(Block b){
-    if(b.getXLocation() == x1 || b.getXLocation() + b.getWidth() == x1){
-      if(b.getYLocation() >= y1 && b.getYLocation()+b.getLength() <= y1)
+    if(b.getX() == x1 || b.getX() + b.getWidth() == x1){
+      if(b.getY() >= y1 && b.getY()+b.getLength() <= y1)
         return true;
       else
         return false;
     }
-    else if(b.getYLocation() == y1 || b.getYLocation() + b.getLength() == y1){
-      if(b.getXLocation() <= x1 && b.getXLocation()+b.getWidth() >= x1)
+    else if(b.getY() == y1 || b.getY() + b.getLength() == y1){
+      if(b.getX() <= x1 && b.getX()+b.getWidth() >= x1)
         return true;
       else
         return false;
@@ -69,14 +69,14 @@ public class Line implements DisplayObject{
   }
 
   public boolean pointTwoIsConnected(Block b){
-    if(b.getXLocation() == x2 || b.getXLocation() + b.getWidth() == y2){
-      if(b.getYLocation() >= y2 && b.getYLocation()+b.getLength() <= y2)
+    if(b.getX() == x2 || b.getX() + b.getWidth() == y2){
+      if(b.getY() >= y2 && b.getY()+b.getLength() <= y2)
         return true;
       else
         return false;
     }
-    else if(b.getYLocation() == y2 || b.getYLocation() + b.getLength() == y2){
-      if(b.getXLocation() <= x2 && b.getXLocation()+b.getWidth() >= x2)
+    else if(b.getY() == y2 || b.getY() + b.getLength() == y2){
+      if(b.getX() <= x2 && b.getX()+b.getWidth() >= x2)
         return true;
       else
         return false;
