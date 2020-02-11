@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import app_model.AppListener;
 import app_model.AppModel;
+import app_model.DisplayObject;
 
 public class AppDisplay extends JComponent implements AppListener{
     private AppModel app;
@@ -24,6 +25,16 @@ public class AppDisplay extends JComponent implements AppListener{
 
         setSize(new Dimension(WIDTH, HEIGHT));
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
+    }
+
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        Render render = new Render(g);
+
+        for(DisplayObject d: app.getDisplayObjects()){
+            d.accept(render);
+        }
     }
 
     public void update()
