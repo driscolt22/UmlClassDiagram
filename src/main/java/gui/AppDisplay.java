@@ -32,6 +32,8 @@ public class AppDisplay extends JComponent implements AppListener{
         super.paintComponent(g);
         Render render = new Render(g);
 
+        //create sidebar
+
         for(DisplayObject d: app.getDisplayObjects()){
             d.accept(render);
         }
