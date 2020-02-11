@@ -14,7 +14,7 @@ public class Render implements Visitor{
 
     private Graphics g;
 
-    private static int LINE_WIDTH = 5;
+    private static int LINE_WIDTH = 1;
 
     public Render(Graphics g){
         this.g = g;
@@ -33,11 +33,13 @@ public class Render implements Visitor{
 
     public void visit(Block b){
         g.drawRect(b.getX(), b.getY(), b.getLength(), b.getWidth());
+        // TODO show class info and stuff
     }
 
     public void visit(Line l){
         g.drawLine(l.getFirstX_Value(), l.getFirstY_Value(),
             l.getSecondX_Value(), l.getSecondY_Value());
+        // TODO add arrowheads?
     }
 
 }
