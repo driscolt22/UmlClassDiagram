@@ -19,7 +19,13 @@ public class Main extends JFrame{
         app.addListener(mainDisplay);
 
         Block b = BlockFactory.createBlock();
-        b.setLocation(50,50);
+        b.setLocation(100,100);
+        b.setClassName("Test Class");
+        b.addInstanceVariable("var1");
+        b.addInstanceVariable("var2");
+        b.addInstanceVariable("var3");
+        b.addMethod("method1");
+        b.addMethod("method2");
         app.addObj(b);
 
         Line l = LineFactory.createLine();
