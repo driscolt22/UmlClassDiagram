@@ -51,6 +51,40 @@ public class Line implements DisplayObject{
     return this.y2 = value;
   }
 
+  public boolean pointOneIsConnected(Block b){
+    if(b.getX() == x1 || b.getX() + b.getWidth() == x1){
+      if(b.getY() >= y1 && b.getY()+b.getLength() <= y1)
+        return true;
+      else
+        return false;
+    }
+    else if(b.getY() == y1 || b.getY() + b.getLength() == y1){
+      if(b.getX() <= x1 && b.getX()+b.getWidth() >= x1)
+        return true;
+      else
+        return false;
+    }
+    else
+      return false;
+  }
+
+  public boolean pointTwoIsConnected(Block b){
+    if(b.getX() == x2 || b.getX() + b.getWidth() == y2){
+      if(b.getY() >= y2 && b.getY()+b.getLength() <= y2)
+        return true;
+      else
+        return false;
+    }
+    else if(b.getY() == y2 || b.getY() + b.getLength() == y2){
+      if(b.getX() <= x2 && b.getX()+b.getWidth() >= x2)
+        return true;
+      else
+        return false;
+    }
+    else
+      return false;
+  }
+
   public void accept(Visitor v){
       v.visit(this);
   }
