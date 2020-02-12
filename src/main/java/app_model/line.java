@@ -97,13 +97,21 @@ public class Line implements DisplayObject{
       //sets x1, y1, x2, y2
       return;
   }
+  public void setLine(Block head, Block tail){
+    if(head.getX() > tail.getX()){
+      setHead(head.getX(), head.getY() + head.getLength() / 2);
+      setTail(tail.getX() + getWidth(), tail.getY() + tail.getLength() / 2);
+    }else if(head.getX() < tail.getX()){
+      setHead(head.getX() + head.getWidth(), head.getY() + head.getLength() / 2);
+      setTail(tail.getX(), tail.getY() + tail.getLength() / 2);
+    }else if((head.getX() == tail.getX()) && (head.getY() > tail.getY())){
+      setHead(head.getX() + head.getWidth() / 2, head.getY());
+      setTail(tail.getX() + tail.getWidth() / 2, tail.getY() + tail.getLength());
+    }else{
+      setHead(head.getX() + head.getWidth() / 2, head.getY() + head.getLength());
+      setTail(tail.getX() + tail.getWidth() / 2, tail.getY());
 
-  public void setHead(){
-      return;
-  }
-
-  public void setTail(){
-      return;
+    }
   }
 
   public void accept(Visitor v){
