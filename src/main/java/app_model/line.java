@@ -117,6 +117,10 @@ public class Line implements DisplayObject{
       setFirstX_Value(x1);
       setFirstY_Value(y1);
   }
+  private void setTail(int x2, int y2){
+    setSecondX_Value(x2);
+    setSecondY_Value(y2);
+  }
 
   public void accept(Visitor v){
       v.visit(this);
