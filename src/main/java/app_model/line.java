@@ -107,12 +107,12 @@ public class Line implements DisplayObject{
     }else if((head.getX() == tail.getX()) && (head.getY() > tail.getY())){
       setHead(head.getX() + head.getWidth() / 2, head.getY());
       setTail(tail.getX() + tail.getWidth() / 2, tail.getY() + tail.getLength());
-    }else{
+    }else if((head.getX() == tail.getX()) && (head.getY() < tail.getY())){
       setHead(head.getX() + head.getWidth() / 2, head.getY() + head.getLength());
       setTail(tail.getX() + tail.getWidth() / 2, tail.getY());
-
     }
   }
+
   private void setHead(int x1, int y1){
       setFirstX_Value(x1);
       setFirstY_Value(y1);
