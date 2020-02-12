@@ -113,6 +113,10 @@ public class Line implements DisplayObject{
 
     }
   }
+  private void setHead(int x1, int y1){
+      setFirstX_Value(x1);
+      setFirstY_Value(y1);
+  }
 
   public void accept(Visitor v){
       v.visit(this);
