@@ -97,13 +97,29 @@ public class Line implements DisplayObject{
       //sets x1, y1, x2, y2
       return;
   }
-
-  public void setHead(){
-      return;
+  public void setLine(Block head, Block tail){
+    if(head.getX() > tail.getX()){
+      setHead(head.getX(), head.getY() + head.getLength() / 2);
+      setTail(tail.getX() + getWidth(), tail.getY() + tail.getLength() / 2);
+    }else if(head.getX() < tail.getX()){
+      setHead(head.getX() + head.getWidth(), head.getY() + head.getLength() / 2);
+      setTail(tail.getX(), tail.getY() + tail.getLength() / 2);
+    }else if((head.getX() == tail.getX()) && (head.getY() > tail.getY())){
+      setHead(head.getX() + head.getWidth() / 2, head.getY());
+      setTail(tail.getX() + tail.getWidth() / 2, tail.getY() + tail.getLength());
+    }else if((head.getX() == tail.getX()) && (head.getY() < tail.getY())){
+      setHead(head.getX() + head.getWidth() / 2, head.getY() + head.getLength());
+      setTail(tail.getX() + tail.getWidth() / 2, tail.getY());
+    }
   }
 
-  public void setTail(){
-      return;
+  private void setHead(int x1, int y1){
+      setFirstX_Value(x1);
+      setFirstY_Value(y1);
+  }
+  private void setTail(int x2, int y2){
+    setSecondX_Value(x2);
+    setSecondY_Value(y2);
   }
 
   public void accept(Visitor v){

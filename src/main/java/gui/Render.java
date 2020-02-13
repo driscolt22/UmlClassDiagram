@@ -58,9 +58,31 @@ public class Render implements Visitor{
     }
 
     public void visit(Line l){
-        g.drawLine(l.getFirstX_Value(), l.getFirstY_Value(),
-            l.getSecondX_Value(), l.getSecondY_Value());
-        // TODO add arrowheads/ dashed line?
+    int x1 = l.getFirstX_Value();
+    int x2 = l.getSecondX_Value();
+    int y1 = l.getFirstY_Value();
+    int y2 = l.getSecondY_Value();
+    int h = 10;
+    int d = 20;
+
+    int dx = x1 - x2, dy = y1 - y2;
+    double D = Math.sqrt(dx*dx + dy*dy);
+    double xm = D - d, xn = xm, ym = h, yn = -h, x;
+    double sin = dy / D, cos = dx / D;
+
+    x = xm*cos - ym*sin + x2;
+    ym = xm*sin + ym*cos + y2;
+    xm = x;
+
+    x = xn*cos - yn*sin + x2;
+    yn = xn*sin + yn*cos + y2;
+    xn = x;
+
+    int[] xpoints = {x1, (int) xm, (int) xn};
+    int[] ypoints = {y1, (int) ym, (int) yn};
+
+    g.drawLine((int)(xm + xn)/2,(int)(ym+yn)/2, x2, y2);
+    g.drawPolygon(xpoints, ypoints, 3);
     }
 
 }
