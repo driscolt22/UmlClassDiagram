@@ -1,6 +1,8 @@
 package app_model;
 import app_model.*;
 import java.util.*;
+import java.io.Writer;
+import java.io.FileWriter;
 
 
 public class AppModel{
@@ -43,6 +45,14 @@ public class AppModel{
       for (AppListener l : listeners) {
           l.update();
       }
+  }
+
+//  private String displayObjectToString(DisplayObject d){
+
+//  }
+
+  public void saveLoader(){
+
   }
 
 }

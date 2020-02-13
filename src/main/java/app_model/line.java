@@ -78,7 +78,7 @@ public class Line implements DisplayObject{
 
   public boolean pointTwoIsConnected(Block b){
     if(b.getX() == x2 || b.getX() + b.getWidth() == y2){
-      if(b.getY() >= y2 && b.getY()+b.getLength() <= y2)
+      if(b.getY() <= y2 && b.getY()+b.getLength() >= y2)
         return true;
       else
         return false;
