@@ -18,10 +18,13 @@ public class AppDisplay extends JComponent implements AppListener{
     private AppModel app;
     private static int WIDTH = 600;
     private static int HEIGHT = 500;
+    private AppControl controller;
 
     public AppDisplay(AppModel app)
     {
         this.app = app;
+
+        controller = new AppControl(app, this);
 
         setSize(new Dimension(WIDTH, HEIGHT));
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
