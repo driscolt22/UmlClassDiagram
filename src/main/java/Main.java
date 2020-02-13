@@ -8,7 +8,7 @@ import app_model.Block;
 import app_model.Line;
 import app_model.LineFactory;
 
-public class Main extends JFrame{
+public class Main{
 
     public Main() {
 
@@ -19,7 +19,7 @@ public class Main extends JFrame{
         app.addListener(mainDisplay);
 
         Block b = BlockFactory.createBlock();
-        b.setLocation(200,100);
+        b.setLocation(100,100);
         b.setClassName("Test Class");
         b.addInstanceVariable("var1");
         b.addInstanceVariable("var2");
@@ -28,8 +28,16 @@ public class Main extends JFrame{
         b.addMethod("method2");
         app.addObj(b);
 
+        Block c = BlockFactory.createBlock();
+        c.setLocation(100,350);
+        c.setClassName("Test Class2");
+        app.addObj(c);
+
+
         Line l = new Line(200,100,0,0);
         app.addObj(l);
+
+        l.setLine(c,b);
 
         mainFrame.getContentPane().add(mainDisplay);
         mainFrame.pack();

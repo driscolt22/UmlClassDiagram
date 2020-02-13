@@ -100,7 +100,7 @@ public class Line implements DisplayObject{
   public void setLine(Block head, Block tail){
     if(head.getX() > tail.getX()){
       setHead(head.getX(), head.getY() + head.getLength() / 2);
-      setTail(tail.getX() + getWidth(), tail.getY() + tail.getLength() / 2);
+      setTail(tail.getX() + tail.getWidth(), tail.getY() + tail.getLength() / 2);
     }else if(head.getX() < tail.getX()){
       setHead(head.getX() + head.getWidth(), head.getY() + head.getLength() / 2);
       setTail(tail.getX(), tail.getY() + tail.getLength() / 2);

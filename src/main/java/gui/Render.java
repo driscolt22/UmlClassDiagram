@@ -7,6 +7,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.BasicStroke;
+import java.awt.Stroke;
 
 import app_model.Visitor;
 import app_model.Line;
@@ -58,31 +59,46 @@ public class Render implements Visitor{
     }
 
     public void visit(Line l){
-    int x1 = l.getFirstX_Value();
-    int x2 = l.getSecondX_Value();
-    int y1 = l.getFirstY_Value();
-    int y2 = l.getSecondY_Value();
-    int h = 10;
-    int d = 20;
+        int x1 = l.getFirstX_Value();
+        int x2 = l.getSecondX_Value();
+        int y1 = l.getFirstY_Value();
+        int y2 = l.getSecondY_Value();
+        int h = 10;
+        int d = 20;
 
-    int dx = x1 - x2, dy = y1 - y2;
-    double D = Math.sqrt(dx*dx + dy*dy);
-    double xm = D - d, xn = xm, ym = h, yn = -h, x;
-    double sin = dy / D, cos = dx / D;
+        int dx = x1 - x2, dy = y1 - y2;
+        double D = Math.sqrt(dx*dx + dy*dy);
+        double xm = D - d, xn = xm, ym = h, yn = -h, x;
+        double sin = dy / D, cos = dx / D;
 
-    x = xm*cos - ym*sin + x2;
-    ym = xm*sin + ym*cos + y2;
-    xm = x;
+        x = xm*cos - ym*sin + x2;
+        ym = xm*sin + ym*cos + y2;
+        xm = x;
 
-    x = xn*cos - yn*sin + x2;
-    yn = xn*sin + yn*cos + y2;
-    xn = x;
+        x = xn*cos - yn*sin + x2;
+        yn = xn*sin + yn*cos + y2;
+        xn = x;
 
-    int[] xpoints = {x1, (int) xm, (int) xn};
-    int[] ypoints = {y1, (int) ym, (int) yn};
+        int[] xpoints = {x1, (int) xm, (int) xn};
+        int[] ypoints = {y1, (int) ym, (int) yn};
 
-    g.drawLine((int)(xm + xn)/2,(int)(ym+yn)/2, x2, y2);
-    g.drawPolygon(xpoints, ypoints, 3);
+        // g.drawLine((int)(xm + xn)/2,(int)(ym+yn)/2, x2, y2);
+        drawDashedLine((int)(xm + xn)/2,(int)(ym+yn)/2,x2,y2);
+        
+        g.drawPolygon(xpoints, ypoints, 3);
+    }
+
+    private void drawDashedLine(int x1, int y1, int x2, int y2){
+        //creates a copy of the Graphics instance
+        Graphics2D g2d = (Graphics2D) g.create();
+
+        //set the stroke of the copy, not the original
+        Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+        g2d.setStroke(dashed);
+        g2d.drawLine(x1, y1, x2, y2);
+
+        //gets rid of the copy
+        g2d.dispose();
     }
 
 }
