@@ -80,7 +80,6 @@ public class Block  implements DisplayObject{
       return this.length;
   }
 
-
   public void accept(Visitor v){
       v.visit(this);
   }

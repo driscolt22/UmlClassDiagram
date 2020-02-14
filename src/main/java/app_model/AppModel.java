@@ -58,12 +58,12 @@ public class AppModel{
                   selectHead = Math.hypot(x -l.getFirstX_Value(), y - l.getFirstY_Value()) <=
                             Math.hypot(x- l.getSecondX_Value(), y-l.getSecondY_Value());
               }
-              System.out.println("Selected object");
+              //System.out.println("Selected object");
               notifyListeners();
               return;
           }
       }
-      System.out.println("Did not Select object");
+      //System.out.println("Did not Select object");
       currentlySelected = null;
       notifyListeners();
       return;
@@ -85,15 +85,36 @@ public class AppModel{
       if(currentlySelected instanceof Block){
           Block b = (Block) currentlySelected;
           b.setLocation(b.getX() + dx, b.getY() +dy);
+          for(DisplayObject c: getDisplayObjects()){
+              if(c instanceof Line){
+                  ((Line)c).updatePosition();
+              }
+          }
       }else if(currentlySelected instanceof Line){
           Line l = (Line) currentlySelected;
           if(selectHead){
               l.setHead(l.getFirstX_Value() + dx, l.getFirstY_Value() + dy);
+              l.connectHead(null);
           }else{
               l.setTail(l.getSecondX_Value() + dx, l.getSecondY_Value() + dy);
+              l.connectTail(null);
+          }
+          //reatach to the blocks
+          for(DisplayObject c: getDisplayObjects()){
+
+              if(c instanceof Block){
+                  //System.out.println("checking a block?");
+                  l.connectToBlock((Block) c);
+              }
           }
       }
       notifyListeners();
+  }
+
+  public boolean removeSelected(){
+      boolean ret = displayObjects.remove(currentlySelected);
+      notifyListeners();
+      return ret;
   }
 
 }

@@ -3,6 +3,8 @@ package gui;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JOptionPane;
 
@@ -10,7 +12,7 @@ import app_model.AppModel;
 import gui.AppDisplay;
 
 public class AppControl
-implements MouseListener, MouseMotionListener
+implements MouseListener, MouseMotionListener, KeyListener
 {
     private AppModel app;
     private AppDisplay appDisplay;
@@ -24,6 +26,7 @@ implements MouseListener, MouseMotionListener
 
         appDisplay.addMouseListener(this);
         appDisplay.addMouseMotionListener(this);
+        appDisplay.addKeyListener(this);
     }
 
     public void mouseClicked(MouseEvent e)
@@ -60,10 +63,25 @@ implements MouseListener, MouseMotionListener
 
     public void mouseDragged(MouseEvent e){
         //System.out.println(e);
-        int dx = e.getX() - pressX;
-        int dy = e.getY() - pressY;
-        app.moveSelected(dx, dy);
-        pressX = e.getX();
-        pressY = e.getY();
+        if(e.getX() > 0 && e.getY() > 0 &&
+            e.getX() < appDisplay.WIDTH && e.getY() < appDisplay.HEIGHT){
+            int dx = e.getX() - pressX;
+            int dy = e.getY() - pressY;
+            app.moveSelected(dx, dy);
+            pressX = e.getX();
+            pressY = e.getY();
+        }
+    }
+
+    public void keyPressed(KeyEvent e) {
+        System.out.println(e);
+    }
+    public void keyReleased(KeyEvent e) {
+        System.out.println(e);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        System.out.println(e);
     }
 }

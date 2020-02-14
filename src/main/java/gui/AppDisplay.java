@@ -17,8 +17,8 @@ import app_model.DisplayObject;
 
 public class AppDisplay extends JComponent implements AppListener{
     private AppModel app;
-    private static int WIDTH = 600;
-    private static int HEIGHT = 500;
+    public static int WIDTH = 600;
+    public static int HEIGHT = 500;
     private AppControl controller;
 
     public AppDisplay(AppModel app)
@@ -40,7 +40,6 @@ public class AppDisplay extends JComponent implements AppListener{
 
         for(DisplayObject d: app.getDisplayObjects()){
             if(app.isSelected(d)){
-                System.out.println("Printint a selected object");
                 g.setColor(Color.blue);
             }else{
                 g.setColor(Color.black);
