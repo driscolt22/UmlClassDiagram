@@ -60,15 +60,29 @@ public class Line implements DisplayObject{
   }
 
   public boolean pointOneIsConnected(Block b){
-    if(b.getX() == x1 || b.getX() + b.getWidth() == x1){
-      if(b.getY() >= y1 && b.getY()+b.getLength() <= y1)
-        return true;
+    if(b.getY() <= y1 && b.getY()+b.getLength() >= y1){
+      if(b.getX() == x1 ){
+          setTail(x1, b.getY()+(b.getLength()/2), b);
+          return true;
+        }
+
+      if(b.getX() + b.getWidth() == x1){
+          setHead(x1, b.getY()+(b.getLength()/2), b);
+          return true;
+        }
       else
-        return false;
-    }
-    else if(b.getY() == y1 || b.getY() + b.getLength() == y1){
-      if(b.getX() <= x1 && b.getX()+b.getWidth() >= x1)
+          return false;
+      }
+    if(b.getX() <= x1 && b.getX()+b.getWidth() >= x1){
+      if(b.getY() == y1){
+        setTail(b.getX()+(b.getWidth()/2), y1, b);
         return true;
+      }
+
+      if(b.getY() + b.getLength() == y1){
+        setHead(b.getX()+(b.getWidth()/2), y1, b);
+        return true;
+      }
       else
         return false;
     }
@@ -77,15 +91,27 @@ public class Line implements DisplayObject{
   }
 
   public boolean pointTwoIsConnected(Block b){
-    if(b.getX() == x2 || b.getX() + b.getWidth() == y2){
-      if(b.getY() <= y2 && b.getY()+b.getLength() >= y2)
-        return true;
+    if(b.getY() <= y2 && b.getY()+b.getLength() >= y2){
+      if(b.getX() == x2 ){
+          setTail(x2, b.getY()+(b.getLength()/2), b);
+          return true;
+        }
+      if(b.getX() + b.getWidth() == x2){
+          setTail(x2, b.getY()+(b.getLength()/2), b);
+          return true;
+        }
       else
-        return false;
-    }
-    else if(b.getY() == y2 || b.getY() + b.getLength() == y2){
-      if(b.getX() <= x2 && b.getX()+b.getWidth() >= x2)
+          return false;
+      }
+    if(b.getX() <= x2 && b.getX()+b.getWidth() >= x2){
+      if(b.getY() == y2){
+        setTail(b.getX()+(b.getWidth()/2), y2, b);
         return true;
+      }
+      if(b.getY() + b.getLength() == y2){
+        setTail(b.getX()+(b.getWidth()/2), y2, b);
+        return true;
+      }
       else
         return false;
     }
@@ -97,29 +123,32 @@ public class Line implements DisplayObject{
       //sets x1, y1, x2, y2
       return;
   }
+
   public void setLine(Block head, Block tail){
     if(head.getX() > tail.getX()){
-      setHead(head.getX(), head.getY() + head.getLength() / 2);
-      setTail(tail.getX() + tail.getWidth(), tail.getY() + tail.getLength() / 2);
+      setHead(head.getX(), head.getY() + head.getLength() / 2, head);
+      setTail(tail.getX() + tail.getWidth(), tail.getY() + tail.getLength() / 2, tail);
     }else if(head.getX() < tail.getX()){
-      setHead(head.getX() + head.getWidth(), head.getY() + head.getLength() / 2);
-      setTail(tail.getX(), tail.getY() + tail.getLength() / 2);
+      setHead(head.getX() + head.getWidth(), head.getY() + head.getLength() / 2, head);
+      setTail(tail.getX(), tail.getY() + tail.getLength() / 2, tail);
     }else if((head.getX() == tail.getX()) && (head.getY() > tail.getY())){
-      setHead(head.getX() + head.getWidth() / 2, head.getY());
-      setTail(tail.getX() + tail.getWidth() / 2, tail.getY() + tail.getLength());
+      setHead(head.getX() + head.getWidth() / 2, head.getY(), head);
+      setTail(tail.getX() + tail.getWidth() / 2, tail.getY() + tail.getLength(), tail);
     }else if((head.getX() == tail.getX()) && (head.getY() < tail.getY())){
-      setHead(head.getX() + head.getWidth() / 2, head.getY() + head.getLength());
-      setTail(tail.getX() + tail.getWidth() / 2, tail.getY());
+      setHead(head.getX() + head.getWidth() / 2, head.getY() + head.getLength(), head);
+      setTail(tail.getX() + tail.getWidth() / 2, tail.getY(), tail);
     }
   }
 
-  private void setHead(int x1, int y1){
+  private void setHead(int x1, int y1, Block b){
       setFirstX_Value(x1);
       setFirstY_Value(y1);
+      this.head = b;
   }
-  private void setTail(int x2, int y2){
+  private void setTail(int x2, int y2, Block b){
     setSecondX_Value(x2);
     setSecondY_Value(y2);
+    this.tail = b;
   }
 
   public void accept(Visitor v){

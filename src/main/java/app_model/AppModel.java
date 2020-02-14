@@ -3,6 +3,7 @@ import app_model.*;
 import java.util.*;
 import java.io.Writer;
 import java.io.FileWriter;
+import java.io.BufferedReader;
 
 
 public class AppModel{
@@ -47,12 +48,27 @@ public class AppModel{
       }
   }
 
-//  private String displayObjectToString(DisplayObject d){
 
-//  }
 
-  public void saveLoader(){
+  public void save(String fileName){
+    Iterable<DisplayObject> objects = getDisplayObjects();
+    Saver saver = new Saver(fileName);
+    for(DisplayObject d: objects){
+      d.accept(saver);
+    }
+  }
 
+  public void load(String fileName){
+    try {
+      FileReader reader = new FileReader(fileName);
+          BufferedReader bufferedReader = new BufferedReader(reader);
+          String line;
+          while ((line = bufferedReader.readLine()) != null) {
+              
+          }
+          reader.close();
+      } catch (IOException e) {
+          e.getStackTrace();
   }
 
 }
