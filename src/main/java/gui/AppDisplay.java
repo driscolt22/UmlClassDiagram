@@ -6,6 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.BasicStroke;
+import java.awt.Color;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -38,6 +39,12 @@ public class AppDisplay extends JComponent implements AppListener{
         //create sidebar
 
         for(DisplayObject d: app.getDisplayObjects()){
+            if(app.isSelected(d)){
+                System.out.println("Printint a selected object");
+                g.setColor(Color.blue);
+            }else{
+                g.setColor(Color.black);
+            }
             d.accept(render);
         }
     }

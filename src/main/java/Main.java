@@ -27,12 +27,12 @@ public class Main{
         b.addMethod("method1");
         b.addMethod("method2");
         app.addObj(b);
+        app.select(b);
 
         Block c = BlockFactory.createBlock();
-        c.setLocation(100,350);
+        c.setLocation(300,350);
         c.setClassName("Test Class2");
         app.addObj(c);
-
 
         Line l = new Line(200,100,0,0);
         app.addObj(l);

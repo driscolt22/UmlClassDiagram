@@ -14,6 +14,8 @@ implements MouseListener, MouseMotionListener
 {
     private AppModel app;
     private AppDisplay appDisplay;
+    private int pressX;
+    private int pressY;
 
     public AppControl(AppModel app, AppDisplay appDisplay)
     {
@@ -29,6 +31,7 @@ implements MouseListener, MouseMotionListener
         //System.out.println(e);
         int x = e.getX();
         int y = e.getY();
+        app.select(x,y);
     }
     public void mouseEntered(MouseEvent e)
     {
@@ -40,6 +43,8 @@ implements MouseListener, MouseMotionListener
     }
     public void mousePressed(MouseEvent e)
     {
+        pressX = e.getX();
+        pressY = e.getY();
         //System.out.println(e);
     }
 
@@ -55,5 +60,10 @@ implements MouseListener, MouseMotionListener
 
     public void mouseDragged(MouseEvent e){
         //System.out.println(e);
+        int dx = e.getX() - pressX;
+        int dy = e.getY() - pressY;
+        app.moveSelected(dx, dy);
+        pressX = e.getX();
+        pressY = e.getY();
     }
 }

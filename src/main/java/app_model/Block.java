@@ -84,4 +84,8 @@ public class Block  implements DisplayObject{
   public void accept(Visitor v){
       v.visit(this);
   }
+
+  public boolean contains(int x, int y){
+      return x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getLength();
+  }
 }

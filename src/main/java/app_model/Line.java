@@ -97,6 +97,7 @@ public class Line implements DisplayObject{
       //sets x1, y1, x2, y2
       return;
   }
+
   public void setLine(Block head, Block tail){
     if(head.getX() > tail.getX()){
       setHead(head.getX(), head.getY() + head.getLength() / 2);
@@ -113,17 +114,28 @@ public class Line implements DisplayObject{
     }
   }
 
-  private void setHead(int x1, int y1){
+  public void setHead(int x1, int y1){
       setFirstX_Value(x1);
       setFirstY_Value(y1);
   }
-  private void setTail(int x2, int y2){
+  public void setTail(int x2, int y2){
     setSecondX_Value(x2);
     setSecondY_Value(y2);
   }
 
   public void accept(Visitor v){
       v.visit(this);
+  }
+
+  public boolean contains(int x,int y){
+      double y1 = (double)getFirstY_Value();
+      double y2 = (double)getSecondY_Value();
+      double x1 = (double)getFirstX_Value();
+      double x2 = (double)getSecondX_Value();
+      double d = Math.abs((y2-y1)*x -(x2-x1)*y+x2*y1-y2*x1)/ 
+      Math.sqrt(Math.pow(y2-y1,2)+Math.pow(x2-x1,2));
+      System.out.println("Selected l, d =" + d);
+      return d < 5.0;
   }
 
 }
