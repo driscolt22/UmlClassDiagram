@@ -1,6 +1,12 @@
 package app_model;
 import app_model.*;
 import java.util.*;
+import java.io.Writer;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import gui.Saver;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 public class AppModel{
@@ -49,6 +55,28 @@ public class AppModel{
       }
   }
 
+
+  public void save(String fileName){
+    Iterable<DisplayObject> objects = getDisplayObjects();
+    Saver saver = new Saver(fileName);
+    for(DisplayObject d: objects){
+      d.accept(saver);
+    }
+  }
+
+  public void load(String fileName){
+    try {
+      FileReader reader = new FileReader(fileName);
+          BufferedReader bufferedReader = new BufferedReader(reader);
+          String line;
+          while ((line = bufferedReader.readLine()) != null) {
+              // to add loading function
+          }
+          reader.close();
+      } catch (IOException e) {
+          e.getStackTrace();
+        }
+      }
   public void select(int x, int y){
        updateLinePositions();
       for(DisplayObject d: getDisplayObjects()){

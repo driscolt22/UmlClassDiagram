@@ -79,20 +79,33 @@ public class Line implements DisplayObject{
     }
 
     public boolean pointTwoIsConnected(Block b){
-        // if(b.getX() == x2 || b.getX() + b.getWidth() == y2){
-        //     if(b.getY() >= y2 && b.getY()+b.getLength() <= y2)
-        //     return true;
-        //     else
-        //     return false;
-        // }
-        // else if(b.getY() == y2 || b.getY() + b.getLength() == y2){
-        //     if(b.getX() <= x2 && b.getX()+b.getWidth() >= x2)
-        //     return true;
-        //     else
-        //     return false;
-        // }
-        // else
-        // return false;
+      //if(b.getY() <= y2 && b.getY()+b.getLength() >= y2){
+        //if(b.getX() == x2 ){
+          //  setTail(x2, b.getY()+(b.getLength()/2), b);
+    //        return true;
+    //      }
+    //    if(b.getX() + b.getWidth() == x2){
+      //      setTail(x2, b.getY()+(b.getLength()/2), b);
+    //        return true;
+    //      }
+    //    else
+    //        return false;
+    //    }
+    //  if(b.getX() <= x2 && b.getX()+b.getWidth() >= x2){
+      //  if(b.getY() == y2){
+          //setTail(b.getX()+(b.getWidth()/2), y2, b);
+        //  return true;
+      //  }
+      //  if(b.getY() + b.getLength() == y2){
+      //    setTail(b.getX()+(b.getWidth()/2), y2, b);
+        //  return true;
+      //  }
+        //else
+      //    return false;
+    //  }
+      //else
+      //  return false;
+    //}
         return (x2 >= b.getX() && x2 <= b.getX() + b.getWidth() &&
                 y2 >= b.getY() && y2 <= b.getY() + b.getLength());
     }
