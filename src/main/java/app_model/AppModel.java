@@ -4,6 +4,9 @@ import java.util.*;
 import java.io.Writer;
 import java.io.FileWriter;
 import java.io.BufferedReader;
+import gui.Saver;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 public class AppModel{
@@ -11,10 +14,14 @@ public class AppModel{
   //private ArrayList<line> lines;
   private Vector<AppListener> listeners;
 
+  private DisplayObject currentlySelected;
+  private boolean selectHead;
+
   public AppModel(){
     displayObjects = new ArrayList<DisplayObject>(0);
     //lines = new ArrayList<line>(0);
     listeners = new Vector<AppListener>();
+    currentlySelected = null;
 
   }
 
@@ -49,7 +56,6 @@ public class AppModel{
   }
 
 
-
   public void save(String fileName){
     Iterable<DisplayObject> objects = getDisplayObjects();
     Saver saver = new Saver(fileName);
@@ -64,11 +70,79 @@ public class AppModel{
           BufferedReader bufferedReader = new BufferedReader(reader);
           String line;
           while ((line = bufferedReader.readLine()) != null) {
-              
+              // to add loading function
           }
           reader.close();
       } catch (IOException e) {
           e.getStackTrace();
+        }
+      }
+  public void select(int x, int y){
+      for(DisplayObject d: getDisplayObjects()){
+          if(d.contains(x,y)){
+              currentlySelected = d;
+              if(currentlySelected instanceof Line){
+                  Line l = (Line)currentlySelected;
+                  selectHead = Math.hypot(x -l.getFirstX_Value(), y - l.getFirstY_Value()) <=
+                            Math.hypot(x- l.getSecondX_Value(), y-l.getSecondY_Value());
+              }
+              //System.out.println("Selected object");
+              notifyListeners();
+              return;
+          }
+      }
+      //System.out.println("Did not Select object");
+      currentlySelected = null;
+      notifyListeners();
+      return;
+  }
+
+  public void select(DisplayObject d){
+      currentlySelected = d;
+  }
+
+  public DisplayObject getSelected(){
+      return currentlySelected;
+  }
+
+  public boolean isSelected(DisplayObject d){
+      return d == currentlySelected;
+  }
+
+  public void moveSelected(int dx,int dy){
+      if(currentlySelected instanceof Block){
+          Block b = (Block) currentlySelected;
+          b.setLocation(b.getX() + dx, b.getY() +dy);
+          for(DisplayObject c: getDisplayObjects()){
+              if(c instanceof Line){
+                  ((Line)c).updatePosition();
+              }
+          }
+      }else if(currentlySelected instanceof Line){
+          Line l = (Line) currentlySelected;
+          if(selectHead){
+              l.setHead(l.getFirstX_Value() + dx, l.getFirstY_Value() + dy);
+              l.connectHead(null);
+          }else{
+              l.setTail(l.getSecondX_Value() + dx, l.getSecondY_Value() + dy);
+              l.connectTail(null);
+          }
+          //reatach to the blocks
+          for(DisplayObject c: getDisplayObjects()){
+
+              if(c instanceof Block){
+                  //System.out.println("checking a block?");
+                  l.connectToBlock((Block) c);
+              }
+          }
+      }
+      notifyListeners();
+  }
+
+  public boolean removeSelected(){
+      boolean ret = displayObjects.remove(currentlySelected);
+      notifyListeners();
+      return ret;
   }
 
 }

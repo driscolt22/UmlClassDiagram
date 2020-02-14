@@ -55,7 +55,7 @@ public class Render implements Visitor{
         for(int j = 0; j < methods.size(); j++){
             g.drawString(methods.get(j),x,y+ FONT_SIZE*(iVars.size() + 2 + j));
         }
-        // TODO show class info and stuff
+        
     }
 
     public void visit(Line l){
@@ -84,7 +84,7 @@ public class Render implements Visitor{
 
         // g.drawLine((int)(xm + xn)/2,(int)(ym+yn)/2, x2, y2);
         drawDashedLine((int)(xm + xn)/2,(int)(ym+yn)/2,x2,y2);
-        
+
         g.drawPolygon(xpoints, ypoints, 3);
     }
 
