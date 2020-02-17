@@ -10,6 +10,7 @@ import java.awt.Color;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JFrame;
 
 import app_model.AppListener;
 import app_model.AppModel;
@@ -17,8 +18,8 @@ import app_model.DisplayObject;
 
 public class AppDisplay extends JComponent implements AppListener{
     private AppModel app;
-    public static int WIDTH = 600;
-    public static int HEIGHT = 500;
+    public static int WIDTH = 1000;
+    public static int HEIGHT = 800;
     private AppControl controller;
 
     public AppDisplay(AppModel app)
