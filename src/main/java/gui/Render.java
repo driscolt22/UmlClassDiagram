@@ -12,6 +12,7 @@ import java.awt.Stroke;
 import app_model.Visitor;
 import app_model.Line;
 import app_model.Block;
+import app_model.DisplayText;
 
 public class Render implements Visitor{
 
@@ -43,6 +44,8 @@ public class Render implements Visitor{
         g.drawRect(x, y, width, height);
 
         Font  f2  = new Font(Font.SANS_SERIF,  Font.PLAIN, FONT_SIZE);
+        //int textwidth = (int)(f2.getStringBounds(text, frc).getWidth());
+        //int textheight = (int)(f2.getStringBounds(text, frc).getHeight());
         g.setFont(f2);
         g.drawString(b.getName(), x, y + FONT_SIZE);
         g.drawLine(x, y + FONT_SIZE, x+ width,y + FONT_SIZE);
@@ -55,7 +58,7 @@ public class Render implements Visitor{
         for(int j = 0; j < methods.size(); j++){
             g.drawString(methods.get(j),x,y+ FONT_SIZE*(iVars.size() + 2 + j));
         }
-        
+
     }
 
     public void visit(Line l){
@@ -99,6 +102,10 @@ public class Render implements Visitor{
 
         //gets rid of the copy
         g2d.dispose();
+    }
+
+    public void visit(DisplayText t){
+        return;
     }
 
 }

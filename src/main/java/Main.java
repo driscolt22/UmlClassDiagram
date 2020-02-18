@@ -8,11 +8,16 @@ import app_model.Block;
 import app_model.Line;
 import app_model.LineFactory;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 public class Main{
 
     public Main() {
 
         JFrame mainFrame = new JFrame("Main app");
+        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         AppModel app = new AppModel();
 
         AppDisplay mainDisplay = new AppDisplay(app);
@@ -27,7 +32,7 @@ public class Main{
         b.addMethod("method1");
         b.addMethod("method2");
         app.addObj(b);
-        app.select(b);
+        //app.select(b);
 
         Block c = BlockFactory.createBlock();
         c.setLocation(300,350);
