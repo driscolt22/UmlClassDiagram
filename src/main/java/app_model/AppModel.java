@@ -64,12 +64,18 @@ public class AppModel{
     }
   }
 
+
+
   public void load(String fileName){
     try {
       FileReader reader = new FileReader(fileName);
           BufferedReader bufferedReader = new BufferedReader(reader);
           String line;
           while ((line = bufferedReader.readLine()) != null) {
+              if(line.equals("Line")){
+
+              }
+              if(line.equals("Block"))
               // to add loading function
           }
           reader.close();
