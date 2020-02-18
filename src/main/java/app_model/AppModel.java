@@ -84,6 +84,7 @@ public class AppModel{
         }
       }
   public void select(int x, int y){
+       updateLinePositions();
       for(DisplayObject d: getDisplayObjects()){
           if(d.contains(x,y)){
               currentlySelected = d;
@@ -149,6 +150,14 @@ public class AppModel{
       boolean ret = displayObjects.remove(currentlySelected);
       notifyListeners();
       return ret;
+  }
+
+  private void updateLinePositions(){
+      for(DisplayObject d: displayObjects){
+          if(d instanceof Line){
+              ((Line) d).updatePosition();
+          }
+      }
   }
 
 }

@@ -26,7 +26,24 @@ implements MouseListener, MouseMotionListener, KeyListener
 
         appDisplay.addMouseListener(this);
         appDisplay.addMouseMotionListener(this);
-        appDisplay.addKeyListener(this);
+        KeyListener kl = new KeyListener(){
+            @Override
+            public void keyPressed(KeyEvent e) {
+                System.out.println(e);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                System.out.println(e);
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                System.out.println(e);
+            }
+        };
+        appDisplay.addKeyListener(kl);
+
     }
 
     public void mouseClicked(MouseEvent e)
@@ -64,7 +81,7 @@ implements MouseListener, MouseMotionListener, KeyListener
     public void mouseDragged(MouseEvent e){
         //System.out.println(e);
         if(e.getX() > 0 && e.getY() > 0 &&
-            e.getX() < appDisplay.WIDTH && e.getY() < appDisplay.HEIGHT){
+            e.getX() < AppDisplay.WIDTH && e.getY() < AppDisplay.HEIGHT){
             int dx = e.getX() - pressX;
             int dy = e.getY() - pressY;
             app.moveSelected(dx, dy);

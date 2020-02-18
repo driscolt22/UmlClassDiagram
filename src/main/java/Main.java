@@ -39,9 +39,11 @@ public class Main{
 
         l.setLine(c,b);
 
-        mainFrame.getContentPane().add(mainDisplay);
+        mainFrame.add(mainDisplay);
         mainFrame.pack();
         mainFrame.setVisible(true);
+        mainFrame.setFocusable(true);
+        mainFrame.requestFocusInWindow();
     }
 
     public static void main(String[] args) {
