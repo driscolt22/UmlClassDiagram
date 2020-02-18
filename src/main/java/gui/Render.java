@@ -105,7 +105,9 @@ public class Render implements Visitor{
     }
 
     public void visit(DisplayText t){
-        return;
+        Font  f2  = new Font(Font.SANS_SERIF,  Font.PLAIN, FONT_SIZE);
+        g.setFont(f2);
+        g.drawString(t.getText(), t.getX(), t.getY() + FONT_SIZE);
     }
 
 }
