@@ -154,4 +154,18 @@ public class AppModel{
       }
   }
 
+  public void createBlock(){
+      Block b = new Block();
+      addObj(b);
+      select(b);
+      notifyListeners();
+  }
+  
+  public void createLine(){
+      Line l = new Line(0,0,100,100);
+      addObj(l);
+      select(l);
+      notifyListeners();
+  }
+
 }
