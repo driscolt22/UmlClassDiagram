@@ -5,6 +5,7 @@ import app_model.Visitor;
 import app_model.Line;
 import app_model.Block;
 import app_model.DisplayText;
+import app_model.lines.*;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -75,5 +76,12 @@ public class Saver implements Visitor{
   public void visit(DisplayText t){
       return;
   }
+
+  public void visit(AggregationLine l){ return; }
+  public void visit(AssociationLine l){ return; }
+  public void visit(CompostionLine l){ return; }
+  public void visit(DependencyLine l){ return; }
+  public void visit(ImplementationLine l){ return; }
+  public void visit(InheritanceLine l){ return; }
 
 }

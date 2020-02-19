@@ -165,7 +165,7 @@ public class AppModel{
   }
 
   public void createLine(){
-      Line l = new Line(0,0,100,100);
+      Line l = LineFactory.createLine();
       addObj(l);
       select(l);
       notifyListeners();

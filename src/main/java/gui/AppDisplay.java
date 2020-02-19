@@ -32,6 +32,10 @@ public class AppDisplay extends JComponent implements AppListener{
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 
+    /**
+     * Repaints the whole display from the appmodel
+     * @param g graphics, called by Swing
+     */
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
@@ -49,6 +53,9 @@ public class AppDisplay extends JComponent implements AppListener{
         }
     }
 
+    /**
+     * On update, just repaint the whole thing
+     */
     public void update()
 	{
 		repaint();

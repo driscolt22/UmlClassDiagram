@@ -19,6 +19,11 @@ implements MouseListener, MouseMotionListener, KeyListener
     private int pressX;
     private int pressY;
 
+    /**
+     * Initizes the mouse contorl for An appmodel, given the display
+     * @param app        Appmodel to control
+     * @param appDisplay display to attach to
+     */
     public AppControl(AppModel app, AppDisplay appDisplay)
     {
         this.app = app;
@@ -26,26 +31,13 @@ implements MouseListener, MouseMotionListener, KeyListener
 
         appDisplay.addMouseListener(this);
         appDisplay.addMouseMotionListener(this);
-        KeyListener kl = new KeyListener(){
-            @Override
-            public void keyPressed(KeyEvent e) {
-                System.out.println(e);
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                System.out.println(e);
-            }
-
-            @Override
-            public void keyTyped(KeyEvent e) {
-                System.out.println(e);
-            }
-        };
-        appDisplay.addKeyListener(kl);
 
     }
 
+    /**
+     * Called on mouse clicked, used for selecting a Displayobject
+     * @param e MouseEvent
+     */
     public void mouseClicked(MouseEvent e)
     {
         //System.out.println(e);
@@ -53,6 +45,7 @@ implements MouseListener, MouseMotionListener, KeyListener
         int y = e.getY();
         app.select(x,y);
     }
+
     public void mouseEntered(MouseEvent e)
     {
         //System.out.println(e);
@@ -61,6 +54,11 @@ implements MouseListener, MouseMotionListener, KeyListener
     {
         //System.out.println(e);
     }
+
+    /**
+     * mouse pressed in order to drag
+     * @param e MouseEvent
+     */
     public void mousePressed(MouseEvent e)
     {
         pressX = e.getX();
@@ -68,8 +66,7 @@ implements MouseListener, MouseMotionListener, KeyListener
         //System.out.println(e);
     }
 
-    public void mouseReleased(MouseEvent e)
-    {
+    public void mouseReleased(MouseEvent e){
         //System.out.println(e);
     }
 
@@ -78,6 +75,10 @@ implements MouseListener, MouseMotionListener, KeyListener
 
     }
 
+    /**
+     * drages the selected compent aroud if there is one selected
+     * @param e MouseEvent
+     */
     public void mouseDragged(MouseEvent e){
         //System.out.println(e);
         if(e.getX() > 0 && e.getY() > 0 &&

@@ -4,7 +4,7 @@ import javax.swing.SwingUtilities;
 import java.util.*;
 import app_model.Block;
 
-public class Line implements DisplayObject{
+public abstract class Line implements DisplayObject{
     private int x1;
     private int y1;
     private int x2;

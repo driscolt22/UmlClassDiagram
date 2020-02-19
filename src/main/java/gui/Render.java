@@ -13,17 +13,21 @@ import app_model.Visitor;
 import app_model.Line;
 import app_model.Block;
 import app_model.DisplayText;
+import app_model.lines.*;
 
 public class Render implements Visitor{
 
     private Graphics g;
 
-    private static int LINE_WIDTH = 3;
+    private static int LINE_WIDTH = 2;
     private static int BLOCK_LINE_WIDTH = 1;
     private static int FONT_SIZE = 15;
     private static int h = 10;
     private static int d = 20;
 
+    /**
+     * @param g Creates a render for the display given the graphics
+     */
     public Render(Graphics g){
         this.g = g;
     }
@@ -37,6 +41,9 @@ public class Render implements Visitor{
         ((Graphics2D) this.g).setStroke(new BasicStroke(l));
     }
 
+    /**
+     * @param b Renders the given block on the display
+     */
     public void visit(Block b){
         int x = b.getX();
         int y = b.getY();
@@ -63,14 +70,19 @@ public class Render implements Visitor{
 
     }
 
+    /**
+     * @param l reders the line on the Graphics
+     */
 
     public void visit(Line l){
-        setLineWidth(LINE_WIDTH);
-        drawImplementation(l);
-
+        return;
     }
 
-    private void drawImplementation(Line l){
+    /**
+     * Renders out a implemaentation lines, dashed line with tringle head
+     * @param l DisplayObject line
+     */
+    public void visit(ImplementationLine l){
         int x1 = l.getFirstX_Value();
         int x2 = l.getSecondX_Value();
         int y1 = l.getFirstY_Value();
@@ -97,8 +109,11 @@ public class Render implements Visitor{
 
         g.drawPolygon(xpoints, ypoints, 3);
     }
-
-    private void drawInheritance(Line l){
+    /**
+     * Renders out a inheritance lines, solid line with triangle head
+     * @param l DisplayObject line
+     */
+    public void visit(InheritanceLine l){
         int x1 = l.getFirstX_Value();
         int x2 = l.getSecondX_Value();
         int y1 = l.getFirstY_Value();
@@ -126,7 +141,11 @@ public class Render implements Visitor{
         g.drawPolygon(xpoints, ypoints, 3);
     }
 
-    private void drawAssociation(Line l){
+    /**
+     * Renders out a assocation lines, solid lines with tip
+     * @param l DisplayObject line
+     */
+    public void visit(AssociationLine l){
         int x1 = l.getFirstX_Value();
         int x2 = l.getSecondX_Value();
         int y1 = l.getFirstY_Value();
@@ -154,7 +173,11 @@ public class Render implements Visitor{
         g.drawPolyline(xpoints, ypoints, 3);
     }
 
-    private void drawDependency(Line l){
+    /**
+     * Renders out a dependency lines, dashed lines with tip
+     * @param l DisplayObject line
+     */
+    public void visit(DependencyLine l){
         int x1 = l.getFirstX_Value();
         int x2 = l.getSecondX_Value();
         int y1 = l.getFirstY_Value();
@@ -182,7 +205,11 @@ public class Render implements Visitor{
         g.drawPolyline(xpoints, ypoints, 3);
     }
 
-    private void drawAggregation(Line l){
+    /**
+     * Renders out a implemaentation lines solid line with diamond tip
+     * @param l DisplayObject line
+     */
+    public void visit(AggregationLine l){
         int x1 = l.getFirstX_Value();
         int x2 = l.getSecondX_Value();
         int y1 = l.getFirstY_Value();
@@ -213,7 +240,11 @@ public class Render implements Visitor{
         g.drawPolygon(xpoints, ypoints, 4);
     }
 
-    private void drawCompostion(Line l){
+    /**
+     * Renders out a implemaentation lines, solid line withh filled diamond tip
+     * @param l DisplayObject line
+     */
+    public void visit(CompostionLine l){
         int x1 = l.getFirstX_Value();
         int x2 = l.getSecondX_Value();
         int y1 = l.getFirstY_Value();

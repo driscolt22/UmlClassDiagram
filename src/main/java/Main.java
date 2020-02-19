@@ -39,11 +39,8 @@ public class Main{
         c.setClassName("Test Class2");
         app.addObj(c);
 
-        Line l = new Line(200,100,0,0);
-        app.addObj(l);
+        app.createLine();
         app.createText();
-
-        l.setLine(c,b);
 
         mainFrame.add(mainDisplay);
         mainFrame.pack();
