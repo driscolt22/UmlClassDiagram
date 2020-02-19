@@ -7,6 +7,10 @@ import app_model.BlockFactory;
 import app_model.Block;
 import app_model.Line;
 import app_model.LineFactory;
+import gui.MenuDisplay;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import java.util.*;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -22,6 +26,12 @@ public class Main{
 
         AppDisplay mainDisplay = new AppDisplay(app);
         app.addListener(mainDisplay);
+
+//
+        JFrame menuFrame = new JFrame("Menu app");
+        menuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        MenuDisplay menuDisplay = new MenuDisplay(app);
+//
 
         Block b = BlockFactory.createBlock();
         b.setLocation(100,100);
@@ -49,6 +59,17 @@ public class Main{
         mainFrame.setVisible(true);
         mainFrame.setFocusable(true);
         mainFrame.requestFocusInWindow();
+
+//
+        menuFrame.add(menuDisplay.getMenu());
+        //menuFrame.add(menuDisplay.getBlockButton());
+        //menuFrame.add(menuDisplay.getlineButton());
+        //menuFrame.add(menuDisplay.getTextButton());
+        //menuFrame.add(menuDisplay.getDeleteButton());
+        menuFrame.pack();
+        menuFrame.setVisible(true);
+        menuFrame.requestFocusInWindow();
+//
     }
 
     public static void main(String[] args) {
