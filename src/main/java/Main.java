@@ -51,6 +51,7 @@ public class Main{
 
         Line l = new Line(200,100,0,0);
         app.addObj(l);
+        app.createText();
 
         l.setLine(c,b);
 

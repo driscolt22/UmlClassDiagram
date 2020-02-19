@@ -36,6 +36,11 @@ public class DisplayText implements DisplayObject{
         return this.y;
     }
 
+    public void setLocation(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
     public boolean contains(int x, int y){
             return x >= getX() && y >= getY() && x <= getX() + WIDTH && y <= getY() + HEIGHT;
     }

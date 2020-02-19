@@ -119,6 +119,9 @@ public class AppModel{
                   ((Line)c).updatePosition();
               }
           }
+      }else if(currentlySelected instanceof DisplayText){
+          DisplayText t = (DisplayText) currentlySelected;
+          t.setLocation(t.getX() + dx, t.getY() +dy);
       }else if(currentlySelected instanceof Line){
           Line l = (Line) currentlySelected;
           if(selectHead){
@@ -160,11 +163,18 @@ public class AppModel{
       select(b);
       notifyListeners();
   }
-  
+
   public void createLine(){
       Line l = new Line(0,0,100,100);
       addObj(l);
       select(l);
+      notifyListeners();
+  }
+
+  public void createText(){
+      DisplayText t = new DisplayText();
+      addObj(t);
+      select(t);
       notifyListeners();
   }
 
