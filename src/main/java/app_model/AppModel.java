@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import gui.Saver;
 import java.io.FileReader;
 import java.io.IOException;
+import gui.Loader;
 
 
 public class AppModel{
@@ -73,9 +74,25 @@ public class AppModel{
           String line;
           while ((line = bufferedReader.readLine()) != null) {
               if(line.equals("Line")){
-
+                String lineInfo = "";
+                for(int i = 0; i < 4; i++){
+                lineInfo += bufferedReader.readLine();
+                }
+                Line l = LineFactory.createLine();
+                Loader loader = new Loader(lineInfo);
+                l.accept(loader);
+                addObj(l);
               }
-              if(line.equals("Block"))
+              else if(line.equals("Block")){
+                String blockInfo = "";
+                for(int i = 0; i < 7; i++){
+                blockInfo += bufferedReader.readLine();
+                }
+                Block b = BlockFactory.createBlock();
+                Loader loader = new Loader(blockInfo);
+                b.accept(loader);
+                addObj(b);
+              }
               // to add loading function
           }
           reader.close();
@@ -159,5 +176,6 @@ public class AppModel{
           }
       }
   }
+  
 
 }

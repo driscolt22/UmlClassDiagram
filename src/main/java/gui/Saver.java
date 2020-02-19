@@ -39,8 +39,8 @@ public class Saver implements Visitor{
   public void visit(Block b){
     String toSave = "";
     toSave += "Block";
-    toSave += String.valueOf(b.getX()) + "," + String.valueOf(b.getY()) + "\n";
-    toSave += String.valueOf(b.getWidth()) + "," + String.valueOf(b.getLength()) + "\n";
+    toSave += String.valueOf(b.getX()) + "\n" + String.valueOf(b.getY()) + "\n";
+    toSave += String.valueOf(b.getWidth()) + "\n" + String.valueOf(b.getLength()) + "\n";
     toSave += b.getName() + "\n";
     toSave += addVariables(b);
     toSave += addMethods(b);
