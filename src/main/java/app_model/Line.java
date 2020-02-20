@@ -217,9 +217,7 @@ public abstract class Line implements DisplayObject{
         this.tail = b;
         //updatePosition();
     }
-    public void accept(Visitor v){
-        v.visit(this);
-    }
+    public abstract void accept(Visitor v);
 
     public boolean contains(int x,int y){
         double y1 = (double)getFirstY_Value();

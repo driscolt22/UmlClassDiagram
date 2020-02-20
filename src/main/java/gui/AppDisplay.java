@@ -8,6 +8,10 @@ import java.awt.Graphics2D;
 import java.awt.BasicStroke;
 import java.awt.Color;
 
+import java.io.File;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
@@ -43,6 +47,10 @@ public class AppDisplay extends JComponent implements AppListener{
         super.paintComponent(g);
         Render render = new Render(g);
 
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(Color.white);
+        g2.fillRect(0, 0, WIDTH, HEIGHT);
+
 
 
         for(DisplayObject d: app.getDisplayObjects()){
@@ -62,4 +70,14 @@ public class AppDisplay extends JComponent implements AppListener{
 	{
 		repaint();
 	}
+
+    public void export(String s){
+        BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = bi.createGraphics();
+        this.paint(g);  //this == JComponent
+        g.dispose();
+        try{
+            ImageIO.write(bi,"PNG",new File(s));
+        }catch (Exception e) {}
+    }
 }

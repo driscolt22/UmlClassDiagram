@@ -7,6 +7,7 @@ import app_model.BlockFactory;
 import app_model.Block;
 import app_model.Line;
 import app_model.LineFactory;
+import app_model.lines.*;
 import gui.MenuDisplay;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -49,6 +50,13 @@ public class Main{
         c.setClassName("Test Class2");
         app.addObj(c);
 
+        app.addObj(new AggregationLine(300,220,100,100));
+        app.addObj(new AssociationLine(300,240,100,100));
+        app.addObj(new CompostionLine(300,260,100,100));
+        app.addObj(new DependencyLine(300,280,100,100));
+        app.addObj(new ImplementationLine(300,300,100,100));
+        app.addObj(new InheritanceLine(300,320,100,100));
+
         app.createLine();
         app.createText();
 
@@ -67,6 +75,8 @@ public class Main{
         menuFrame.pack();
         menuFrame.setVisible(true);
         menuFrame.requestFocusInWindow();
+
+        mainDisplay.export("output.png");
 //
     }
 

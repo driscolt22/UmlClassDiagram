@@ -74,9 +74,9 @@ public class Render implements Visitor{
      * @param l reders the line on the Graphics
      */
 
-    public void visit(Line l){
-        return;
-    }
+    // public void visit(Line l){
+    //     return;
+    // }
 
     /**
      * Renders out a implemaentation lines, dashed line with tringle head

@@ -15,6 +15,7 @@ import org.junit.runners.JUnit4;
 import app_model.AppModel;
 import app_model.Block;
 import app_model.Line;
+import app_model.LineFactory;
 
 @RunWith(JUnit4.class)
 public class AppModelTest{
@@ -54,7 +55,8 @@ public class AppModelTest{
         Block d = new Block();
         a.addObj(b);
         a.addObj(d);
-        Line l = new Line(b, d);
+        Line l = LineFactory.createLine();
+        l.setLine(b,d);
         assertEquals("connected line has right X1 cord", 50, l.getFirstX_Value());
         assertEquals("connected line has right X2 cord", 50, l.getSecondX_Value());
         assertEquals("connected line has right Y1 cord", 300, l.getFirstY_Value());
@@ -68,7 +70,8 @@ public class AppModelTest{
         Block d = new Block();
         a.addObj(b);
         a.addObj(d);
-        Line l = new Line(b, d);
+        Line l = LineFactory.createLine();
+        l.setLine(b,d);
         a.addObj(l);
         a.select(b);
         a.moveSelected(50,0);
