@@ -14,6 +14,9 @@ public class Block  implements DisplayObject{
   private ArrayList<String> contents;
 
 
+  /**
+   * Creates a empty square Block at 0,0 with size 100
+   */
   public Block()
   {
     this.x = 0;

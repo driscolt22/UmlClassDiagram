@@ -11,6 +11,8 @@ import java.awt.Color;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
+import javax.swing.JToolBar;
+import javax.swing.JButton;
 
 import app_model.AppListener;
 import app_model.AppModel;
@@ -32,12 +34,16 @@ public class AppDisplay extends JComponent implements AppListener{
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 
+    /**
+     * Repaints the whole display from the appmodel
+     * @param g graphics, called by Swing
+     */
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         Render render = new Render(g);
 
-        //create sidebar
+
 
         for(DisplayObject d: app.getDisplayObjects()){
             if(app.isSelected(d)){
@@ -49,6 +55,9 @@ public class AppDisplay extends JComponent implements AppListener{
         }
     }
 
+    /**
+     * On update, just repaint the whole thing
+     */
     public void update()
 	{
 		repaint();
