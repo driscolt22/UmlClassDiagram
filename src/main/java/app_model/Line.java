@@ -232,4 +232,12 @@ public class Line implements DisplayObject{
         return d < 5.0;
     }
 
+    public boolean equals(Line l){
+      if(getFirstX_Value()==l.getFirstX_Value()&&getFirstY_Value()==getFirstY_Value()
+      &&getSecondX_Value()==l.getSecondX_Value()&&getSecondY_Value()==l.getSecondY_Value())
+          return true;
+      else
+          return false;
+    }
+
 }

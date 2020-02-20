@@ -87,4 +87,34 @@ public class Block  implements DisplayObject{
   public boolean contains(int x, int y){
       return x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getLength();
   }
+
+  private boolean hasSameMethods(Block b){
+    if(getMethods().size()==b.getMethods().size()){
+      for(String m: b.getMethods()){
+        if(!getMethods().contains(m))
+          return false;
+      }
+      return true;
+    }
+    else
+      return false;
+  }
+
+  private boolean hasSameVariables(Block b){
+    if(getInstanceVariables().size()==b.getInstanceVariables().size()){
+      for(String v: b.getInstanceVariables()){
+        if(!getInstanceVariables().contains(v))
+          return false;
+      }
+      return true;
+    }
+    else
+      return false;
+  }
+
+  public boolean equals(Block b){
+      return getX()==b.getX()&&getY()==b.getY()&&getWidth()==b.getWidth()
+      &&getLength()==b.getLength()&&getName()==b.getName()
+      &&hasSameMethods(b)&&hasSameVariables(b);
+  }
 }

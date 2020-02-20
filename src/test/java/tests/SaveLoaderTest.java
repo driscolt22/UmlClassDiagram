@@ -38,4 +38,5 @@ public class SaveLoaderTest{
     AppModel a2 = new AppModel();
     a2.load("savedLine.txt");
   }
+
 }
