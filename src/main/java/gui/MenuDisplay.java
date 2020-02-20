@@ -42,16 +42,12 @@ public class MenuDisplay extends JComponent {
 
       menu = new JPanel();
       menu.setBackground(Color.black);
-      //menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
       menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
 
       this.blockButton = new JButton("Block");
       this.lineButton = new JButton("Line");
       this.textButton = new JButton("Text");
       this.deleteButton = new JButton("Delete");
-
-      //menu.add(this.blockButton, BorderLayout.NORTH)
-      //menu.add(this.lineButton, BorderLayout.)
       menu.add(this.blockButton);
       menu.add(this.lineButton);
       menu.add(this.textButton);
