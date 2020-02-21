@@ -25,29 +25,48 @@ public class AppModel{
 
   }
 
+  /**
+   * @param o Display Object(Line, Block etc) to add to the appmodel;
+   */
   public void addObj(DisplayObject o){
     displayObjects.add(o);
     notifyListeners();
   }
 
+  /**
+   * @return Iterable of all displayobjects in the model;
+   */
   public Iterable<DisplayObject> getDisplayObjects(){
       return displayObjects;
   }
 
+  /**
+   * @param  b Disply object(Line, Block, etc)
+   * @return   true if b is an object in the model, false otherwise
+   */
   public boolean containsObject(DisplayObject b){
     return displayObjects.contains(b);
   }
 
+  /**
+   * @param l Lister to add to get update about thsi appmodel
+   */
   public void addListener(AppListener l)
   {
       listeners.add(l);
   }
 
+  /**
+   * @param l removes AppListener from list of listeners
+   */
   public void removeListener(AppListener l)
   {
       listeners.remove(l);
   }
 
+  /**
+   * updates all listerners assiged to this
+   */
   private void notifyListeners()
   {
       for (AppListener l : listeners) {
@@ -56,6 +75,9 @@ public class AppModel{
   }
 
 
+  /**
+   * @param fileName Saves this to given file, using Saver
+   */
   public void save(String fileName){
     Iterable<DisplayObject> objects = getDisplayObjects();
     Saver saver = new Saver(fileName);
@@ -64,6 +86,9 @@ public class AppModel{
     }
   }
 
+  /**
+   * @param fileName Loads form file, populating the appmodel with objectes
+   */
   public void load(String fileName){
     try {
       FileReader reader = new FileReader(fileName);
@@ -77,6 +102,12 @@ public class AppModel{
           e.getStackTrace();
         }
       }
+
+  /**
+   * Selected teh display object at the given x,y cordints
+   * @param x x postion of the selction
+   * @param y y postion of the selction
+   */
   public void select(int x, int y){
        updateLinePositions();
       for(DisplayObject d: getDisplayObjects()){
@@ -98,18 +129,33 @@ public class AppModel{
       return;
   }
 
+  /**
+   * @param d manullay selected the given DisplayObject
+   */
   public void select(DisplayObject d){
       currentlySelected = d;
   }
 
+  /**
+   * @return currently Selected DisplayObject
+   */
   public DisplayObject getSelected(){
       return currentlySelected;
   }
 
+  /**
+   * @param  d DisplayObject
+   * @return   if d is the currently Selected DisplayObject
+   */
   public boolean isSelected(DisplayObject d){
       return d == currentlySelected;
   }
 
+  /**
+   * Moves the currently Selected by dx dy
+   * @param dx [description]
+   * @param dy [description]
+   */
   public void moveSelected(int dx,int dy){
       if(currentlySelected instanceof Block){
           Block b = (Block) currentlySelected;
@@ -143,6 +189,10 @@ public class AppModel{
       notifyListeners();
   }
 
+  /**
+   * Deletes the curretly selected DisplayObject from the appmodel
+   * @return ture if the Display object was scuecfully deleted
+   */
   public boolean removeSelected(){
       boolean ret = displayObjects.remove(currentlySelected);
       notifyListeners();
@@ -157,6 +207,9 @@ public class AppModel{
       }
   }
 
+  /**
+   * Creates and seletecs a new block
+   */
   public void createBlock(){
       Block b = new Block();
       addObj(b);
@@ -164,6 +217,9 @@ public class AppModel{
       notifyListeners();
   }
 
+  /**
+   * Creates and selectes a new Line
+   */
   public void createLine(){
       Line l = LineFactory.createLine();
       addObj(l);
@@ -171,6 +227,9 @@ public class AppModel{
       notifyListeners();
   }
 
+  /**
+   * Creates and selectes a new floating textbox
+   */
   public void createText(){
       DisplayText t = new DisplayText();
       addObj(t);

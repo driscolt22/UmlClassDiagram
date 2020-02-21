@@ -69,6 +69,7 @@ public class AppDisplay extends JComponent implements AppListener{
     public void update()
 	{
 		repaint();
+        //export("output.png");
 	}
 
     public void export(String s){

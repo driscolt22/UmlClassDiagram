@@ -81,5 +81,17 @@ public class AppModelTest{
         assertEquals("connected line has right Y2 cord", 100, l.getSecondY_Value());
     }
 
+    @Test
+    public void moveBlock(){
+        Block b = new Block();
+        b.setLocation(300,300);
+        a.addObj(b);
+        Line l = LineFactory.createLine();
+        a.addObj(l);
+        l.connectHead(b);
+        l.setHead(0,0);
+        assertFalse("Line is no longer connected to the block", l.pointOneIsConnected(b));
+    }
+
 
 }

@@ -62,6 +62,7 @@ public class Main{
 
         mainFrame.add(mainDisplay);
         mainFrame.pack();
+        //mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
         mainFrame.setFocusable(true);
         mainFrame.requestFocusInWindow();
@@ -76,7 +77,10 @@ public class Main{
         menuFrame.setVisible(true);
         menuFrame.requestFocusInWindow();
 
-        mainDisplay.export("output.png");
+        // menuFrame.setLocation((int)mainFrame.getLocation().getX() + AppDisplay.WIDTH,
+        //                       (int)mainFrame.getLocation().getY());
+
+        //mainDisplay.export("output.png");
 //
     }
 
