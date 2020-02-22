@@ -13,6 +13,13 @@ public abstract class Line implements DisplayObject{
     private Block tail;
 
 
+    /**
+     * Creates a new Line
+     * @param x1 x-cord of head
+     * @param y1 y-cord of head
+     * @param x2 x-cord of tail
+     * @param y2 y-cord of tail
+     */
     public Line(int x1, int y1, int x2, int y2)
     {
         this.x1 = x1;
@@ -21,44 +28,77 @@ public abstract class Line implements DisplayObject{
         this.y2 = y2;
     }
 
+    /**
+     * Creates a Line between two blocks
+     * @param head Block to attach the block too
+     * @param tail Block to attach the tail too
+     */
     public Line(Block head, Block tail){
         this.head = head;
         this.tail = tail;
         updatePosition();
     }
 
+    /**
+     * @return x-cord of the head
+     */
     public int getFirstX_Value(){
         return this.x1;
     }
 
+    /**
+     * @return y-cord of the head
+     */
     public int getFirstY_Value(){
         return this.y1;
     }
 
+    /**
+     * @return x-cord of the tail
+     */
     public int getSecondX_Value(){
         return this.x2;
     }
 
+    /**
+     * @return y-cord of the tail
+     */
     public int getSecondY_Value(){
         return this.y2;
     }
 
+    /**
+     * @param  value new x-cord of the head
+     */
     public int setFirstX_Value(int value){
         return this.x1 = value;
     }
 
+    /**
+     * @param  value new x-cord of the head
+     */
     public int setFirstY_Value(int value){
         return this.y1 = value;
     }
 
+    /**
+     * @param  value new x-cord of the tail
+     */
     public int setSecondX_Value(int value){
         return this.x2 = value;
     }
 
+    /**
+     * @param  value new y-cord of the tail
+     */
     public int setSecondY_Value(int value){
         return this.y2 = value;
     }
 
+    /**
+     * @param  b Block to test
+     * @return   ture if the head of the line is connected(inside) Block
+     */
     public boolean pointOneIsConnected(Block b){
         // if(b.getX() == x1 || b.getX() + b.getWidth() == x1){
         //     if(b.getY() >= y1 && b.getY()+b.getLength() <= y1)
@@ -78,6 +118,10 @@ public abstract class Line implements DisplayObject{
                 y1 >= b.getY() && y1 <= b.getY() + b.getLength());
     }
 
+    /**
+     * @param  b Block to test
+     * @return   ture if the tail of the line is connected(inside) Block
+     */
     public boolean pointTwoIsConnected(Block b){
       //if(b.getY() <= y2 && b.getY()+b.getLength() >= y2){
         //if(b.getX() == x2 ){
