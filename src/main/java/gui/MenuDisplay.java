@@ -22,6 +22,10 @@ import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import java.awt.event.*;
+import java.io.IOException;
+
+import java.io.File;
+import javax.swing.JFileChooser;
 
 
 import app_model.AppListener;
@@ -61,7 +65,7 @@ public class MenuDisplay extends JComponent implements ActionListener {
       splitPane.setTopComponent(this.buttonMenu);
       splitPane.setBottomComponent(this.selectedContents);
 
-      this.buttonMenu.add(scrollPane);
+      //this.buttonMenu.add(scrollPane);
       this.buttonMenu.setMaximumSize(new Dimension(300, 400));
       this.buttonMenu.setLayout(new GridLayout(11, 1));
       addButtonsToMenu();
@@ -136,11 +140,28 @@ public class MenuDisplay extends JComponent implements ActionListener {
       this.app.removeSelected();
     }
     public void saveButtonPressed(){
-      //
+        JFileChooser chooser = new JFileChooser();
+        if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = chooser.getSelectedFile();
+            try{
+                this.app.save((String)selectedFile.getPath());
+            }catch(IOException e){
+                System.out.print("Problem saving");
+            }
+        }
     }
 
     public void loadButtonPressed(){
-      //
+        JFileChooser chooser = new JFileChooser();
+        if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = chooser.getSelectedFile();
+            try{
+                this.app.load((String)selectedFile.getPath());
+            }catch(IOException e){
+                System.out.print("Problem loading");
+            }
+        }
+
     }
 
     private void addButtonsToMenu(){
@@ -172,7 +193,7 @@ public class MenuDisplay extends JComponent implements ActionListener {
       dependencyLineButton.setPreferredSize(new Dimension(25, 100));
       dependencyLineButton.setActionCommand("dependency");
       dependencyLineButton.addActionListener(this);
-      this.buttonMenu.add(implementationLineButton);
+      this.buttonMenu.add(dependencyLineButton);
 
       JButton aggregationLineButton = new JButton("New Aggregation Line");
       aggregationLineButton.setPreferredSize(new Dimension(25, 100));
