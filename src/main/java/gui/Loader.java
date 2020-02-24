@@ -18,7 +18,7 @@ public class Loader implements Visitor{
   }
 
   public void visit(Line l){
-    String[] lineInfo = objectInfo.split("\n");
+    String[] lineInfo = objectInfo.split(",");
     l.setFirstX_Value(Integer.parseInt(lineInfo[0]));
     l.setFirstY_Value(Integer.parseInt(lineInfo[1]));
     l.setSecondX_Value(Integer.parseInt(lineInfo[2]));
@@ -26,25 +26,29 @@ public class Loader implements Visitor{
   }
 
   public void visit(Block b){
-    String[] lineInfo = objectInfo.split("\n");
+    String[] lineInfo = objectInfo.split(",");
     b.setLocation(Integer.parseInt(lineInfo[0]), Integer.parseInt(lineInfo[1]));
     b.setWidth(Integer.parseInt(lineInfo[2]));
     b.setLength(Integer.parseInt(lineInfo[3]));
     b.setClassName(lineInfo[4]);
-    String vars = lineInfo[5];
-    String[] varsArray = vars.split(" ");
-    for(int i = 0; i < varsArray.length; i++){
-      b.addInstanceVariable(varsArray[i]);
+    if(!lineInfo[5].equals("null")||lineInfo[5].equals(" ")){
+      String vars = lineInfo[5];
+      String[] varsArray = vars.split(" ");
+      for(int i = 0; i < varsArray.length; i++){
+        b.addInstanceVariable(varsArray[i]);
+      }
     }
-    String methods = lineInfo[6];
-    String[] methodsArray = methods.split(" ");
-    for(int i = 0; i < methodsArray.length; i++){
-      b.addMethod(methodsArray[i]);
+    if(!lineInfo[6].equals("null")||lineInfo[6].equals(" ")){
+      String methods = lineInfo[6];
+      String[] methodsArray = methods.split(" ");
+      for(int i = 0; i < methodsArray.length; i++){
+        b.addMethod(methodsArray[i]);
+      }
     }
   }
 
     public void visit(AggregationLine l){
-      String[] lineInfo = objectInfo.split("\n");
+      String[] lineInfo = objectInfo.split(",");
       l.setFirstX_Value(Integer.parseInt(lineInfo[0]));
       l.setFirstY_Value(Integer.parseInt(lineInfo[1]));
       l.setSecondX_Value(Integer.parseInt(lineInfo[2]));
@@ -52,7 +56,7 @@ public class Loader implements Visitor{
       return;
     }
     public void visit(AssociationLine l){
-      String[] lineInfo = objectInfo.split("\n");
+      String[] lineInfo = objectInfo.split(",");
       l.setFirstX_Value(Integer.parseInt(lineInfo[0]));
       l.setFirstY_Value(Integer.parseInt(lineInfo[1]));
       l.setSecondX_Value(Integer.parseInt(lineInfo[2]));
@@ -66,28 +70,28 @@ public class Loader implements Visitor{
       l.setSecondY_Value(Integer.parseInt(lineInfo[3]));
       }
     public void visit(DependencyLine l){
-      String[] lineInfo = objectInfo.split("\n");
+      String[] lineInfo = objectInfo.split(",");
       l.setFirstX_Value(Integer.parseInt(lineInfo[0]));
       l.setFirstY_Value(Integer.parseInt(lineInfo[1]));
       l.setSecondX_Value(Integer.parseInt(lineInfo[2]));
       l.setSecondY_Value(Integer.parseInt(lineInfo[3]));
       }
     public void visit(ImplementationLine l){
-      String[] lineInfo = objectInfo.split("\n");
+      String[] lineInfo = objectInfo.split(",");
       l.setFirstX_Value(Integer.parseInt(lineInfo[0]));
       l.setFirstY_Value(Integer.parseInt(lineInfo[1]));
       l.setSecondX_Value(Integer.parseInt(lineInfo[2]));
       l.setSecondY_Value(Integer.parseInt(lineInfo[3]));
       }
     public void visit(InheritanceLine l){
-      String[] lineInfo = objectInfo.split("\n");
+      String[] lineInfo = objectInfo.split(",");
       l.setFirstX_Value(Integer.parseInt(lineInfo[0]));
       l.setFirstY_Value(Integer.parseInt(lineInfo[1]));
       l.setSecondX_Value(Integer.parseInt(lineInfo[2]));
       l.setSecondY_Value(Integer.parseInt(lineInfo[3]));
       }
     public void visit(DisplayText t){
-      String[] textInfo = objectInfo.split("\n");
+      String[] textInfo = objectInfo.split(",");
       t.setLocation(Integer.parseInt(textInfo[0]),Integer.parseInt(textInfo[1]));
       t.setText(textInfo[2]);
       }

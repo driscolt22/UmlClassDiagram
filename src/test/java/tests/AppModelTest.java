@@ -112,7 +112,11 @@ public class AppModelTest{
       Line l2 = LineFactory.createCompositionLine();
       a2.addObj(l2);
       a.addObj(l);
-      assertTrue(a.equals(a2));
+      assertEquals("two AppModels holding lines that are equal are equal", a, a2);
+      Block b2 = BlockFactory.createBlock();
+      Block b3 = BlockFactory.createBlock();
+      a.addObj(b2);
+      a2.addObj(b3);
       assertEquals("two AppModels holding lines that are equal are equal", a, a2);
     }
 
