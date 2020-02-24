@@ -3,6 +3,7 @@ package app_model.lines;
 import app_model.Line;
 import app_model.Block;
 import app_model.Visitor;
+import app_model.DisplayObject;
 
 public class CompostionLine extends Line{
     public CompostionLine(int x1, int y1, int x2, int y2){

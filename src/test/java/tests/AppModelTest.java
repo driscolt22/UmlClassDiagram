@@ -16,6 +16,8 @@ import app_model.AppModel;
 import app_model.Block;
 import app_model.Line;
 import app_model.LineFactory;
+import app_model.BlockFactory;
+
 
 @RunWith(JUnit4.class)
 public class AppModelTest{
@@ -33,14 +35,14 @@ public class AppModelTest{
 
     @Test
     public void addBox(){
-        Block b = new Block();
+        Block b = BlockFactory.createBlock();
         a.addObj(b);
         assertTrue("Adding a block say there is a block in the model", a.containsObject(b));
     }
 
     @Test
     public void moveblock(){
-        Block b = new Block();
+        Block b = BlockFactory.createBlock();
         a.addObj(b);
         a.select(b);
         a.moveSelected(100,200);
@@ -50,12 +52,15 @@ public class AppModelTest{
 
     @Test
     public void connectLine(){
-        Block b = new Block();
+        Block b = BlockFactory.createBlock();
         b.setLocation(0,300);
         Block d = new Block();
         a.addObj(b);
         a.addObj(d);
         Line l = LineFactory.createLine();
+        l.connectHead(b);
+        l.connectTail(d);
+        l.updatePosition();
         l.setLine(b,d);
         assertEquals("connected line has right X1 cord", 50, l.getFirstX_Value());
         assertEquals("connected line has right X2 cord", 50, l.getSecondX_Value());
@@ -65,12 +70,15 @@ public class AppModelTest{
 
     @Test
     public void moveLine(){
-        Block b = new Block();
+        Block b = BlockFactory.createBlock();
         b.setLocation(0,300);
-        Block d = new Block();
+        Block d = BlockFactory.createBlock();
         a.addObj(b);
         a.addObj(d);
         Line l = LineFactory.createLine();
+        l.connectHead(b);
+        l.connectTail(d);
+        l.updatePosition();
         l.setLine(b,d);
         a.addObj(l);
         a.select(b);
@@ -93,5 +101,19 @@ public class AppModelTest{
         assertFalse("Line is no longer connected to the block", l.pointOneIsConnected(b));
     }
 
+    @Test
+    public void testEquals(){
+      Block b = BlockFactory.createBlock();
+      a.addObj(b);
+      AppModel a2 = new AppModel();
+      a2.addObj(b);
+      assertTrue("two AppModels holding the same block are equal", a.equals(a2));
+      Line l = LineFactory.createCompositionLine();
+      Line l2 = LineFactory.createCompositionLine();
+      a2.addObj(l2);
+      a.addObj(l);
+      assertTrue(a.equals(a2));
+      assertEquals("two AppModels holding lines that are equal are equal", a, a2);
+    }
 
 }

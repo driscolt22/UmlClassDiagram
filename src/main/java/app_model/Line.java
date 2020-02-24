@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.util.*;
 import app_model.Block;
+import java.io.Serializable;
 
 public abstract class Line implements DisplayObject{
     private int x1;
@@ -272,6 +273,21 @@ public abstract class Line implements DisplayObject{
         Math.sqrt(Math.pow(y2-y1,2)+Math.pow(x2-x1,2));
         //System.out.println("Selected l, d =" + d);
         return d < 5.0;
+    }
+
+    public boolean equals(Object d){
+      if((this.getClass()).equals(d.getClass())){
+        return getFirstX_Value()==((Line)d).getFirstX_Value()&&getFirstY_Value()==((Line)d).getFirstY_Value()
+        &&getSecondX_Value()==((Line)d).getSecondX_Value()&&getSecondY_Value()==((Line)d).getSecondY_Value();
+      }
+      else
+          return false;
+    }
+
+    public String toString(){
+      String toReturn = "x1: " + String.valueOf(getFirstX_Value()) + "\ny1: " + String.valueOf(getFirstY_Value()) + "\nx2: "
+              + String.valueOf(getSecondX_Value()) + "\ny2: " + String.valueOf(getSecondY_Value()) + "\n";
+      return toReturn;
     }
 
 }

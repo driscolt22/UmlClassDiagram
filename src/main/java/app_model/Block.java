@@ -2,11 +2,13 @@ package app_model;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.util.*;
+import java.io.Serializable;
 
 /**
  * Represents a Class for a UML class diagram, with postion, name, and attributes
  */
 public class Block  implements DisplayObject{
+
   private int x;
   private int y;
   private int width;
@@ -138,4 +140,52 @@ public class Block  implements DisplayObject{
   public boolean contains(int x, int y){
       return x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getLength();
   }
+
+  private boolean hasSameMethods(Block b){
+    if(getMethods().size()==b.getMethods().size()){
+      for(String m: b.getMethods()){
+        if(!getMethods().contains(m))
+          return false;
+      }
+      return true;
+    }
+    else
+      return false;
+  }
+
+  private boolean hasSameVariables(Block b){
+    if(getInstanceVariables().size()==b.getInstanceVariables().size()){
+      for(String v: b.getInstanceVariables()){
+        if(!getInstanceVariables().contains(v))
+          return false;
+      }
+      return true;
+    }
+    else
+      return false;
+  }
+
+  public boolean equals(Object d){
+    if(d instanceof Block){
+      return getX()==((Block)d).getX()&&getY()==((Block)d).getY()&&getWidth()==((Block)d).getWidth()
+      &&getLength()==((Block)d).getLength()&&getName()==((Block)d).getName()
+      &&hasSameMethods((Block)d)&&hasSameVariables((Block)d);
+    }
+    else
+      return false;
+  }
+
+  public String toString(){
+
+    String toReturn = "\nname:"+ getName() + "\nx: " + String.valueOf(getX()) + "\ny: " + String.valueOf(getY()) + "\nwidth: "
+    + String.valueOf(getWidth()) + "\nlength: " + String.valueOf(getLength()) + "\nmethods: ";
+    for(String m: getMethods()){
+      toReturn += m + ", ";
+    }
+    toReturn += "\n";
+    for(String v: getInstanceVariables()){
+      toReturn += v + ", ";
+    }
+    return toReturn + "\n";
+    }
 }
