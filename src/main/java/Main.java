@@ -38,12 +38,14 @@ public class Main{
 
         Block b = BlockFactory.createBlock();
         b.setLocation(100,100);
-        b.setClassName("Test Class");
+        b.setClassName("Long Test Class AAAAAAAAAAAAAAAAAAAA");
         b.addInstanceVariable("var1");
         b.addInstanceVariable("var2");
         b.addInstanceVariable("var3");
         b.addMethod("method1");
         b.addMethod("method2");
+        b.addMethod("method3");
+        b.addMethod("method4");
         app.addObj(b);
         //app.select(b);
 
