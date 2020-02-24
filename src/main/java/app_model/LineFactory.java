@@ -4,6 +4,9 @@ import app_model.lines.*;
 
 public class LineFactory{
 
+  /**
+  * creates different types of lines 
+  */
   public LineFactory(){
   }
 

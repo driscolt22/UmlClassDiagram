@@ -153,6 +153,8 @@ public class Block  implements DisplayObject{
       return false;
   }
 
+  /**
+
   private boolean hasSameVariables(Block b){
     if(getInstanceVariables().size()==b.getInstanceVariables().size()){
       for(String v: b.getInstanceVariables()){
@@ -165,6 +167,12 @@ public class Block  implements DisplayObject{
       return false;
   }
 
+  /**
+  * @param d: the object being compared to
+  * @return true if the objects are blocks and have the same
+  * location, size, name, methods, and variables regardless of order
+  * and false otherwise
+  */
   public boolean equals(Object d){
     if(d instanceof Block){
       return getX()==((Block)d).getX()&&getY()==((Block)d).getY()&&getWidth()==((Block)d).getWidth()
@@ -175,14 +183,24 @@ public class Block  implements DisplayObject{
       return false;
   }
 
+  /**
+  * @return the number of methods held in the class
+  */
   public int numMethods(){
     return getMethods().size();
   }
 
+  /**
+  * @return the number of Instance variables stored in the class
+  */
   public int numVars(){
     return getInstanceVariables().size();
   }
 
+  /**
+  * @return a String representation of the Block that lists the coordinates,
+  * length and width, name, methods, and instance variables
+  */
   public String toString(){
     String toReturn = "name:"+ getName() + "\nx: " + String.valueOf(getX()) + "\ny: " + String.valueOf(getY()) + "\nwidth: "
     + String.valueOf(getWidth()) + "\nlength: " + String.valueOf(getLength()) + "\nmethods: ";

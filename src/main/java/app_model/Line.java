@@ -208,6 +208,9 @@ public abstract class Line implements DisplayObject{
         }
     }
 
+    /**
+    * sets the location of the head and tail so that it bisects the closest side
+    */
     public void updatePosition2(){
         if(head != null && tail != null){
             if(head.getX() > tail.getX()){
@@ -226,21 +229,43 @@ public abstract class Line implements DisplayObject{
         }
     }
 
+    /**
+    * @param head: the Block to be set to head
+    * @param tail: the Block to be set to tail
+    * sets the head and tail instance variables
+    */
     public void setLine(Block head, Block tail){
         this.head = head;
         this.tail = tail;
         updatePosition();
     }
 
+    /**
+    * @param x1: the x location that the head is set to
+    * @param y1: the y location that the head is set to
+    * sets the loaction of the head to the given coordinates
+    */
     public void setHead(int x1, int y1){
         setFirstX_Value(x1);
         setFirstY_Value(y1);
     }
+
+    /**
+    * @param x1: the x location that the tail is set to
+    * @param y1: the y location that the tail is set to
+    * sets the loaction of the head to the given coordinates
+    */
     public void setTail(int x2, int y2){
         setSecondX_Value(x2);
         setSecondY_Value(y2);
     }
 
+    /**
+    * if point 1 or point 2 of the line lies within the given block
+    * then connectHead() or connectTail() is called
+    * @return true if point 1 or point 2 of the line lies within the given block
+    * and false otherwise
+    */
     public boolean connectToBlock(Block b){
         if(pointOneIsConnected(b)){
             //System.out.println("connecting Head");
@@ -253,15 +278,27 @@ public abstract class Line implements DisplayObject{
         return false;
     }
 
+    /**
+    * @param b: the block to set the head to
+    * sets the head instance variablen to the given block
+    */
     public void connectHead(Block b){
         this.head = b;
         //updatePosition();
     }
 
+    /**
+    * @param b: the block to set the tail to
+    * sets the tail instance variablen to the given block
+    */
     public void connectTail(Block b){
         this.tail = b;
         //updatePosition();
     }
+
+    /**
+    * the vistor for the line class
+    */
     public abstract void accept(Visitor v);
 
     public boolean contains(int x,int y){
@@ -275,6 +312,11 @@ public abstract class Line implements DisplayObject{
         return d < 5.0;
     }
 
+    /**
+    * @param d: the object being compared to
+    * @return: true if the objects are of the same type
+    * and have the same coordinates for point 1 and point 2
+    */
     public boolean equals(Object d){
       if((this.getClass()).equals(d.getClass())){
         return getFirstX_Value()==((Line)d).getFirstX_Value()&&getFirstY_Value()==((Line)d).getFirstY_Value()
@@ -284,6 +326,9 @@ public abstract class Line implements DisplayObject{
           return false;
     }
 
+    /**
+    * @return: a String to represent the line that lists the coordinates for points 1 and 2
+    */
     public String toString(){
       String toReturn = "x1: " + String.valueOf(getFirstX_Value()) + "\ny1: " + String.valueOf(getFirstY_Value()) + "\nx2: "
               + String.valueOf(getSecondX_Value()) + "\ny2: " + String.valueOf(getSecondY_Value()) + "\n";

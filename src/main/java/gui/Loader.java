@@ -13,6 +13,9 @@ public class Loader implements Visitor{
 
   private String objectInfo;
 
+  /**
+  * creates DisplayObjects based on Strings that are read from a text file
+  */
   public Loader(String fileInfo){
     objectInfo = fileInfo;
   }
