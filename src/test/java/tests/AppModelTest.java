@@ -101,5 +101,19 @@ public class AppModelTest{
         assertFalse("Line is no longer connected to the block", l.pointOneIsConnected(b));
     }
 
+    @Test
+    public void testEquals(){
+      Block b = BlockFactory.createBlock();
+      a.addObj(b);
+      AppModel a2 = new AppModel();
+      a2.addObj(b);
+      assertTrue("two AppModels holding the same block are equal", a.equals(a2));
+      Line l = LineFactory.createCompositionLine();
+      Line l2 = LineFactory.createCompositionLine();
+      a2.addObj(l2);
+      a.addObj(l);
+      assertTrue(a.equals(a2));
+      assertEquals("two AppModels holding lines that are equal are equal", a, a2);
+    }
 
 }

@@ -366,11 +366,30 @@ public class AppModel {
     return displayObjects.size();
   }
 
+  private ArrayList<DisplayObject> copyDisplayObjects(){
+    ArrayList<DisplayObject> toReturn = new ArrayList<>(0);
+    for(DisplayObject d: getDisplayObjects()){
+      toReturn.add(d);
+    }
+    return toReturn;
+  }
+
+  private boolean hasEqualObject(ArrayList<DisplayObject> remainingObjects, DisplayObject toFind){
+    for(DisplayObject d: remainingObjects){
+      if(toFind.equals(d))
+        return true;
+    }
+    return false;
+  }
+
   private boolean hasSameObjects(AppModel other){
+    ArrayList<DisplayObject> displayObjects = copyDisplayObjects();
     if(numObjects()==other.numObjects()){
-      for(DisplayObject d: getDisplayObjects()){
-        if(!other.containsObject(d))
+      for(DisplayObject d: other.getDisplayObjects()){
+        if(!hasEqualObject(displayObjects, d))
           return false;
+        else
+          displayObjects.remove(d);
       }
       return true;
     }

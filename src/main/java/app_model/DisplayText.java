@@ -72,7 +72,7 @@ public class DisplayText implements DisplayObject{
             return x >= getX() && y >= getY() && x <= getX() + WIDTH && y <= getY() + HEIGHT;
     }
 
-    public boolean equals(DisplayObject d){
+    public boolean equals(Object d){
       if(d instanceof DisplayText){
         return getX()==((DisplayText)d).getX()&&getY()==((DisplayText)d).getY()
         &&getText().equals(((DisplayText)d).getText());

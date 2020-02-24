@@ -5,7 +5,7 @@ import java.util.*;
 import app_model.Block;
 import java.io.Serializable;
 
-public abstract class Line implements DisplayObject, Serializable{
+public abstract class Line implements DisplayObject{
     private int x1;
     private int y1;
     private int x2;
@@ -231,8 +231,8 @@ public abstract class Line implements DisplayObject, Serializable{
         return d < 5.0;
     }
 
-    public boolean equals(DisplayObject d){
-      if(this.getClass().equals(d.getClass())){
+    public boolean equals(Object d){
+      if((this.getClass()).equals(d.getClass())){
         return getFirstX_Value()==((Line)d).getFirstX_Value()&&getFirstY_Value()==((Line)d).getFirstY_Value()
         &&getSecondX_Value()==((Line)d).getSecondX_Value()&&getSecondY_Value()==((Line)d).getSecondY_Value();
       }

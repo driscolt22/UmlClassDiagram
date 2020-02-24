@@ -4,7 +4,6 @@ import javax.swing.SwingUtilities;
 import java.util.*;
 import java.io.Serializable;
 
-public class Block  implements DisplayObject{
 /**
  * Represents a Class for a UML class diagram, with postion, name, and attributes
  */
@@ -166,7 +165,7 @@ public class Block  implements DisplayObject{
       return false;
   }
 
-  public boolean equals(DisplayObject d){
+  public boolean equals(Object d){
     if(d instanceof Block){
       return getX()==((Block)d).getX()&&getY()==((Block)d).getY()&&getWidth()==((Block)d).getWidth()
       &&getLength()==((Block)d).getLength()&&getName()==((Block)d).getName()
@@ -188,5 +187,5 @@ public class Block  implements DisplayObject{
       toReturn += v + ", ";
     }
     return toReturn + "\n";
-  }
+    }
 }
