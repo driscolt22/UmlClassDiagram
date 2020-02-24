@@ -116,22 +116,22 @@ public class MenuDisplay extends JComponent implements ActionListener {
     }
 
     public void associationLineButtonPressed(){
-      this.app.addObj(LineFactory.createLine());
+      this.app.addObj(LineFactory.createAssociationLine());
     }
     public void inheritanceLineButtonPressed(){
-      this.app.addObj(LineFactory.createLine());
+      this.app.addObj(LineFactory.createInheritanceLine());
     }
     public void implementationLineButtonPressed(){
-      this.app.addObj(LineFactory.createLine());
+      this.app.addObj(LineFactory.createImplementationLine());
     }
     public void dependencyLineButtonPressed(){
-      this.app.addObj(LineFactory.createLine());
+      this.app.addObj(LineFactory.createDependencyLine());
     }
     public void aggregationLineButtonPressed(){
-      this.app.addObj(LineFactory.createLine());
+      this.app.addObj(LineFactory.createAggregationLine());
     }
     public void compositionLineButtonPressed(){
-      this.app.addObj(LineFactory.createLine());
+      this.app.addObj(LineFactory.createCompositionLine());
     }
     public void textButtonPressed(){
       this.app.addObj(new DisplayText());
