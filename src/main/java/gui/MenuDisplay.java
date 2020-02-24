@@ -21,6 +21,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
+import java.awt.event.*;
 
 
 import app_model.AppListener;
@@ -30,7 +31,7 @@ import app_model.BlockFactory;
 import app_model.LineFactory;
 import app_model.DisplayText;
 
-public class MenuDisplay extends JComponent {
+public class MenuDisplay extends JComponent implements ActionListener {
     public static int WIDTH = 200;
     public static int HEIGHT = 800;
     private AppModel app;
@@ -70,6 +71,32 @@ public class MenuDisplay extends JComponent {
 
     public JSplitPane getSplitPane(){
       return this.splitPane;
+    }
+
+    public void actionPerformed(ActionEvent e){
+      if(e.getActionCommand().equals("block")){
+        blockButtonPressed();
+      }else if(e.getActionCommand().equals("association")){
+        associationLineButtonPressed();
+      }else if(e.getActionCommand().equals("inheritance")){
+        inheritanceLineButtonPressed();
+      }else if(e.getActionCommand().equals("implementation")){
+        implementationLineButtonPressed();
+      }else if(e.getActionCommand().equals("dependency")){
+        dependencyLineButtonPressed();
+      }else if(e.getActionCommand().equals("aggregation")){
+        aggregationLineButtonPressed();
+      }else if(e.getActionCommand().equals("composition")){
+        compositionLineButtonPressed();
+      }else if(e.getActionCommand().equals("text")){
+        textButtonPressed();
+      }else if(e.getActionCommand().equals("delete")){
+        deleteSelectedPressed();
+      }else if(e.getActionCommand().equals("save")){
+        saveButtonPressed();
+      }else if(e.getActionCommand().equals("load")){
+        loadButtonPressed();
+      }
     }
 
     public JPanel getButtonMenu(){
@@ -119,48 +146,68 @@ public class MenuDisplay extends JComponent {
     private void addButtonsToMenu(){
       JButton blockButton = new JButton("New Class");
       blockButton.setPreferredSize(new Dimension(25, 100));
+      blockButton.setActionCommand("block");
+      blockButton.addActionListener(this);
       this.buttonMenu.add(blockButton);
 
       JButton associationLineButton = new JButton("New Association Line");
       associationLineButton.setPreferredSize(new Dimension(25, 100));
+      associationLineButton.setActionCommand("association");
+      associationLineButton.addActionListener(this);
       this.buttonMenu.add(associationLineButton);
 
       JButton inheritanceLineButton = new JButton("New Inheritance Line");
       inheritanceLineButton.setPreferredSize(new Dimension(25, 100));
+      inheritanceLineButton.setActionCommand("inheritance");
+      inheritanceLineButton.addActionListener(this);
       this.buttonMenu.add(inheritanceLineButton);
 
       JButton implementationLineButton = new JButton("New Implementation Line");
       implementationLineButton.setPreferredSize(new Dimension(25, 100));
+      implementationLineButton.setActionCommand("implementation");
+      implementationLineButton.addActionListener(this);
       this.buttonMenu.add(implementationLineButton);
 
       JButton dependencyLineButton = new JButton("New Dependency Line");
       dependencyLineButton.setPreferredSize(new Dimension(25, 100));
+      dependencyLineButton.setActionCommand("dependency");
+      dependencyLineButton.addActionListener(this);
       this.buttonMenu.add(implementationLineButton);
 
       JButton aggregationLineButton = new JButton("New Aggregation Line");
       aggregationLineButton.setPreferredSize(new Dimension(25, 100));
+      aggregationLineButton.setActionCommand("aggregation");
+      aggregationLineButton.addActionListener(this);
       this.buttonMenu.add(aggregationLineButton);
 
       JButton compositionLineButton = new JButton("New Compositon Line");
       compositionLineButton.setPreferredSize(new Dimension(25, 100));
+      compositionLineButton.setActionCommand("composition");
+      compositionLineButton.addActionListener(this);
       this.buttonMenu.add(compositionLineButton);
 
       JButton textButton = new JButton("New Text");
       textButton.setPreferredSize(new Dimension(25, 100));
+      textButton.setActionCommand("text");
+      textButton.addActionListener(this);
       this.buttonMenu.add(textButton);
 
       JButton deleteSelectedButton = new JButton("Delete Selected");
       deleteSelectedButton.setPreferredSize(new Dimension(25, 100));
+      deleteSelectedButton.setActionCommand("delete");
+      deleteSelectedButton.addActionListener(this);
       this.buttonMenu.add(deleteSelectedButton);
 
       JButton saveButton = new JButton("Save File");
       saveButton.setPreferredSize(new Dimension(25, 100));
+      saveButton.setActionCommand("save");
+      saveButton.addActionListener(this);
       this.buttonMenu.add(saveButton);
 
       JButton loadButton = new JButton("Load File");
       loadButton.setPreferredSize(new Dimension(25, 100));
+      loadButton.setActionCommand("load");
+      loadButton.addActionListener(this);
       this.buttonMenu.add(loadButton);
     }
-
-
 }
