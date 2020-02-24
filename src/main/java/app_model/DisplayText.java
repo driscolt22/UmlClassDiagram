@@ -44,4 +44,13 @@ public class DisplayText implements DisplayObject{
     public boolean contains(int x, int y){
             return x >= getX() && y >= getY() && x <= getX() + WIDTH && y <= getY() + HEIGHT;
     }
+
+    public boolean equals(DisplayObject d){
+      if(d instanceof DisplayText){
+        return getX()==((DisplayText)d).getX()&&getY()==((DisplayText)d).getY()
+        &&getText().equals(((DisplayText)d).getText());
+      }
+      else
+        return false;
+    }
 }

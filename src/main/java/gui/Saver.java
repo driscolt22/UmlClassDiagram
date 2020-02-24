@@ -12,76 +12,112 @@ import java.io.IOException;
 
 public class Saver implements Visitor{
 
-  private String fileName;
-  private FileWriter writer;
+  //private String fileName;
+  //private FileWriter writer;
+  private String toSave;
 
-  public Saver(String fName){
-    fileName = fName;
-    try{
-    writer = new FileWriter(fileName);
-    }catch (IOException e) {
-            e.getStackTrace();
-          }
+  public Saver(){
+    toSave = "";
+
   }
 
   public void visit(Line l){
-    String toSave = "";
-    toSave += "Line";
-    toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
-    toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    this.toSave += "Line\n";
+    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
     //f(l.getHead() != null)
     //  toSave +=
-    try{
-      writer.write(toSave);
-    }catch (IOException e) {
-            e.getStackTrace();
-          }
+      //writer.write(toSave);
   }
 
   public void visit(Block b){
-    String toSave = "";
-    toSave += "Block";
-    toSave += String.valueOf(b.getX()) + "\n" + String.valueOf(b.getY()) + "\n";
-    toSave += String.valueOf(b.getWidth()) + "\n" + String.valueOf(b.getLength()) + "\n";
-    toSave += b.getName() + "\n";
-    toSave += addVariables(b);
-    toSave += addMethods(b);
-    try{
-      writer.write(toSave);
-    }catch (IOException e) {
-            e.getStackTrace();
-          }
+    this.toSave += "Block\n";
+    this.toSave += String.valueOf(b.getX()) + "\n" + String.valueOf(b.getY()) + "\n";
+    this.toSave += String.valueOf(b.getWidth()) + "\n" + String.valueOf(b.getLength()) + "\n";
+    this.toSave += b.getName() + "\n";
+    this.toSave += addVariables(b);
+    this.toSave += addMethods(b);
+      //writer.write(toSave);
   }
 
   private String addMethods(Block b){
     ArrayList<String> toAdd = b.getMethods();
-    String toSave = "";
+    String methods = "";
     for(String m: toAdd){
       if(m != null)
-        toSave += m + " ";
+        methods += m + " ";
     }
-    return toSave;
+    return methods;
   }
 
   private String addVariables(Block b){
     ArrayList<String> toAdd = b.getInstanceVariables();
-    String toSave = "";
+    String varsToSave = "";
     for(String m: toAdd){
       if(m != null)
-        toSave += m + " ";
+        varsToSave += m + " ";
     }
-    return toSave;
+    return varsToSave;
   }
 
   public void visit(DisplayText t){
-      return;
+    this.toSave += "DisplayText\n";
+    this.toSave += String.valueOf(t.getX()) + "\n" + String.valueOf(t.getY()) + "\n";
+    this.toSave += t.getText();
+      //writer.write(toSave);
   }
 
-  public void visit(AggregationLine l){ return; }
-  public void visit(AssociationLine l){ return; }
-  public void visit(CompostionLine l){ return; }
-  public void visit(DependencyLine l){ return; }
-  public void visit(ImplementationLine l){ return; }
-  public void visit(InheritanceLine l){ return; }
+  public void visit(AggregationLine l){
+    this.toSave += "AggregationLine\n";
+    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    //f(l.getHead() != null)
+    //  toSave +=
+      //writer.write(toSave);
+  }
+
+  public void visit(AssociationLine l){
+    this.toSave += "AssociationLine\n";
+    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    //f(l.getHead() != null)
+    //  toSave +=
+      //writer.write(toSave);
+   }
+  public void visit(CompostionLine l){
+    this.toSave += "CompostionLine\n";
+    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    //f(l.getHead() != null)
+    //  toSave +=
+      //writer.write(toSave);
+    }
+  public void visit(DependencyLine l){
+    this.toSave += "DependencyLine\n";
+    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    //f(l.getHead() != null)
+    //  toSave +=
+      //writer.write(toSave);
+    }
+  public void visit(ImplementationLine l){
+    this.toSave += "ImplementationLine\n";
+    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    //f(l.getHead() != null)
+    //  toSave +=
+      //writer.write(toSave);
+    }
+  public void visit(InheritanceLine l){
+    this.toSave += "InheritanceLine\n";
+    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    //f(l.getHead() != null)
+    //  toSave +=
+      //writer.write(toSave);
+     }
+    public String getToSave(){
+      return toSave;
+    }
 
 }

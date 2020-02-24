@@ -7,10 +7,19 @@ import java.io.BufferedReader;
 import gui.Saver;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.lang.ClassNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import gui.Loader;
+import java.io.Serializable;
+import java.io.BufferedWriter;
+import java.io.File;
 
 
-public class AppModel{
+public class AppModel {
   private ArrayList<DisplayObject> displayObjects;
   //private ArrayList<line> lines;
   private Vector<AppListener> listeners;
@@ -57,49 +66,154 @@ public class AppModel{
   }
 
 
-  public void save(String fileName){
+  public void save(String fileName)throws IOException{
     Iterable<DisplayObject> objects = getDisplayObjects();
-    Saver saver = new Saver(fileName);
+    Saver saver = new Saver();
+    //int count = 0;
+    //FileUtils.write(new File(fileName), "");
+    BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
     for(DisplayObject d: objects){
+      //count++;
       d.accept(saver);
+    }
+    //System.out.println(String.valueOf(count));
+    //System.out.println(saver.getToSave());
+    writer.write(saver.getToSave());
+    writer.close();
+  }
+
+  public void printFile(String fileName)throws IOException{
+    BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+    String line = bufferedReader.readLine();
+    while(line != null){
+      System.out.println(line);
+      line = bufferedReader.readLine();
     }
   }
 
 
 
-  public void load(String fileName){
-    try {
-      FileReader reader = new FileReader(fileName);
-          BufferedReader bufferedReader = new BufferedReader(reader);
-          String line;
-          while ((line = bufferedReader.readLine()) != null) {
+  public void load(String fileName)throws IOException{
+      //FileReader reader = new FileReader(fileName);
+          BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+          String line = bufferedReader.readLine();
+          //System.out.println(line);
+          while (line != null) {
+              //System.out.println(line);
               if(line.equals("Line")){
+                //Class c = Class.forName("app_model.lines."+line);
                 String lineInfo = "";
-                for(int i = 0; i < 4; i++){
                 lineInfo += bufferedReader.readLine();
+                for(int i = 0; i < 3; i++){
+                lineInfo += "," + bufferedReader.readLine();
                 }
                 Line l = LineFactory.createLine();
                 Loader loader = new Loader(lineInfo);
                 l.accept(loader);
                 addObj(l);
               }
+              else if(line.equals("AggregationLine")){
+                //Class c = Class.forName("app_model.lines."+line);
+                String lineInfo = "";
+                lineInfo += bufferedReader.readLine();
+                for(int i = 0; i < 3; i++){
+                lineInfo += "," + bufferedReader.readLine();
+                }
+                Line l = LineFactory.createAggregationLine();
+                Loader loader = new Loader(lineInfo);
+                l.accept(loader);
+                addObj(l);
+              }
+              else if(line.equals("AssociationLine")){
+                //Class c = Class.forName("app_model.lines."+line);
+                String lineInfo = "";
+                lineInfo += bufferedReader.readLine();
+                for(int i = 0; i < 3; i++){
+                lineInfo += "," + bufferedReader.readLine();
+                }
+                Line l = LineFactory.createAssociationLine();
+                Loader loader = new Loader(lineInfo);
+                l.accept(loader);
+                addObj(l);
+              }
+              else if(line.equals("CompostionLine")){
+                System.out.println("found");
+                //Class c = Class.forName("app_model.lines."+line);
+                String lineInfo = "";
+                lineInfo += bufferedReader.readLine();
+                for(int i = 0; i < 3; i++){
+                lineInfo += "," + bufferedReader.readLine();
+                }
+                Line l = LineFactory.createCompositionLine();
+                Loader loader = new Loader(lineInfo);
+                l.accept(loader);
+                addObj(l);
+              }
+              else if(line.equals("DependencyLine")){
+                //Class c = Class.forName("app_model.lines."+line);
+                String lineInfo = "";
+                lineInfo += bufferedReader.readLine();
+                for(int i = 0; i < 3; i++){
+                lineInfo += "," + bufferedReader.readLine();
+                }
+                Line l = LineFactory.createDependencyLine();
+                Loader loader = new Loader(lineInfo);
+                l.accept(loader);
+                addObj(l);
+              }
+              else if(line.equals("ImplementationLine")){
+                //Class c = Class.forName("app_model.lines."+line);
+                String lineInfo = "";
+                lineInfo += bufferedReader.readLine();
+                for(int i = 0; i < 3; i++){
+                lineInfo += "," + bufferedReader.readLine();
+                }
+                Line l = LineFactory.createImplementationLine();
+                Loader loader = new Loader(lineInfo);
+                l.accept(loader);
+                addObj(l);
+              }
+              else if(line.equals("InheritanceLine")){
+                //Class c = Class.forName("app_model.lines."+line);
+                String lineInfo = "";
+                lineInfo += bufferedReader.readLine();
+                for(int i = 0; i < 3; i++){
+                lineInfo += "," + bufferedReader.readLine();
+                }
+                Line l = LineFactory.createInheritanceLine();
+                Loader loader = new Loader(lineInfo);
+                l.accept(loader);
+                addObj(l);
+              }
               else if(line.equals("Block")){
                 String blockInfo = "";
-                for(int i = 0; i < 7; i++){
                 blockInfo += bufferedReader.readLine();
+                for(int i = 0; i < 6; i++){
+                blockInfo += "," + bufferedReader.readLine();
                 }
                 Block b = BlockFactory.createBlock();
                 Loader loader = new Loader(blockInfo);
                 b.accept(loader);
                 addObj(b);
               }
-              // to add loading function
-          }
-          reader.close();
-      } catch (IOException e) {
-          e.getStackTrace();
-        }
+              else if(line.equals("DisplayText")){
+                //Class c = Class.forName("app_model.lines."+line);
+                String textInfo = "";
+                textInfo += bufferedReader.readLine();
+                for(int i = 0; i < 2; i++){
+                textInfo += "," + bufferedReader.readLine();
+                }
+                DisplayText t = new DisplayText();
+                Loader loader = new Loader(textInfo);
+                t.accept(loader);
+                addObj(t);
+              }
+              line = bufferedReader.readLine();
+              //System.out.println(line);
+      }        // to add loading function
+          bufferedReader.close();
       }
+
   public void select(int x, int y){
        updateLinePositions();
       for(DisplayObject d: getDisplayObjects()){
@@ -179,7 +293,7 @@ public class AppModel{
           }
       }
   }
-  
+
 
   public void createBlock(){
       Block b = new Block();
@@ -200,6 +314,37 @@ public class AppModel{
       addObj(t);
       select(t);
       notifyListeners();
+  }
+
+  public int numObjects(){
+    return displayObjects.size();
+  }
+
+  private boolean hasSameObjects(AppModel other){
+    if(numObjects()==other.numObjects()){
+      for(DisplayObject d: getDisplayObjects()){
+        if(!other.containsObject(d))
+          return false;
+      }
+      return true;
+    }
+    return false;
+  }
+
+  public boolean equals(Object other){
+    if(other instanceof AppModel){
+      return hasSameObjects((AppModel)other);
+    }
+    else
+      return false;
+  }
+
+  public String toString(){
+    String toReturn = "";
+    for(DisplayObject d: getDisplayObjects()){
+      toReturn += d.toString();
+    }
+    return toReturn;
   }
 
 }

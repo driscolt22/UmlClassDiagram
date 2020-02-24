@@ -3,8 +3,9 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.util.*;
 import app_model.Block;
+import java.io.Serializable;
 
-public abstract class Line implements DisplayObject{
+public abstract class Line implements DisplayObject, Serializable{
     private int x1;
     private int y1;
     private int x2;
@@ -232,12 +233,19 @@ public abstract class Line implements DisplayObject{
         return d < 5.0;
     }
 
-    public boolean equals(Line l){
-      if(getFirstX_Value()==l.getFirstX_Value()&&getFirstY_Value()==getFirstY_Value()
-      &&getSecondX_Value()==l.getSecondX_Value()&&getSecondY_Value()==l.getSecondY_Value())
-          return true;
+    public boolean equals(DisplayObject d){
+      if(this.getClass().equals(d.getClass())){
+        return getFirstX_Value()==((Line)d).getFirstX_Value()&&getFirstY_Value()==((Line)d).getFirstY_Value()
+        &&getSecondX_Value()==((Line)d).getSecondX_Value()&&getSecondY_Value()==((Line)d).getSecondY_Value();
+      }
       else
           return false;
+    }
+
+    public String toString(){
+      String toReturn = "x1: " + String.valueOf(getFirstX_Value()) + "\ny1: " + String.valueOf(getFirstY_Value()) + "\nx2: "
+              + String.valueOf(getSecondX_Value()) + "\ny2: " + String.valueOf(getSecondY_Value()) + "\n";
+      return toReturn;
     }
 
 }

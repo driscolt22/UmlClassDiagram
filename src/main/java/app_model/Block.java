@@ -2,9 +2,10 @@ package app_model;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.util.*;
+import java.io.Serializable;
 
 
-public class Block  implements DisplayObject{
+public class Block  implements DisplayObject, Serializable{
   private int x;
   private int y;
   private int width;
@@ -115,9 +116,27 @@ public class Block  implements DisplayObject{
       return false;
   }
 
-  public boolean equals(Block b){
-      return getX()==b.getX()&&getY()==b.getY()&&getWidth()==b.getWidth()
-      &&getLength()==b.getLength()&&getName()==b.getName()
-      &&hasSameMethods(b)&&hasSameVariables(b);
+  public boolean equals(DisplayObject d){
+    if(d instanceof Block){
+      return getX()==((Block)d).getX()&&getY()==((Block)d).getY()&&getWidth()==((Block)d).getWidth()
+      &&getLength()==((Block)d).getLength()&&getName()==((Block)d).getName()
+      &&hasSameMethods((Block)d)&&hasSameVariables((Block)d);
+    }
+    else
+      return false;
+  }
+
+  public String toString(){
+
+    String toReturn = "\nname:"+ getName() + "\nx: " + String.valueOf(getX()) + "\ny: " + String.valueOf(getY()) + "\nwidth: "
+    + String.valueOf(getWidth()) + "\nlength: " + String.valueOf(getLength()) + "\nmethods: ";
+    for(String m: getMethods()){
+      toReturn += m + ", ";
+    }
+    toReturn += "\n";
+    for(String v: getInstanceVariables()){
+      toReturn += v + ", ";
+    }
+    return toReturn + "\n";
   }
 }

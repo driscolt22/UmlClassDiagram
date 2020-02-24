@@ -15,6 +15,8 @@ import org.junit.runners.JUnit4;
 import app_model.AppModel;
 import app_model.Block;
 import app_model.Line;
+import app_model.LineFactory;
+import app_model.BlockFactory;
 
 @RunWith(JUnit4.class)
 public class AppModelTest{
@@ -32,14 +34,14 @@ public class AppModelTest{
 
     @Test
     public void addBox(){
-        Block b = new Block();
+        Block b = BlockFactory.createBlock();
         a.addObj(b);
         assertTrue("Adding a block say there is a block in the model", a.containsObject(b));
     }
 
     @Test
     public void moveblock(){
-        Block b = new Block();
+        Block b = BlockFactory.createBlock();
         a.addObj(b);
         a.select(b);
         a.moveSelected(100,200);
@@ -49,12 +51,15 @@ public class AppModelTest{
 
     @Test
     public void connectLine(){
-        Block b = new Block();
+        Block b = BlockFactory.createBlock();
         b.setLocation(0,300);
         Block d = new Block();
         a.addObj(b);
         a.addObj(d);
-        Line l = new Line(b, d);
+        Line l = LineFactory.createLine();
+        l.connectHead(b);
+        l.connectTail(d);
+        l.updatePosition();
         assertEquals("connected line has right X1 cord", 50, l.getFirstX_Value());
         assertEquals("connected line has right X2 cord", 50, l.getSecondX_Value());
         assertEquals("connected line has right Y1 cord", 300, l.getFirstY_Value());
@@ -63,12 +68,15 @@ public class AppModelTest{
 
     @Test
     public void moveLine(){
-        Block b = new Block();
+        Block b = BlockFactory.createBlock();
         b.setLocation(0,300);
-        Block d = new Block();
+        Block d = BlockFactory.createBlock();
         a.addObj(b);
         a.addObj(d);
-        Line l = new Line(b, d);
+        Line l = LineFactory.createLine();
+        l.connectHead(b);
+        l.connectTail(d);
+        l.updatePosition();
         a.addObj(l);
         a.select(b);
         a.moveSelected(50,0);
