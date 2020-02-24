@@ -51,7 +51,7 @@ public class SaveLoaderTest{
     AppModel a4 = new AppModel();
     a4.load("savedLine.txt");
     System.out.println(a4);
-    //assertTrue(a4.equals(a));
+    assertTrue(a4.equals(a));
   }
 
 }
