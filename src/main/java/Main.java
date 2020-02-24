@@ -12,6 +12,8 @@ import gui.MenuDisplay;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.util.*;
+import java.awt.Container;
+import java.awt.BorderLayout;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -68,12 +70,9 @@ public class Main{
         mainFrame.requestFocusInWindow();
 
 //
-        menuFrame.add(menuDisplay.getMenu());
-        //menuFrame.add(menuDisplay.getBlockButton());
-        //menuFrame.add(menuDisplay.getlineButton());
-        //menuFrame.add(menuDisplay.getTextButton());
-        //menuFrame.add(menuDisplay.getDeleteButton());
+        menuFrame.add(menuDisplay.getSplitPane());
         menuFrame.pack();
+        menuFrame.setSize(300, 800);
         menuFrame.setVisible(true);
         menuFrame.requestFocusInWindow();
 

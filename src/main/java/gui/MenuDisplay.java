@@ -8,15 +8,20 @@ import java.awt.Graphics2D;
 import java.awt.BasicStroke;
 import java.awt.Color;
 
+
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JTextArea;
 import java.util.*;
 import javax.swing.BoxLayout;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+
 
 import app_model.AppListener;
 import app_model.AppModel;
@@ -26,98 +31,136 @@ import app_model.LineFactory;
 import app_model.DisplayText;
 
 public class MenuDisplay extends JComponent {
-    public static int WIDTH = 350;
+    public static int WIDTH = 200;
     public static int HEIGHT = 800;
-
-    private JButton blockButton;
-    private JButton lineButton;
-    private JButton deleteButton;
-    private JButton textButton;
     private AppModel app;
-    private JPanel menu;
+    private JScrollPane scrollPane;
+    private JSplitPane splitPane;
+
+    private JPanel buttonMenu;
+    private JPanel selectedContents;
+
 
     public MenuDisplay(AppModel app)
     {
+      this.splitPane = new JSplitPane();
       this.app = app;
-      setSize(new Dimension(WIDTH, HEIGHT));
-      setPreferredSize(new Dimension(WIDTH, HEIGHT));
+      this.scrollPane = new JScrollPane();
+      this.buttonMenu = new JPanel();
 
-      menu = new JPanel();
-      menu.setBackground(Color.black);
-      //menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
-      menu.setLayout( new GridLayout(4, 1));
+      //this.buttonMenu.setBackground(Color.black);
+      //this.buttonMenu.setLayout(new GridLayout(11, 1));
+      //addButtonsToMenu();
+      this.selectedContents = new JPanel();
+      //this.selectedContents.setBackground(Color.red);
 
 
-      this.blockButton = new JButton("Block");
-      this.lineButton = new JButton("Line");
-      this.textButton = new JButton("Text");
-      this.deleteButton = new JButton("Delete");
+      splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+      splitPane.setDividerLocation(400);
+      splitPane.setTopComponent(this.buttonMenu);
+      splitPane.setBottomComponent(this.selectedContents);
 
-      this.blockButton.setPreferredSize(new Dimension(200, 200));
-      this.lineButton.setPreferredSize(new Dimension(200, 200));
-      this.textButton.setPreferredSize(new Dimension(200, 200));
-      this.deleteButton.setPreferredSize(new Dimension(200, 200));
-      
-      menu.add(this.blockButton);
-      menu.add(this.lineButton);
-      menu.add(this.textButton);
-      menu.add(this.deleteButton);
+      this.buttonMenu.add(scrollPane);
+      this.buttonMenu.setMaximumSize(new Dimension(300, 400));
+      this.buttonMenu.setLayout(new GridLayout(11, 1));
+      addButtonsToMenu();
 
+      this.selectedContents.setLayout(new SpringLayout());
     }
 
-    public JPanel getMenu(){
-      return this.menu;
+    public JSplitPane getSplitPane(){
+      return this.splitPane;
     }
 
-    public JButton getBlockButton(){
-      return this.blockButton;
+    public JPanel getButtonMenu(){
+      return this.buttonMenu;
     }
 
-    public JButton getlineButton(){
-      return this.lineButton;
-    }
-
-    public JButton getTextButton(){
-      return this.textButton;
-    }
-
-    public JButton getDeleteButton(){
-      return this.deleteButton;
-    }
-
-    public void setBlockButton(){
-      this.blockButton.setBounds(175, 100, 100, 100);
-      this.blockButton.setVisible(true);
-    }
-
-    public void setLineButton(){
-      this.lineButton.setBounds(175, 300, 100, 100);
-      this.lineButton.setVisible(true);
-    }
-
-    public void setTextButton(){
-      this.textButton.setBounds(175, 500, 100, 100);
-      this.textButton.setVisible(true);
-    }
-
-    public void setDeleteButton(){
-      this.deleteButton.setBounds(175, 700, 100, 100);
-      this.deleteButton.setVisible(true);
+    public JPanel getSelectedContents(){
+      return this.selectedContents;
     }
 
     public void blockButtonPressed(){
       this.app.addObj(BlockFactory.createBlock());
     }
 
-    public void lineButtonPressed(){
+    public void associationLineButtonPressed(){
       this.app.addObj(LineFactory.createLine());
     }
-
+    public void inheritanceLineButtonPressed(){
+      this.app.addObj(LineFactory.createLine());
+    }
+    public void implementationLineButtonPressed(){
+      this.app.addObj(LineFactory.createLine());
+    }
+    public void dependencyLineButtonPressed(){
+      this.app.addObj(LineFactory.createLine());
+    }
+    public void aggregationLineButtonPressed(){
+      this.app.addObj(LineFactory.createLine());
+    }
+    public void compositionLineButtonPressed(){
+      this.app.addObj(LineFactory.createLine());
+    }
     public void textButtonPressed(){
       this.app.addObj(new DisplayText());
     }
-
     public void deleteSelectedPressed(){
       this.app.removeSelected();
     }
+    public void saveButtonPressed(){
+      //
+    }
+
+    public void loadButtonPressed(){
+      //
+    }
+
+    private void addButtonsToMenu(){
+      JButton blockButton = new JButton("New Class");
+      blockButton.setPreferredSize(new Dimension(25, 100));
+      this.buttonMenu.add(blockButton);
+
+      JButton associationLineButton = new JButton("New Association Line");
+      associationLineButton.setPreferredSize(new Dimension(25, 100));
+      this.buttonMenu.add(associationLineButton);
+
+      JButton inheritanceLineButton = new JButton("New Inheritance Line");
+      inheritanceLineButton.setPreferredSize(new Dimension(25, 100));
+      this.buttonMenu.add(inheritanceLineButton);
+
+      JButton implementationLineButton = new JButton("New Implementation Line");
+      implementationLineButton.setPreferredSize(new Dimension(25, 100));
+      this.buttonMenu.add(implementationLineButton);
+
+      JButton dependencyLineButton = new JButton("New Dependency Line");
+      dependencyLineButton.setPreferredSize(new Dimension(25, 100));
+      this.buttonMenu.add(implementationLineButton);
+
+      JButton aggregationLineButton = new JButton("New Aggregation Line");
+      aggregationLineButton.setPreferredSize(new Dimension(25, 100));
+      this.buttonMenu.add(aggregationLineButton);
+
+      JButton compositionLineButton = new JButton("New Compositon Line");
+      compositionLineButton.setPreferredSize(new Dimension(25, 100));
+      this.buttonMenu.add(compositionLineButton);
+
+      JButton textButton = new JButton("New Text");
+      textButton.setPreferredSize(new Dimension(25, 100));
+      this.buttonMenu.add(textButton);
+
+      JButton deleteSelectedButton = new JButton("Delete Selected");
+      deleteSelectedButton.setPreferredSize(new Dimension(25, 100));
+      this.buttonMenu.add(deleteSelectedButton);
+
+      JButton saveButton = new JButton("Save File");
+      saveButton.setPreferredSize(new Dimension(25, 100));
+      this.buttonMenu.add(saveButton);
+
+      JButton loadButton = new JButton("Load File");
+      loadButton.setPreferredSize(new Dimension(25, 100));
+      this.buttonMenu.add(loadButton);
+    }
+
+
 }
