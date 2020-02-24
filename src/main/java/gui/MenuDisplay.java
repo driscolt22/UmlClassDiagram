@@ -172,7 +172,7 @@ public class MenuDisplay extends JComponent implements ActionListener {
       dependencyLineButton.setPreferredSize(new Dimension(25, 100));
       dependencyLineButton.setActionCommand("dependency");
       dependencyLineButton.addActionListener(this);
-      this.buttonMenu.add(implementationLineButton);
+      this.buttonMenu.add(dependencyLineButton);
 
       JButton aggregationLineButton = new JButton("New Aggregation Line");
       aggregationLineButton.setPreferredSize(new Dimension(25, 100));

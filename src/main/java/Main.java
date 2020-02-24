@@ -36,33 +36,6 @@ public class Main{
         MenuDisplay menuDisplay = new MenuDisplay(app);
 //
 
-        Block b = BlockFactory.createBlock();
-        b.setLocation(100,100);
-        b.setClassName("Long Test Class AAAAAAAAAAAAAAAAAAAA");
-        b.addInstanceVariable("var1");
-        b.addInstanceVariable("var2");
-        b.addInstanceVariable("var3");
-        b.addMethod("method1");
-        b.addMethod("method2");
-        b.addMethod("method3");
-        b.addMethod("method4");
-        app.addObj(b);
-        //app.select(b);
-
-        Block c = BlockFactory.createBlock();
-        c.setLocation(300,350);
-        c.setClassName("Test Class2");
-        app.addObj(c);
-
-        app.addObj(new AggregationLine(300,220,100,100));
-        app.addObj(new AssociationLine(300,240,100,100));
-        app.addObj(new CompostionLine(300,260,100,100));
-        app.addObj(new DependencyLine(300,280,100,100));
-        app.addObj(new ImplementationLine(300,300,100,100));
-        app.addObj(new InheritanceLine(300,320,100,100));
-
-        app.createLine();
-        app.createText();
 
         mainFrame.add(mainDisplay);
         mainFrame.pack();
