@@ -49,11 +49,10 @@ public class Render implements Visitor{
     public void visit(Block b){
         int x = b.getX();
         int y = b.getY();
-        int width = b.getWidth();
-        int height = b.getLength();
+        int width = 100;
+        int height = 100;
 
         setLineWidth(BLOCK_LINE_WIDTH);
-        g.drawRect(x, y, width, height);
 
         Font  f2  = new Font(Font.SANS_SERIF,  Font.PLAIN, FONT_SIZE);
         //int textwidth = (int)(f2.getStringBounds(text, frc).getWidth());
@@ -77,7 +76,9 @@ public class Render implements Visitor{
             g.drawString(methods.get(j),x+2,y+ FONT_SIZE*(iVars.size() + 2        + j));
             width = Math.max((int)(f2.getStringBounds(methods.get(j), frc).getWidth()),width);        }
         b.setWidth(width);
-        b.setLength(Math.max(FONT_SIZE*(iVars.size() + 1 + methods.size()), height));
+        height = Math.max(FONT_SIZE*(iVars.size() + 1 + methods.size()), height);
+        b.setLength(height);
+        g.drawRect(x, y, width, height);
 
     }
 
