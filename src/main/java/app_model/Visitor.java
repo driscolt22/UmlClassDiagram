@@ -4,7 +4,7 @@ import app_model.lines.*;
 
 public interface Visitor{
     public void visit(Block b);
-    public void visit(Line l);
+    //public void visit(Line l);
     public void visit(DisplayText t);
     public void visit(AggregationLine l);
     public void visit(AssociationLine l);

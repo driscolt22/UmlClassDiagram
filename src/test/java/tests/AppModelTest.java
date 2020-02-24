@@ -18,6 +18,7 @@ import app_model.Line;
 import app_model.LineFactory;
 import app_model.BlockFactory;
 
+
 @RunWith(JUnit4.class)
 public class AppModelTest{
     private AppModel a;
@@ -60,6 +61,7 @@ public class AppModelTest{
         l.connectHead(b);
         l.connectTail(d);
         l.updatePosition();
+        l.setLine(b,d);
         assertEquals("connected line has right X1 cord", 50, l.getFirstX_Value());
         assertEquals("connected line has right X2 cord", 50, l.getSecondX_Value());
         assertEquals("connected line has right Y1 cord", 300, l.getFirstY_Value());
@@ -77,6 +79,7 @@ public class AppModelTest{
         l.connectHead(b);
         l.connectTail(d);
         l.updatePosition();
+        l.setLine(b,d);
         a.addObj(l);
         a.select(b);
         a.moveSelected(50,0);
@@ -84,6 +87,18 @@ public class AppModelTest{
         assertEquals("connected line has right X2 cord", 50, l.getSecondX_Value());
         assertEquals("connected line has right Y1 cord", 300, l.getFirstY_Value());
         assertEquals("connected line has right Y2 cord", 100, l.getSecondY_Value());
+    }
+
+    @Test
+    public void moveBlock(){
+        Block b = new Block();
+        b.setLocation(300,300);
+        a.addObj(b);
+        Line l = LineFactory.createLine();
+        a.addObj(l);
+        l.connectHead(b);
+        l.setHead(0,0);
+        assertFalse("Line is no longer connected to the block", l.pointOneIsConnected(b));
     }
 
 

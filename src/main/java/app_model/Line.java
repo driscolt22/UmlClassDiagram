@@ -218,9 +218,7 @@ public abstract class Line implements DisplayObject, Serializable{
         this.tail = b;
         //updatePosition();
     }
-    public void accept(Visitor v){
-        v.visit(this);
-    }
+    public abstract void accept(Visitor v);
 
     public boolean contains(int x,int y){
         double y1 = (double)getFirstY_Value();
@@ -229,7 +227,7 @@ public abstract class Line implements DisplayObject, Serializable{
         double x2 = (double)getSecondX_Value();
         double d = Math.abs((y2-y1)*x -(x2-x1)*y+x2*y1-y2*x1)/
         Math.sqrt(Math.pow(y2-y1,2)+Math.pow(x2-x1,2));
-        System.out.println("Selected l, d =" + d);
+        //System.out.println("Selected l, d =" + d);
         return d < 5.0;
     }
 

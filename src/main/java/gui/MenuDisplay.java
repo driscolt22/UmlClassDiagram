@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.util.*;
 import javax.swing.BoxLayout;
+import java.awt.*;
+import javax.swing.*;
 
 import app_model.AppListener;
 import app_model.AppModel;
@@ -43,15 +45,19 @@ public class MenuDisplay extends JComponent {
       menu = new JPanel();
       menu.setBackground(Color.black);
       //menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
-      menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
+      menu.setLayout( new GridLayout(4, 1));
+
 
       this.blockButton = new JButton("Block");
       this.lineButton = new JButton("Line");
       this.textButton = new JButton("Text");
       this.deleteButton = new JButton("Delete");
 
-      //menu.add(this.blockButton, BorderLayout.NORTH)
-      //menu.add(this.lineButton, BorderLayout.)
+      this.blockButton.setPreferredSize(new Dimension(200, 200));
+      this.lineButton.setPreferredSize(new Dimension(200, 200));
+      this.textButton.setPreferredSize(new Dimension(200, 200));
+      this.deleteButton.setPreferredSize(new Dimension(200, 200));
+      
       menu.add(this.blockButton);
       menu.add(this.lineButton);
       menu.add(this.textButton);

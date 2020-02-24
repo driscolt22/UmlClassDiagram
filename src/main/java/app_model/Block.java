@@ -4,8 +4,12 @@ import javax.swing.SwingUtilities;
 import java.util.*;
 import java.io.Serializable;
 
+public class Block  implements DisplayObject{
+/**
+ * Represents a Class for a UML class diagram, with postion, name, and attributes
+ */
+public class Block  implements DisplayObject{
 
-public class Block  implements DisplayObject, Serializable{
   private int x;
   private int y;
   private int width;
@@ -29,65 +33,111 @@ public class Block  implements DisplayObject, Serializable{
     this.contents = new ArrayList<String>();
   }
 
+  /**
+   * @return Name of class represeted by this Block
+   */
   public String getName(){
     return this.className;
   }
 
+  /**
+   * @return ArrayList of all instace vars in Class
+   */
   public ArrayList<String> getInstanceVariables(){
     return this.instanceVariables;
   }
 
+  /**
+   * @return ArrayList of all methods inside class;
+   */
   public ArrayList<String> getMethods(){
     return this.contents;
   }
 
+  /**
+   * @param name new name for class represented by Block
+   */
   public void setClassName(String name){
     this.className = name;
   }
 
+  /**
+   * @param instanceVariable instance varible to add to list of instace vars
+   */
   public void addInstanceVariable(String instanceVariable){
     this.instanceVariables.add(instanceVariable);
   }
 
+  /**
+   * @param method method to add to list of methods in class
+   */
   public void addMethod(String method){
     this.contents.add(method);
   }
 
+  /**
+   * @param width new Width for this Block
+   */
   public void setWidth(int width){
     this.width = width;
   }
 
+  /**
+   * @param length new length(height) to set this Block
+   */
   public void setLength(int length){
     this.length = length;
   }
 
-
+  /**
+   * @param x Move Block to this given x-cordi
+   * @param y Move Block to this given y-cord
+   */
   public void setLocation(int x, int y){
     this.x = x;
     this.y = y;
   }
 
-
+  /**
+   * @return x-cord of Block
+   */
   public int getX(){
     return x;
   }
 
+  /**
+   * @return y-cord of BLock
+   */
   public int getY(){
     return y;
   }
 
+  /**
+   * @return Width of BLock
+   */
   public int getWidth(){
       return this.width;
   }
 
+  /**
+   * @return Length(height) of BLock
+   */
   public int getLength(){
       return this.length;
   }
 
+  /**
+   * @param v accepts a DisplayObject vistor to this
+   */
   public void accept(Visitor v){
       v.visit(this);
   }
 
+  /**
+   * @param  x x-cord
+   * @param  y y-cord
+   * @return   if the x,y is inside this Block
+   */
   public boolean contains(int x, int y){
       return x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getLength();
   }
