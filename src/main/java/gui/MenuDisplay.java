@@ -27,6 +27,7 @@ import java.awt.event.*;
 import app_model.AppListener;
 import app_model.AppModel;
 import app_model.DisplayObject;
+import app_model.Block;
 import app_model.BlockFactory;
 import app_model.LineFactory;
 import app_model.DisplayText;
@@ -49,28 +50,30 @@ public class MenuDisplay extends JComponent implements ActionListener {
       this.scrollPane = new JScrollPane();
       this.buttonMenu = new JPanel();
 
-      //this.buttonMenu.setBackground(Color.black);
-      //this.buttonMenu.setLayout(new GridLayout(11, 1));
-      //addButtonsToMenu();
       this.selectedContents = new JPanel();
-      //this.selectedContents.setBackground(Color.red);
-
 
       splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
       splitPane.setDividerLocation(400);
       splitPane.setTopComponent(this.buttonMenu);
       splitPane.setBottomComponent(this.selectedContents);
 
-      this.buttonMenu.add(scrollPane);
-      this.buttonMenu.setMaximumSize(new Dimension(300, 400));
-      this.buttonMenu.setLayout(new GridLayout(11, 1));
-      addButtonsToMenu();
-
-      this.selectedContents.setLayout(new SpringLayout());
+      initButtonMenu(this.buttonMenu);
+      initSelectedContents(this.selectedContents);
     }
 
     public JSplitPane getSplitPane(){
       return this.splitPane;
+    }
+
+    private void initSelectedContents(JPanel panel){
+      panel.setMaximumSize(new Dimension(300, 400));
+      panel.setLayout(new SpringLayout());
+    }
+
+    private void initButtonMenu(JPanel panel){
+      panel.setMaximumSize(new Dimension(300, 400));
+      panel.setLayout(new GridLayout(11, 1));
+      addButtonsToMenu();
     }
 
     public void actionPerformed(ActionEvent e){
