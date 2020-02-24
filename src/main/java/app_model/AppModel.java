@@ -113,6 +113,7 @@ public class AppModel {
 
 
   public void load(String fileName)throws IOException{
+      clear();
       //FileReader reader = new FileReader(fileName);
           BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
           String line = bufferedReader.readLine();
@@ -231,6 +232,7 @@ public class AppModel {
               //System.out.println(line);
       }        // to add loading function
           bufferedReader.close();
+          notifyListeners();
       }
 
   public void select(int x, int y){
@@ -410,6 +412,13 @@ public class AppModel {
       toReturn += d.toString();
     }
     return toReturn;
+  }
+
+  public void clear(){
+      displayObjects = new ArrayList<DisplayObject>(0);
+      //lines = new ArrayList<line>(0);
+      currentlySelected = null;
+      notifyListeners();
   }
 
 }
