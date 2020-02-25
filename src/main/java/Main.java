@@ -17,6 +17,8 @@ import java.awt.BorderLayout;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Toolkit;
+import java.awt.Dimension;
 
 public class Main{
 
@@ -35,8 +37,8 @@ public class Main{
         JFrame menuFrame = new JFrame("Menu app");
         menuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         MenuDisplay menuDisplay = new MenuDisplay(app);
-        menuDisplay.setDisplay(mainDisplay);
         app.addListener(menuDisplay);
+        menuDisplay.setDisplay(mainDisplay);
 //
 
 
@@ -48,6 +50,8 @@ public class Main{
         mainFrame.requestFocusInWindow();
 
 //
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        menuFrame.setLocation(1000, 0);
         menuFrame.add(menuDisplay.getSplitPane());
         menuFrame.pack();
         menuFrame.setSize(300, 800);
