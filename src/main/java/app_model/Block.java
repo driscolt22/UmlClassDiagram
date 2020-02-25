@@ -82,7 +82,7 @@ public class Block  implements DisplayObject{
    */
   public void setInstanceVariables(String instanceVariables){
     this.instanceVariables.clear();
-    String[] variables = instanceVariables.split("\n");
+    String[] variables = instanceVariables.split("\n",0);
     for (String variable: variables){
       this.addInstanceVariable(variable);
     }
@@ -93,7 +93,7 @@ public class Block  implements DisplayObject{
    */
   public void setMethods(String methods){
     this.contents.clear();
-    String[] methodList = methods.split("\n");
+    String[] methodList = methods.split("\n",0);
     for (String method: methodList){
       this.addMethod(method);
     }

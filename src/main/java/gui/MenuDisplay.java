@@ -54,6 +54,8 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     private JTextArea instanceVariableText;
     private JTextArea classMethodText;
 
+    private DisplayObject prevSelected;
+
 
     public MenuDisplay(AppModel app)
     {
@@ -70,6 +72,8 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       splitPane.setBottomComponent(this.selectedContents);
 
       initButtonMenu(this.buttonMenu);
+
+      prevSelected = null;
 
       boxPanel = new JPanel();
       textPanel = new JPanel();
@@ -315,12 +319,14 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     }
 
     private void updateBlock(){
-        Block b = (Block)app.getSelected();
-        String mText = classMethodText.getText();
-        String iVText = instanceVariableText.getText();
-        b.setInstanceVariables(iVText);
-        b.setMethods(mText);
-        app.select(app.getSelected());
+        if(app.getSelected() == prevSelected){
+            Block b = (Block)app.getSelected();
+            String mText = classMethodText.getText();
+            String iVText = instanceVariableText.getText();
+            b.setInstanceVariables(iVText);
+            b.setMethods(mText);
+            app.select(app.getSelected());
+        }
 
     }
 
@@ -329,21 +335,28 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
      */
     public void update()
     {
-        if(app.getSelected() instanceof Block){
-            boxPanel.setVisible(true);
-            textPanel.setVisible(false);
-            classText.setText(((Block)app.getSelected()).getName());
-            splitPane.setBottomComponent(boxPanel);
+        if(app.getSelected() != prevSelected){
+            prevSelected = app.getSelected();
+            if(app.getSelected() instanceof Block){
+                boxPanel.setVisible(true);
+                textPanel.setVisible(false);
+                Block b = (Block)app.getSelected();
+                classText.setText(b.getName());
 
-        }else if(app.getSelected() instanceof DisplayText){
-            textPanel.setVisible(true);
-            boxPanel.setVisible(false);
-            textField.setText(((DisplayText)app.getSelected()).getText());
-            splitPane.setBottomComponent(textPanel);
+                splitPane.setBottomComponent(boxPanel);
+                instanceVariableText.setText(b.convertInstanceVariables(b.getInstanceVariables()));
+                classMethodText.setText(b.convertMethods(b.getMethods()));
 
-        }else{
-            textPanel.setVisible(false);
-            boxPanel.setVisible(false);
+            }else if(app.getSelected() instanceof DisplayText){
+                textPanel.setVisible(true);
+                boxPanel.setVisible(false);
+                textField.setText(((DisplayText)app.getSelected()).getText());
+                splitPane.setBottomComponent(textPanel);
+
+            }else{
+                textPanel.setVisible(false);
+                boxPanel.setVisible(false);
+            }
         }
     }
 }
