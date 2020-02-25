@@ -77,11 +77,25 @@ public class Block  implements DisplayObject{
     return methods;
   }
 
+  /**
+   * adds the inputted instance variables to the class
+   */
   public void setInstanceVariables(String instanceVariables){
     this.instanceVariables.clear();
     String[] variables = instanceVariables.split("\n");
     for (String variable: variables){
       this.addInstanceVariable(variable);
+    }
+  }
+
+  /**
+   * adds the inputted methods to the class
+   */
+  public void setMethods(String methods){
+    this.contents.clear();
+    String[] methodList = methods.split("\n");
+    for (String method: methodList){
+      this.addMethod(method);
     }
   }
 
