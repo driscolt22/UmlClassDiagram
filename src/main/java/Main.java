@@ -30,10 +30,12 @@ public class Main{
         AppDisplay mainDisplay = new AppDisplay(app);
         app.addListener(mainDisplay);
 
+
 //
         JFrame menuFrame = new JFrame("Menu app");
         menuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         MenuDisplay menuDisplay = new MenuDisplay(app);
+        app.addListener(menuDisplay);
 //
 
 

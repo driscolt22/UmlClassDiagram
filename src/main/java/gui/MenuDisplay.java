@@ -23,19 +23,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import java.awt.event.*;
 import java.io.IOException;
-
 import java.io.File;
-import javax.swing.JFileChooser;
 
 
 import app_model.AppListener;
 import app_model.AppModel;
 import app_model.DisplayObject;
+import app_model.Block;
 import app_model.BlockFactory;
 import app_model.LineFactory;
 import app_model.DisplayText;
 
-public class MenuDisplay extends JComponent implements ActionListener {
+public class MenuDisplay extends JComponent implements ActionListener, AppListener {
     public static int WIDTH = 200;
     public static int HEIGHT = 800;
     private AppModel app;
@@ -53,28 +52,44 @@ public class MenuDisplay extends JComponent implements ActionListener {
       this.scrollPane = new JScrollPane();
       this.buttonMenu = new JPanel();
 
-      //this.buttonMenu.setBackground(Color.black);
-      //this.buttonMenu.setLayout(new GridLayout(11, 1));
-      //addButtonsToMenu();
       this.selectedContents = new JPanel();
-      //this.selectedContents.setBackground(Color.red);
-
 
       splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
       splitPane.setDividerLocation(400);
       splitPane.setTopComponent(this.buttonMenu);
       splitPane.setBottomComponent(this.selectedContents);
 
-      //this.buttonMenu.add(scrollPane);
-      this.buttonMenu.setMaximumSize(new Dimension(300, 400));
-      this.buttonMenu.setLayout(new GridLayout(11, 1));
-      addButtonsToMenu();
-
-      this.selectedContents.setLayout(new SpringLayout());
+      initButtonMenu(this.buttonMenu);
+      selectedContents.setMaximumSize(new Dimension(300, 400));
     }
 
     public JSplitPane getSplitPane(){
       return this.splitPane;
+    }
+
+    public void initSelectedBlock(){
+      selectedContents.setLayout(new GridLayout(3, 1));
+      Block block = (Block)app.getSelected();
+      JLabel classLabel = new JLabel("Class name: ");
+      JTextField classText = new JTextField(20);
+      JLabel instanceVariables = new JLabel("Instance Variables: ");
+      JTextField instanceVariableText = new JTextField(50);
+      JLabel classMethods = new JLabel("Class methods: ");
+      JTextField classMethodText = new JTextField(50);
+
+      selectedContents.add(classLabel);
+      selectedContents.add(classText);
+      selectedContents.add(instanceVariables);
+      selectedContents.add(instanceVariableText);
+      selectedContents.add(classMethods);
+      selectedContents.add(classMethodText);
+    }
+
+    private void initButtonMenu(JPanel panel){
+      panel.setMaximumSize(new Dimension(300, 400));
+      panel.setLayout(new GridLayout(11, 1));
+      panel.setBackground(Color.black);
+      addButtonsToMenu();
     }
 
     public void actionPerformed(ActionEvent e){
@@ -230,5 +245,15 @@ public class MenuDisplay extends JComponent implements ActionListener {
       loadButton.setActionCommand("load");
       loadButton.addActionListener(this);
       this.buttonMenu.add(loadButton);
+    }
+
+    /**
+     * On update, just repaint the whole thing
+     */
+    public void update()
+    {
+      if(app.getSelected() instanceof Block){
+        initSelectedBlock();
+      }
     }
 }
