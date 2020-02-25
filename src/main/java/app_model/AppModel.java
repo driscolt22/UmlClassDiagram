@@ -40,6 +40,7 @@ public class AppModel {
    */
   public void addObj(DisplayObject o){
     displayObjects.add(o);
+    select(o);
     notifyListeners();
   }
 

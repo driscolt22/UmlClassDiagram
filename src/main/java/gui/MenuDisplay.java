@@ -68,6 +68,7 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     }
 
     public void initSelectedContents(JPanel panel){
+        panel.removeAll();
       if(app.getSelected() instanceof Block){
           panel.setLayout(new GridLayout(3, 1));
           panel.setMaximumSize(new Dimension(300, 400));
@@ -95,7 +96,7 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
           panel.add(textField);
           panel.setVisible(true);
       }else{
-          panel.setVisible(false);
+          //panel.setVisible(false);
       }
     }
 
@@ -264,7 +265,8 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     public void update()
     {
       initSelectedContents(this.selectedContents);
-
+      selectedContents.revalidate();
+      selectedContents.repaint();
 
     }
 }
