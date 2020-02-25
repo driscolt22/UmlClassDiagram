@@ -155,6 +155,9 @@ public abstract class Line implements DisplayObject{
                 y2 >= b.getY() && y2 <= b.getY() + b.getLength());
     }
 
+    /**
+     * sets the position of head and tail to be attached to blocks
+     */
     public void updatePosition(){
         if(head != null){ //set postion of head
             updateHead();
@@ -208,6 +211,9 @@ public abstract class Line implements DisplayObject{
         }
     }
 
+    /**
+     * updates the position of a line's head and tail to be at a certain location on a block
+     */
     public void updatePosition2(){
         if(head != null && tail != null){
             if(head.getX() > tail.getX()){
@@ -226,21 +232,37 @@ public abstract class Line implements DisplayObject{
         }
     }
 
+    /**
+     * @param head, tail
+     * setting the head and tail of a line to positions on the respective blocks
+     */
     public void setLine(Block head, Block tail){
         this.head = head;
         this.tail = tail;
         updatePosition();
     }
 
+    /**
+     * @param  x1, y1
+     * sets the head of a line to be certain x and y coordinates
+     */
     public void setHead(int x1, int y1){
         setFirstX_Value(x1);
         setFirstY_Value(y1);
     }
+    /**
+     * @param x2, y2
+     * sets the tail of a line to be certain x and y coordinates
+     */
     public void setTail(int x2, int y2){
         setSecondX_Value(x2);
         setSecondY_Value(y2);
     }
 
+    /**
+     * @param  b Block to connect to
+     * @return  true or false depending on if the tail's head/tail is connected to block b
+     */
     public boolean connectToBlock(Block b){
         if(pointOneIsConnected(b)){
             //System.out.println("connecting Head");
@@ -253,17 +275,33 @@ public abstract class Line implements DisplayObject{
         return false;
     }
 
+    /**
+     * @param  b Block to connect to
+     * conncects the head of line to block b
+     */
     public void connectHead(Block b){
         this.head = b;
         //updatePosition();
     }
-
+    /**
+     * @param  b Block to connect to
+     * @connects the tail of a line to block b
+     */
     public void connectTail(Block b){
         this.tail = b;
         //updatePosition();
     }
+
+    /**
+     * @param  v visitor
+     * allows line to accept visitors
+     */
     public abstract void accept(Visitor v);
 
+    /**
+     * @param  x, y
+     * @return true/false depending on if the param coordiate is on a line
+     */
     public boolean contains(int x,int y){
         double y1 = (double)getFirstY_Value();
         double y2 = (double)getSecondY_Value();
@@ -275,6 +313,10 @@ public abstract class Line implements DisplayObject{
         return d < 5.0;
     }
 
+    /**
+     * @param d
+     * @return true/false depending on whether the comparing objects are equal
+     */
     public boolean equals(Object d){
       if((this.getClass()).equals(d.getClass())){
         return getFirstX_Value()==((Line)d).getFirstX_Value()&&getFirstY_Value()==((Line)d).getFirstY_Value()
@@ -284,6 +326,10 @@ public abstract class Line implements DisplayObject{
           return false;
     }
 
+    /**
+     *
+     * @return string representation of a line
+     */
     public String toString(){
       String toReturn = "x1: " + String.valueOf(getFirstX_Value()) + "\ny1: " + String.valueOf(getFirstY_Value()) + "\nx2: "
               + String.valueOf(getSecondX_Value()) + "\ny2: " + String.valueOf(getSecondY_Value()) + "\n";
