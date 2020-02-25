@@ -66,7 +66,7 @@ public class Block  implements DisplayObject{
   }
 
   /**
-   * @return String of all instance variables, each being on a new line
+   * @return String of all methods, each being on a new line
    */
   public String convertMethods(ArrayList<String> methodList){
     String methods = "";
@@ -187,6 +187,9 @@ public class Block  implements DisplayObject{
       return x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getLength();
   }
 
+  /**
+   * @return true/false depending on whether two blocks have the same methods
+   */
   private boolean hasSameMethods(Block b){
     if(getMethods().size()==b.getMethods().size()){
       for(String m: b.getMethods()){
@@ -199,6 +202,9 @@ public class Block  implements DisplayObject{
       return false;
   }
 
+  /**
+   * @return true/false depending on whether or not two blocks have same instance variables
+   */
   private boolean hasSameVariables(Block b){
     if(getInstanceVariables().size()==b.getInstanceVariables().size()){
       for(String v: b.getInstanceVariables()){
@@ -211,6 +217,9 @@ public class Block  implements DisplayObject{
       return false;
   }
 
+  /**
+   * @return true/false depending on whether or not an obj is equal to this block
+   */
   public boolean equals(Object d){
     if(d instanceof Block){
       return getX()==((Block)d).getX()&&getY()==((Block)d).getY()&&getWidth()==((Block)d).getWidth()
@@ -221,14 +230,23 @@ public class Block  implements DisplayObject{
       return false;
   }
 
+  /**
+   * @return int number of methods in class
+   */
   public int numMethods(){
     return getMethods().size();
   }
 
+  /**
+   * @return int number of instance variables in class
+   */
   public int numVars(){
     return getInstanceVariables().size();
   }
 
+  /**
+   * @return String representation of block
+   */
   public String toString(){
     String toReturn = "name:"+ getName() + "\nx: " + String.valueOf(getX()) + "\ny: " + String.valueOf(getY()) + "\nwidth: "
     + String.valueOf(getWidth()) + "\nlength: " + String.valueOf(getLength()) + "\nmethods: ";
