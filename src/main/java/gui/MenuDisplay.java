@@ -315,10 +315,13 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     }
 
     private void updateBlock(){
-        Block b = app.getSelected();
+        Block b = (Block)app.getSelected();
         String mText = classMethodText.getText();
         String iVText = instanceVariableText.getText();
-        
+        b.setInstanceVariables(iVText);
+
+        app.select(app.getSelected());
+
     }
 
     /**
