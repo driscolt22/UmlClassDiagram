@@ -84,7 +84,7 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       classText.addActionListener(this);
       //classLabel.set
       JLabel instanceVariables = new JLabel("Instance Variables: ");
-      instanceVariableText = new JTextArea("test1");
+      instanceVariableText = new JTextArea();
       instanceVariableText.getDocument().addDocumentListener(this);
       JScrollPane instanceVariableScrollPane = new JScrollPane(instanceVariableText);
       //areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -319,7 +319,7 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
         String mText = classMethodText.getText();
         String iVText = instanceVariableText.getText();
         b.setInstanceVariables(iVText);
-
+        b.setMethods(mText);
         app.select(app.getSelected());
 
     }
