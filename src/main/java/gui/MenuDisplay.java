@@ -22,6 +22,7 @@ import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import java.awt.event.*;
+import javax.swing.event.*;
 import java.io.IOException;
 import java.io.File;
 
@@ -34,7 +35,7 @@ import app_model.BlockFactory;
 import app_model.LineFactory;
 import app_model.DisplayText;
 
-public class MenuDisplay extends JComponent implements ActionListener, AppListener {
+public class MenuDisplay extends JComponent implements ActionListener, AppListener, DocumentListener  {
     public static int WIDTH = 200;
     public static int HEIGHT = 800;
     private AppModel app;
@@ -81,11 +82,13 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       //classLabel.set
       JLabel instanceVariables = new JLabel("Instance Variables: ");
       JTextArea instanceVariableText = new JTextArea("test1");
+      instanceVariableText.getDocument().addDocumentListener(this);
       JScrollPane instanceVariableScrollPane = new JScrollPane(instanceVariableText);
       //areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
       instanceVariableScrollPane.setPreferredSize(new Dimension(300, 150));
       JLabel classMethods = new JLabel("Class methods: ");
       JTextArea classMethodText = new JTextArea();
+      classMethodText.getDocument().addDocumentListener(this);
       JScrollPane classMethodScrollPane = new JScrollPane(classMethodText);
       //areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
       classMethodScrollPane.setPreferredSize(new Dimension(300, 150));
@@ -239,6 +242,7 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       associationLineButton.setPreferredSize(new Dimension(25, 100));
       associationLineButton.setActionCommand("association");
       associationLineButton.addActionListener(this);
+
       this.buttonMenu.add(associationLineButton);
 
       JButton inheritanceLineButton = new JButton("New Inheritance Line");
@@ -294,6 +298,23 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       loadButton.setActionCommand("load");
       loadButton.addActionListener(this);
       this.buttonMenu.add(loadButton);
+    }
+
+    public void insertUpdate(DocumentEvent e) {
+        //System.out.println(e.getDocument());
+        updateBlock();
+    }
+    public void removeUpdate(DocumentEvent e) {
+        //System.out.println(e.getDocument());
+        updateBlock();
+    }
+    public void changedUpdate(DocumentEvent e) {
+        //System.out.println("changedUpdate");
+    }
+
+    private void updateBlock(){
+        Block b = app.getSelected();
+        
     }
 
     /**
