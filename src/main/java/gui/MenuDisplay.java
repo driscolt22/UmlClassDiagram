@@ -44,6 +44,9 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     private JPanel buttonMenu;
     private JPanel selectedContents;
 
+    private JPanel boxPanel;
+    private JPanel textPanel;
+
 
     public MenuDisplay(AppModel app)
     {
@@ -60,54 +63,55 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       splitPane.setBottomComponent(this.selectedContents);
 
       initButtonMenu(this.buttonMenu);
-      initSelectedContents(this.selectedContents);
+      boxPanel = new JPanel();
+      textPanel = new JPanel();
+      boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
+      boxPanel.setMaximumSize(new Dimension(300, 400));
+      Block block = (Block)app.getSelected();
+      JLabel classLabel = new JLabel("Class name: ");
+      JTextField classText = new JTextField(20);
+      classText.setSize(new Dimension(300,50));
+      //classLabel.set
+      JLabel instanceVariables = new JLabel("Instance Variables: ");
+      JTextArea instanceVariableText = new JTextArea("test1");
+      JScrollPane instanceVariableScrollPane = new JScrollPane(instanceVariableText);
+      //areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+      instanceVariableScrollPane.setPreferredSize(new Dimension(300, 150));
+      JLabel classMethods = new JLabel("Class methods: ");
+      JTextArea classMethodText = new JTextArea();
+      JScrollPane classMethodScrollPane = new JScrollPane(classMethodText);
+      //areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+      classMethodScrollPane.setPreferredSize(new Dimension(300, 150));
+
+      boxPanel.add(classLabel);
+      boxPanel.add(classText);
+      boxPanel.add(instanceVariables);
+      boxPanel.add(instanceVariableScrollPane);
+      boxPanel.add(classMethods);
+      boxPanel.add(classMethodScrollPane);
+      boxPanel.setVisible(false);
+
+      textPanel.setLayout(new GridLayout(2, 1));
+      textPanel.setMaximumSize(new Dimension(300, 400));
+      JLabel textLabel = new JLabel("Text: ");
+      JTextField textField = new JTextField(50);
+      // JButton submitButton = new JButton("Submit Changes");
+      // submitButton.setActionCommand("submitText");
+      // submitButton.addActionListener(this);
+      textPanel.add(textLabel);
+      textPanel.add(textField);
+      //textPanel.add(submitButton);
+      textPanel.setVisible(false);
+
+
+
+
+      //splitPane.setBottomComponent(textPanel);
+
     }
 
     public JSplitPane getSplitPane(){
       return this.splitPane;
-    }
-
-    public void initSelectedContents(JPanel panel){
-        panel.removeAll();
-      if(app.getSelected() instanceof Block){
-          panel.setLayout(new GridLayout(4, 1));
-          panel.setMaximumSize(new Dimension(300, 400));
-          Block block = (Block)app.getSelected();
-          JLabel classLabel = new JLabel("Class name: ");
-          JTextField classText = new JTextField(20);
-          JLabel instanceVariables = new JLabel("Instance Variables: ");
-          JTextField instanceVariableText = new JTextField(50);
-          JLabel classMethods = new JLabel("Class methods: ");
-          JTextField classMethodText = new JTextField(50);
-          JButton submitButton = new JButton("Submit Changes");
-          submitButton.setActionCommand("submitClass");
-          submitButton.addActionListener(this);
-
-          panel.add(classLabel);
-          panel.add(classText);
-          panel.add(instanceVariables);
-          panel.add(instanceVariableText);
-          panel.add(classMethods);
-          panel.add(classMethodText);
-          panel.add(submitButton);
-          panel.setVisible(true);
-
-      }else if(app.getSelected() instanceof DisplayText){
-          panel.setLayout(new GridLayout(1, 1));
-          panel.setMaximumSize(new Dimension(300, 400));
-          JLabel textLabel = new JLabel("Text: ");
-          JTextField textField = new JTextField(50);
-          JButton submitButton = new JButton("Submit Changes");
-          submitButton.setActionCommand("submitText");
-          submitButton.addActionListener(this);
-          panel.add(textLabel);
-          panel.add(textField);
-          panel.add(submitButton);
-          panel.setVisible(true);
-
-      }else{
-          //panel.setVisible(false);
-      }
     }
 
     private void initButtonMenu(JPanel panel){
@@ -283,6 +287,19 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
      */
     public void update()
     {
-      initSelectedContents(this.selectedContents);
+        if(app.getSelected() instanceof Block){
+            boxPanel.setVisible(true);
+            textPanel.setVisible(false);
+            splitPane.setBottomComponent(boxPanel);
+
+        }else if(app.getSelected() instanceof DisplayText){
+            textPanel.setVisible(true);
+            boxPanel.setVisible(false);
+            splitPane.setBottomComponent(textPanel);
+
+        }else{
+            textPanel.setVisible(false);
+            boxPanel.setVisible(false);
+        }
     }
 }
