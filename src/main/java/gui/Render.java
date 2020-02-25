@@ -64,18 +64,20 @@ public class Render implements Visitor{
         g.setFont(f2);
         g.drawString(b.getName(), x+2, y + FONT_SIZE);
         width = Math.max((int)(f2.getStringBounds(b.getName(), frc).getWidth()),width);
-        g.drawLine(x, y + FONT_SIZE, x+ width,y + FONT_SIZE);
+
         ArrayList<String> iVars= b.getInstanceVariables();
         ArrayList<String> methods = b.getMethods();
         for(int i = 0; i < iVars.size(); i++){
             g.drawString(iVars.get(i),x+2,y + FONT_SIZE*(i + 2));
             width = Math.max((int)(f2.getStringBounds(iVars.get(i), frc).getWidth()),width);
         }
-        g.drawLine(x, y + FONT_SIZE*(iVars.size() +1), x+ width,y + FONT_SIZE*(iVars.size() +1));
+
         for(int j = 0; j < methods.size(); j++){
             g.drawString(methods.get(j),x+2,y+ FONT_SIZE*(iVars.size() + 2        + j));
             width = Math.max((int)(f2.getStringBounds(methods.get(j), frc).getWidth()),width);        }
         b.setWidth(width);
+        g.drawLine(x, y + FONT_SIZE, x+ width,y + FONT_SIZE);
+        g.drawLine(x, y + FONT_SIZE*(iVars.size() +1), x+ width,y + FONT_SIZE*(iVars.size() +1));
         height = Math.max(FONT_SIZE*(iVars.size() + 1 + methods.size()), height);
         b.setLength(height);
         g.drawRect(x, y, width, height);

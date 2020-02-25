@@ -175,8 +175,10 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
             app.select(app.getSelected());
             //submitClassButtonPressed();
         }else if(e.getActionCommand().equals("setText")){
-            ((DisplayText)app.getSelected()).setText(textField.getText());
-            app.select(app.getSelected());
+            if(!textField.getText().equals("")){
+                ((DisplayText)app.getSelected()).setText(textField.getText());
+                app.select(app.getSelected());
+            }
         }else if(e.getActionCommand().equals("export")){
             if(display1 != null){
                 display1.export("output.png");
