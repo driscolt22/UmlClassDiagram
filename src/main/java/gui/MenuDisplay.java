@@ -231,7 +231,6 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
                 System.out.print("Problem loading");
             }
         }
-
     }
 
     private void addButtonsToMenu(){
