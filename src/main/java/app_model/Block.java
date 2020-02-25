@@ -77,7 +77,13 @@ public class Block  implements DisplayObject{
     return methods;
   }
 
-
+  public void setInstanceVariables(String instanceVariables){
+    this.instanceVariables.clear();
+    String[] variables = instanceVariables.split("\n");
+    for (String variable: variables){
+      this.addInstanceVariable(variable);
+    }
+  }
 
   /**
    * @param name new name for class represented by Block
