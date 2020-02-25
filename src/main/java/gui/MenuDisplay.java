@@ -308,23 +308,24 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
 
     public void insertUpdate(DocumentEvent e) {
         //System.out.println(e.getDocument());
-        updateBlock();
+        updateBlock(e);
     }
     public void removeUpdate(DocumentEvent e) {
         //System.out.println(e.getDocument());
-        updateBlock();
+        updateBlock(e);
     }
     public void changedUpdate(DocumentEvent e) {
         //System.out.println("changedUpdate");
     }
 
-    private void updateBlock(){
+    private void updateBlock(DocumentEvent e){
         if(app.getSelected() == prevSelected){
             Block b = (Block)app.getSelected();
-            String mText = classMethodText.getText();
-            String iVText = instanceVariableText.getText();
-            b.setInstanceVariables(iVText);
-            b.setMethods(mText);
+            if(e.getDocument() == classMethodText.getDocument())
+                b.setMethods(classMethodText.getText());
+            else if(e.getDocument() == instanceVariableText.getDocument()){
+                b.setInstanceVariables(instanceVariableText.getText());
+            }
             app.select(app.getSelected());
         }
 

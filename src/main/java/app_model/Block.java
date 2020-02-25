@@ -82,6 +82,9 @@ public class Block  implements DisplayObject{
    */
   public void setInstanceVariables(String instanceVariables){
     this.instanceVariables.clear();
+    if(instanceVariables.equals("")){
+        return;
+    }
     String[] variables = instanceVariables.split("\n",0);
     for (String variable: variables){
       this.addInstanceVariable(variable);
@@ -93,6 +96,9 @@ public class Block  implements DisplayObject{
    */
   public void setMethods(String methods){
     this.contents.clear();
+    if(methods.equals("")){
+        return;
+    }
     String[] methodList = methods.split("\n",0);
     for (String method: methodList){
       this.addMethod(method);
