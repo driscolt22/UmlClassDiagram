@@ -336,6 +336,7 @@ public class AppModel {
    */
   public boolean removeSelected(){
       boolean ret = displayObjects.remove(currentlySelected);
+      currentlySelected = null;
       notifyListeners();
       return ret;
   }
