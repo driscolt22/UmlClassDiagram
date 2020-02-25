@@ -35,6 +35,7 @@ public class Main{
         JFrame menuFrame = new JFrame("Menu app");
         menuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         MenuDisplay menuDisplay = new MenuDisplay(app);
+        menuDisplay.setDisplay(mainDisplay);
         app.addListener(menuDisplay);
 //
 

@@ -34,6 +34,7 @@ import app_model.Block;
 import app_model.BlockFactory;
 import app_model.LineFactory;
 import app_model.DisplayText;
+import gui.*;
 
 public class MenuDisplay extends JComponent implements ActionListener, AppListener, DocumentListener  {
     public static int WIDTH = 200;
@@ -55,6 +56,8 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     private JTextArea classMethodText;
 
     private DisplayObject prevSelected;
+
+    private AppDisplay display1;
 
 
     public MenuDisplay(AppModel app)
@@ -129,13 +132,17 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
 
     }
 
+    public void setDisplay(AppDisplay ad){
+        this.display1 = ad;
+    }
+
     public JSplitPane getSplitPane(){
       return this.splitPane;
     }
 
     private void initButtonMenu(JPanel panel){
       panel.setMaximumSize(new Dimension(300, 400));
-      panel.setLayout(new GridLayout(11, 1));
+      panel.setLayout(new GridLayout(12, 1));
       panel.setBackground(Color.black);
       addButtonsToMenu();
     }
@@ -166,11 +173,15 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
         }else if(e.getActionCommand().equals("setClass")){
             ((Block)app.getSelected()).setClassName(classText.getText());
             app.select(app.getSelected());
-        //submitClassButtonPressed();
-    }else if(e.getActionCommand().equals("setText")){
-        ((DisplayText)app.getSelected()).setText(textField.getText());
-        app.select(app.getSelected());
-    }
+            //submitClassButtonPressed();
+        }else if(e.getActionCommand().equals("setText")){
+            ((DisplayText)app.getSelected()).setText(textField.getText());
+            app.select(app.getSelected());
+        }else if(e.getActionCommand().equals("export")){
+            if(display1 != null){
+                display1.export("output.png");
+            }
+        }
     }
 
     public JPanel getButtonMenu(){
@@ -304,6 +315,12 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       loadButton.setActionCommand("load");
       loadButton.addActionListener(this);
       this.buttonMenu.add(loadButton);
+
+      JButton exportButton = new JButton("Export");
+      exportButton.setPreferredSize(new Dimension(25, 100));
+      exportButton.setActionCommand("export");
+      exportButton.addActionListener(this);
+      this.buttonMenu.add(exportButton);
     }
 
     public void insertUpdate(DocumentEvent e) {
