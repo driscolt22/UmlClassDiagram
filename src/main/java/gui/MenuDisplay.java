@@ -68,46 +68,31 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     }
 
     public void initSelectedContents(JPanel panel){
-        panel.removeAll();
-      if(app.getSelected() instanceof Block){
-          panel.setLayout(new GridLayout(4, 1));
-          panel.setMaximumSize(new Dimension(300, 400));
-          Block block = (Block)app.getSelected();
-          JLabel classLabel = new JLabel("Class name: ");
-          JTextField classText = new JTextField(20);
-          JLabel instanceVariables = new JLabel("Instance Variables: ");
-          JTextField instanceVariableText = new JTextField(50);
-          JLabel classMethods = new JLabel("Class methods: ");
-          JTextField classMethodText = new JTextField(50);
-          JButton submitButton = new JButton("Submit Changes");
-          submitButton.setActionCommand("submitClass");
-          submitButton.addActionListener(this);
+        panel.setLayout(new GridLayout(4, 1));
+        panel.setMaximumSize(new Dimension(300, 400));
+        Block block = (Block)app.getSelected();
+        JLabel classLabel = new JLabel("Class name: ");
+        JTextField classText = new JTextField(20);
+        JLabel instanceVariables = new JLabel("Instance Variables: ");
+        JTextField instanceVariableText = new JTextField(50);
+        JLabel classMethods = new JLabel("Class methods: ");
+        JTextField classMethodText = new JTextField(50);
 
-          panel.add(classLabel);
-          panel.add(classText);
-          panel.add(instanceVariables);
-          panel.add(instanceVariableText);
-          panel.add(classMethods);
-          panel.add(classMethodText);
-          panel.add(submitButton);
-          panel.setVisible(true);
+        panel.add(classLabel);
+        panel.add(classText);
+        panel.add(instanceVariables);
+        panel.add(instanceVariableText);
+        panel.add(classMethods);
+        panel.add(classMethodText);
+        panel.setVisible(true);
 
-      }else if(app.getSelected() instanceof DisplayText){
-          panel.setLayout(new GridLayout(1, 1));
-          panel.setMaximumSize(new Dimension(300, 400));
-          JLabel textLabel = new JLabel("Text: ");
-          JTextField textField = new JTextField(50);
-          JButton submitButton = new JButton("Submit Changes");
-          submitButton.setActionCommand("submitText");
-          submitButton.addActionListener(this);
-          panel.add(textLabel);
-          panel.add(textField);
-          panel.add(submitButton);
-          panel.setVisible(true);
-
-      }else{
-          //panel.setVisible(false);
-      }
+        panel.setLayout(new GridLayout(1, 1));
+        panel.setMaximumSize(new Dimension(300, 400));
+        JLabel textLabel = new JLabel("Text: ");
+        JTextField textField = new JTextField(50);
+        panel.add(textLabel);
+        panel.add(textField);
+        panel.setVisible(true);
     }
 
     private void initButtonMenu(JPanel panel){
@@ -221,6 +206,7 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       associationLineButton.setPreferredSize(new Dimension(25, 100));
       associationLineButton.setActionCommand("association");
       associationLineButton.addActionListener(this);
+
       this.buttonMenu.add(associationLineButton);
 
       JButton inheritanceLineButton = new JButton("New Inheritance Line");
@@ -283,6 +269,6 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
      */
     public void update()
     {
-      initSelectedContents(this.selectedContents);
+
     }
 }

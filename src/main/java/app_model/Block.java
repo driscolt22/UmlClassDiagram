@@ -47,11 +47,37 @@ public class Block  implements DisplayObject{
   }
 
   /**
+   * @return String of all instance variables, each being on a new line
+   */
+  public String convertInstanceVariables(ArrayList<String> instanceVariables){
+    String variables = "";
+    ArrayList<String> list = instanceVariables;
+    for(int i = 0; i < list.size(); i++){
+      variables += list.get(i) + "\n";
+    }
+    return variables;
+  }
+
+  /**
    * @return ArrayList of all methods inside class;
    */
   public ArrayList<String> getMethods(){
     return this.contents;
   }
+
+  /**
+   * @return String of all instance variables, each being on a new line
+   */
+  public String convertMethods(ArrayList<String> methodList){
+    String methods = "";
+    ArrayList<String> list = methodList;
+    for(int i = 0; i < list.size(); i++){
+      methods += list.get(i) + "\n";
+    }
+    return methods;
+  }
+
+
 
   /**
    * @param name new name for class represented by Block
