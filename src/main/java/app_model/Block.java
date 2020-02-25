@@ -47,10 +47,62 @@ public class Block  implements DisplayObject{
   }
 
   /**
+   * @return String of all instance variables, each being on a new line
+   */
+  public String convertInstanceVariables(ArrayList<String> instanceVariables){
+    String variables = "";
+    ArrayList<String> list = instanceVariables;
+    for(int i = 0; i < list.size(); i++){
+      variables += list.get(i) + "\n";
+    }
+    return variables;
+  }
+
+  /**
    * @return ArrayList of all methods inside class;
    */
   public ArrayList<String> getMethods(){
     return this.contents;
+  }
+
+  /**
+   * @return String of all methods, each being on a new line
+   */
+  public String convertMethods(ArrayList<String> methodList){
+    String methods = "";
+    ArrayList<String> list = methodList;
+    for(int i = 0; i < list.size(); i++){
+      methods += list.get(i) + "\n";
+    }
+    return methods;
+  }
+
+  /**
+   * adds the inputted instance variables to the class
+   */
+  public void setInstanceVariables(String instanceVariables){
+    this.instanceVariables.clear();
+    if(instanceVariables.equals("")){
+        return;
+    }
+    String[] variables = instanceVariables.split("\n",0);
+    for (String variable: variables){
+      this.addInstanceVariable(variable);
+    }
+  }
+
+  /**
+   * adds the inputted methods to the class
+   */
+  public void setMethods(String methods){
+    this.contents.clear();
+    if(methods.equals("")){
+        return;
+    }
+    String[] methodList = methods.split("\n",0);
+    for (String method: methodList){
+      this.addMethod(method);
+    }
   }
 
   /**

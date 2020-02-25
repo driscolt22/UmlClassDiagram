@@ -40,6 +40,7 @@ public class AppModel {
    */
   public void addObj(DisplayObject o){
     displayObjects.add(o);
+    select(o);
     notifyListeners();
   }
 
@@ -85,9 +86,8 @@ public class AppModel {
   }
 
   /**
-  * saves the DisplayObjects of the AppModel to a text file using a standard format
-  * that is implemented in the Saver Visitor
-  */
+   * saves the currently created file to the users machine
+   */
   public void save(String fileName)throws IOException{
     Iterable<DisplayObject> objects = getDisplayObjects();
     Saver saver = new Saver();
@@ -117,10 +117,11 @@ public class AppModel {
     }
   }
 
+
+
   /**
-  * loads all the DisplayObjects that are saved into a text file in a standard format
-  * using the loader Visitor and adds them to the AppModel
-  */
+   * loads a previously created file
+   */
   public void load(String fileName)throws IOException{
       clear();
       //FileReader reader = new FileReader(fileName);
@@ -244,6 +245,9 @@ public class AppModel {
           notifyListeners();
       }
 
+    /**
+      * @param x,y for selecting by a coordinate
+      */
   public void select(int x, int y){
        updateLinePositions();
       for(DisplayObject d: getDisplayObjects()){
@@ -270,6 +274,7 @@ public class AppModel {
    */
   public void select(DisplayObject d){
       currentlySelected = d;
+      notifyListeners();
   }
 
   /**
@@ -426,10 +431,9 @@ public class AppModel {
   }
 
   /**
-  * @param other: the object being compared to
-  * @return true if other is an AppModel and hasSameObjects(other) return true
-  * and false otherwise
-  */
+   * @param other comparison object
+   * @return true/false depending on if the two objects are equal
+   */
   public boolean equals(Object other){
     if(other instanceof AppModel){
       return hasSameObjects((AppModel)other);
@@ -450,8 +454,8 @@ public class AppModel {
   }
 
   /**
-  * clears all the DisplayObjects from the AppModel
-  */
+   * clears the app model, gets rid of of all display objects and currently selected
+   */
   public void clear(){
       displayObjects = new ArrayList<DisplayObject>(0);
       //lines = new ArrayList<line>(0);
