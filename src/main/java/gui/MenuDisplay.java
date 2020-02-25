@@ -22,6 +22,8 @@ import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import java.awt.event.*;
+import java.io.IOException;
+import java.io.File;
 
 
 import app_model.AppListener;
@@ -153,11 +155,28 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       this.app.removeSelected();
     }
     public void saveButtonPressed(){
-      //
+        JFileChooser chooser = new JFileChooser();
+        if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = chooser.getSelectedFile();
+            try{
+                this.app.save((String)selectedFile.getPath());
+            }catch(IOException e){
+                System.out.print("Problem saving");
+            }
+        }
     }
 
     public void loadButtonPressed(){
-      //
+        JFileChooser chooser = new JFileChooser();
+        if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = chooser.getSelectedFile();
+            try{
+                this.app.load((String)selectedFile.getPath());
+            }catch(IOException e){
+                System.out.print("Problem loading");
+            }
+        }
+
     }
 
     private void addButtonsToMenu(){
