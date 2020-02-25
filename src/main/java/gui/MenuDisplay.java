@@ -60,15 +60,16 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       splitPane.setBottomComponent(this.selectedContents);
 
       initButtonMenu(this.buttonMenu);
-      //selectedContents.setMaximumSize(new Dimension(300, 400));
+      initSelectedContents(this.selectedContents);
     }
 
     public JSplitPane getSplitPane(){
       return this.splitPane;
     }
 
-    public void initSelectedBlock(JPanel panel){
+    public void initSelectedContents(JPanel panel){
       panel.setLayout(new GridLayout(3, 1));
+      panel.setMaximumSize(new Dimension(300, 400));
       Block block = (Block)app.getSelected();
       JLabel classLabel = new JLabel("Class name: ");
       JTextField classText = new JTextField(20);
@@ -83,6 +84,7 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       panel.add(instanceVariableText);
       panel.add(classMethods);
       panel.add(classMethodText);
+      panel.setVisible(false);
     }
 
     private void initButtonMenu(JPanel panel){
@@ -252,8 +254,11 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
      */
     public void update()
     {
+      if(app.getSelected() == null){
+        selectedContents.setVisible(false);
+      }
       if(app.getSelected() instanceof Block){
-        initSelectedBlock(this.selectedContents);
+        selectedContents.setVisible(true);
       }
     }
 }
