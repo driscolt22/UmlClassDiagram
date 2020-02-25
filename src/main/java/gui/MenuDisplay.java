@@ -68,23 +68,35 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     }
 
     public void initSelectedContents(JPanel panel){
-      panel.setLayout(new GridLayout(3, 1));
-      panel.setMaximumSize(new Dimension(300, 400));
-      Block block = (Block)app.getSelected();
-      JLabel classLabel = new JLabel("Class name: ");
-      JTextField classText = new JTextField(20);
-      JLabel instanceVariables = new JLabel("Instance Variables: ");
-      JTextField instanceVariableText = new JTextField(50);
-      JLabel classMethods = new JLabel("Class methods: ");
-      JTextField classMethodText = new JTextField(50);
+      if(app.getSelected() instanceof Block){
+          panel.setLayout(new GridLayout(3, 1));
+          panel.setMaximumSize(new Dimension(300, 400));
+          Block block = (Block)app.getSelected();
+          JLabel classLabel = new JLabel("Class name: ");
+          JTextField classText = new JTextField(20);
+          JLabel instanceVariables = new JLabel("Instance Variables: ");
+          JTextField instanceVariableText = new JTextField(50);
+          JLabel classMethods = new JLabel("Class methods: ");
+          JTextField classMethodText = new JTextField(50);
 
-      panel.add(classLabel);
-      panel.add(classText);
-      panel.add(instanceVariables);
-      panel.add(instanceVariableText);
-      panel.add(classMethods);
-      panel.add(classMethodText);
-      panel.setVisible(false);
+          panel.add(classLabel);
+          panel.add(classText);
+          panel.add(instanceVariables);
+          panel.add(instanceVariableText);
+          panel.add(classMethods);
+          panel.add(classMethodText);
+          panel.setVisible(true);
+      }else if(app.getSelected() instanceof DisplayText){
+          panel.setLayout(new GridLayout(1, 1));
+          panel.setMaximumSize(new Dimension(300, 400));
+          JLabel textLabel = new JLabel("Text: ");
+          JTextField textField = new JTextField(50);
+          panel.add(textLabel);
+          panel.add(textField);
+          panel.setVisible(true);
+      }else{
+          panel.setVisible(false);
+      }
     }
 
     private void initButtonMenu(JPanel panel){
@@ -123,15 +135,12 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     public JPanel getButtonMenu(){
       return this.buttonMenu;
     }
-
     public JPanel getSelectedContents(){
       return this.selectedContents;
     }
-
     public void blockButtonPressed(){
       this.app.addObj(BlockFactory.createBlock());
     }
-
     public void associationLineButtonPressed(){
       this.app.addObj(LineFactory.createAssociationLine());
     }
@@ -250,15 +259,12 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     }
 
     /**
-     * On update, just repaint the whole thing
+     * On update, just update the visual
      */
     public void update()
     {
-      if(app.getSelected() == null){
-        selectedContents.setVisible(false);
-      }
-      if(app.getSelected() instanceof Block){
-        selectedContents.setVisible(true);
-      }
+      initSelectedContents(this.selectedContents);
+
+
     }
 }
