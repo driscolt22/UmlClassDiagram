@@ -35,27 +35,35 @@ public class Saver implements Visitor{
     this.toSave += String.valueOf(b.getX()) + "\n" + String.valueOf(b.getY()) + "\n";
     this.toSave += String.valueOf(b.getWidth()) + "\n" + String.valueOf(b.getLength()) + "\n";
     this.toSave += b.getName() + "\n";
-    this.toSave += addVariables(b);
-    this.toSave += addMethods(b);
+    this.toSave += addVariables(b) + "\n";
+    this.toSave += addMethods(b) + "\n";
       //writer.write(toSave);
   }
 
   private String addMethods(Block b){
     ArrayList<String> toAdd = b.getMethods();
+    if(toAdd.size()==0){
+      return " ";
+    }
     String methods = "";
     for(String m: toAdd){
-      if(m != null)
+      if(m != null){
         methods += m + " ";
+      }
     }
     return methods;
   }
 
   private String addVariables(Block b){
     ArrayList<String> toAdd = b.getInstanceVariables();
+    if(toAdd.size()==0){
+      return " ";
+    }
     String varsToSave = "";
     for(String m: toAdd){
-      if(m != null)
+      if(m != null){
         varsToSave += m + " ";
+      }
     }
     return varsToSave;
   }
@@ -63,7 +71,7 @@ public class Saver implements Visitor{
   public void visit(DisplayText t){
     this.toSave += "DisplayText\n";
     this.toSave += String.valueOf(t.getX()) + "\n" + String.valueOf(t.getY()) + "\n";
-    this.toSave += t.getText();
+    this.toSave += t.getText() + "\n";
       //writer.write(toSave);
   }
 

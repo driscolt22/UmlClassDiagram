@@ -28,8 +28,8 @@ public class Block  implements DisplayObject{
     this.width = 100;
     this.length = 100;
     this.className = "";
-    this.instanceVariables = new ArrayList<String>();
-    this.contents = new ArrayList<String>();
+    this.instanceVariables = new ArrayList<String>(0);
+    this.contents = new ArrayList<String>(0);
   }
 
   /**
@@ -175,17 +175,32 @@ public class Block  implements DisplayObject{
       return false;
   }
 
-  public String toString(){
+  public int numMethods(){
+    return getMethods().size();
+  }
 
-    String toReturn = "\nname:"+ getName() + "\nx: " + String.valueOf(getX()) + "\ny: " + String.valueOf(getY()) + "\nwidth: "
+  public int numVars(){
+    return getInstanceVariables().size();
+  }
+
+  public String toString(){
+    String toReturn = "name:"+ getName() + "\nx: " + String.valueOf(getX()) + "\ny: " + String.valueOf(getY()) + "\nwidth: "
     + String.valueOf(getWidth()) + "\nlength: " + String.valueOf(getLength()) + "\nmethods: ";
+    int count = 0;
     for(String m: getMethods()){
-      toReturn += m + ", ";
+      toReturn += m;
+      count++;
+      if(count != numMethods())
+        toReturn +=  ", ";
     }
-    toReturn += "\n";
+    toReturn += "\nvariables: ";
+    int count2 = 0;
     for(String v: getInstanceVariables()){
-      toReturn += v + ", ";
+      toReturn += v;
+      count2++;
+      if(count2 != numVars())
+        toReturn +=  ", ";
     }
-    return toReturn + "\n";
+    return toReturn;
     }
 }

@@ -80,4 +80,11 @@ public class DisplayText implements DisplayObject{
       else
         return false;
     }
+
+    public String toString(){
+      String toReturn = "";
+      toReturn += "x: " + String.valueOf(getX()) + "\n" +"y: " + String.valueOf(getY()) + "\n";
+      toReturn += getText();
+      return toReturn;
+    }
 }
