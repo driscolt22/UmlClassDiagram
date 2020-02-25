@@ -39,12 +39,15 @@ public class SaveLoaderTest{
     b.addInstanceVariable("length");
     b.addInstanceVariable("width");
     b.addMethod("get()");
+    b.setLocation(215, 150);
     a.addObj(l);
     a.addObj(b);
     DisplayText t = new DisplayText();
     t.setLocation(100, 45);
     t.setText("hello");
     a.addObj(t);
+    Line l2 = LineFactory.createInheritanceLine();
+    a.addObj(l2);
 
     AppModel a2 = new AppModel();
     //System.out.println(a);

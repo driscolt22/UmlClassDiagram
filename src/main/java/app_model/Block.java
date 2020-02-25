@@ -141,6 +141,11 @@ public class Block  implements DisplayObject{
       return x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getLength();
   }
 
+  /**
+  * @param b: the Block we are checking for the same methods
+  * @return: true if the list of methods has the same size and the elements regardless of order
+  * and false otherwise
+  */
   private boolean hasSameMethods(Block b){
     if(getMethods().size()==b.getMethods().size()){
       for(String m: b.getMethods()){
@@ -154,7 +159,10 @@ public class Block  implements DisplayObject{
   }
 
   /**
-
+  * @param b: the Block we are checking for the same variables
+  * @return: true if the list of variables has the same size and the elements regardless of order
+  * and false otherwise
+  */
   private boolean hasSameVariables(Block b){
     if(getInstanceVariables().size()==b.getInstanceVariables().size()){
       for(String v: b.getInstanceVariables()){
