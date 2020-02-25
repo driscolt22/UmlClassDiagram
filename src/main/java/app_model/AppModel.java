@@ -262,6 +262,7 @@ public class AppModel {
    */
   public void select(DisplayObject d){
       currentlySelected = d;
+      notifyListeners();
   }
 
   /**

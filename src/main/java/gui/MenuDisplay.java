@@ -47,6 +47,9 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     private JPanel boxPanel;
     private JPanel textPanel;
 
+    private JTextField classText;
+    private JTextField textField;
+
 
     public MenuDisplay(AppModel app)
     {
@@ -63,14 +66,18 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       splitPane.setBottomComponent(this.selectedContents);
 
       initButtonMenu(this.buttonMenu);
+
       boxPanel = new JPanel();
       textPanel = new JPanel();
+
       boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
       boxPanel.setMaximumSize(new Dimension(300, 400));
       Block block = (Block)app.getSelected();
       JLabel classLabel = new JLabel("Class name: ");
-      JTextField classText = new JTextField(20);
-      classText.setSize(new Dimension(300,50));
+      classText = new JTextField(20);
+      //classText.setSize(new Dimension(300,50));
+      classText.setActionCommand("setClass");
+      classText.addActionListener(this);
       //classLabel.set
       JLabel instanceVariables = new JLabel("Instance Variables: ");
       JTextArea instanceVariableText = new JTextArea("test1");
@@ -94,7 +101,9 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       textPanel.setLayout(new GridLayout(2, 1));
       textPanel.setMaximumSize(new Dimension(300, 400));
       JLabel textLabel = new JLabel("Text: ");
-      JTextField textField = new JTextField(50);
+      textField = new JTextField(50);
+      textField.setActionCommand("setText");
+      textField.addActionListener(this);
       // JButton submitButton = new JButton("Submit Changes");
       // submitButton.setActionCommand("submitText");
       // submitButton.addActionListener(this);
@@ -144,9 +153,14 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
         saveButtonPressed();
       }else if(e.getActionCommand().equals("load")){
         loadButtonPressed();
-      }else if(e.getActionCommand().equals("submitClass")){
-        submitClassButtonPressed();
-      }
+        }else if(e.getActionCommand().equals("setClass")){
+            ((Block)app.getSelected()).setClassName(classText.getText());
+            app.select(app.getSelected());
+        //submitClassButtonPressed();
+    }else if(e.getActionCommand().equals("setText")){
+        ((DisplayText)app.getSelected()).setText(textField.getText());
+        app.select(app.getSelected());
+    }
     }
 
     public JPanel getButtonMenu(){
@@ -290,11 +304,13 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
         if(app.getSelected() instanceof Block){
             boxPanel.setVisible(true);
             textPanel.setVisible(false);
+            classText.setText(((Block)app.getSelected()).getName());
             splitPane.setBottomComponent(boxPanel);
 
         }else if(app.getSelected() instanceof DisplayText){
             textPanel.setVisible(true);
             boxPanel.setVisible(false);
+            textField.setText(((DisplayText)app.getSelected()).getText());
             splitPane.setBottomComponent(textPanel);
 
         }else{
