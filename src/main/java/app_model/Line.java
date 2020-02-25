@@ -327,9 +327,8 @@ public abstract class Line implements DisplayObject{
     }
 
     /**
-     *
-     * @return string representation of a line
-     */
+    * @return: a String to represent the line that lists the coordinates for points 1 and 2
+    */
     public String toString(){
       String toReturn = "x1: " + String.valueOf(getFirstX_Value()) + "\ny1: " + String.valueOf(getFirstY_Value()) + "\nx2: "
               + String.valueOf(getSecondX_Value()) + "\ny2: " + String.valueOf(getSecondY_Value()) + "\n";

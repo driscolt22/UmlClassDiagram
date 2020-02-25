@@ -194,8 +194,10 @@ public class Block  implements DisplayObject{
   }
 
   /**
-   * @return true/false depending on whether two blocks have the same methods
-   */
+  * @param b: the Block we are checking for the same methods
+  * @return: true if the list of methods has the same size and the elements regardless of order
+  * and false otherwise
+  */
   private boolean hasSameMethods(Block b){
     if(getMethods().size()==b.getMethods().size()){
       for(String m: b.getMethods()){
@@ -209,8 +211,10 @@ public class Block  implements DisplayObject{
   }
 
   /**
-   * @return true/false depending on whether or not two blocks have same instance variables
-   */
+  * @param b: the Block we are checking for the same variables
+  * @return: true if the list of variables has the same size and the elements regardless of order
+  * and false otherwise
+  */
   private boolean hasSameVariables(Block b){
     if(getInstanceVariables().size()==b.getInstanceVariables().size()){
       for(String v: b.getInstanceVariables()){
@@ -224,8 +228,11 @@ public class Block  implements DisplayObject{
   }
 
   /**
-   * @return true/false depending on whether or not an obj is equal to this block
-   */
+  * @param d: the object being compared to
+  * @return true if the objects are blocks and have the same
+  * location, size, name, methods, and variables regardless of order
+  * and false otherwise
+  */
   public boolean equals(Object d){
     if(d instanceof Block){
       return getX()==((Block)d).getX()&&getY()==((Block)d).getY()&&getWidth()==((Block)d).getWidth()
@@ -237,22 +244,23 @@ public class Block  implements DisplayObject{
   }
 
   /**
-   * @return int number of methods in class
-   */
+  * @return the number of methods held in the class
+  */
   public int numMethods(){
     return getMethods().size();
   }
 
   /**
-   * @return int number of instance variables in class
-   */
+  * @return the number of Instance variables stored in the class
+  */
   public int numVars(){
     return getInstanceVariables().size();
   }
 
   /**
-   * @return String representation of block
-   */
+  * @return a String representation of the Block that lists the coordinates,
+  * length and width, name, methods, and instance variables
+  */
   public String toString(){
     String toReturn = "name:"+ getName() + "\nx: " + String.valueOf(getX()) + "\ny: " + String.valueOf(getY()) + "\nwidth: "
     + String.valueOf(getWidth()) + "\nlength: " + String.valueOf(getLength()) + "\nmethods: ";

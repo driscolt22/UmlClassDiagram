@@ -12,10 +12,11 @@ import java.io.IOException;
 
 public class Saver implements Visitor{
 
-  //private String fileName;
-  //private FileWriter writer;
   private String toSave;
 
+  /**
+  * creates Strings to be saved to a text file that represent instances of DisplayObjects
+  */
   public Saver(){
     toSave = "";
 
@@ -40,6 +41,10 @@ public class Saver implements Visitor{
       //writer.write(toSave);
   }
 
+  /**
+  * @param the given block
+  * @return a string of the methods of the given block seperated by spaces
+  */
   private String addMethods(Block b){
     ArrayList<String> toAdd = b.getMethods();
     if(toAdd.size()==0){
@@ -54,6 +59,10 @@ public class Saver implements Visitor{
     return methods;
   }
 
+  /**
+  * @param the given block
+  * @return a string of the instanceVariables of the given block seperated by spaces
+  */
   private String addVariables(Block b){
     ArrayList<String> toAdd = b.getInstanceVariables();
     if(toAdd.size()==0){

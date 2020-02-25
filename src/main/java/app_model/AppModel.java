@@ -105,8 +105,9 @@ public class AppModel {
   }
 
   /**
-   * prints the save to a file
-   */
+  * @param fileName: the given file path name
+  * prints the contents of the given file
+  */
   public void printFile(String fileName)throws IOException{
     BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
     String line = bufferedReader.readLine();
@@ -378,12 +379,15 @@ public class AppModel {
   }
 
   /**
-   * @return int that represents the number of dislay objects in the model
-   */
+  * @return the number of DisplayObjects in the AppModel
+  */
   public int numObjects(){
     return displayObjects.size();
   }
 
+  /**
+  * @return creates an ArrayList copy of the DisplayObjects and returns it
+  */
   private ArrayList<DisplayObject> copyDisplayObjects(){
     ArrayList<DisplayObject> toReturn = new ArrayList<>(0);
     for(DisplayObject d: getDisplayObjects()){
@@ -392,6 +396,11 @@ public class AppModel {
     return toReturn;
   }
 
+  /**
+  * @param remainingObjects: the AppModels display objects that still have not been found
+  * @param toFind: the DisplayObject we are looking for
+  * @return true if there exists an equal DisplayObject to toFind in remainingObjects and false otherwise
+  */
   private boolean hasEqualObject(ArrayList<DisplayObject> remainingObjects, DisplayObject toFind){
     for(DisplayObject d: remainingObjects){
       if(toFind.equals(d))
@@ -400,6 +409,13 @@ public class AppModel {
     return false;
   }
 
+  /**
+  * @param other: the AppModel being compared to
+  * @return: true if the model bing compared to has an equal set of displayObjects
+  * and false if it does not
+  * the sets are considered equal if they are the same size,
+  * and hold equal objects regardless of order
+  */
   private boolean hasSameObjects(AppModel other){
     ArrayList<DisplayObject> displayObjects = copyDisplayObjects();
     if(numObjects()==other.numObjects()){
@@ -427,8 +443,8 @@ public class AppModel {
   }
 
   /**
-   * @return string representation of the app model
-   */
+  * @return String representation of an AppModel that lists the DisplayObjects as Strings
+  */
   public String toString(){
     String toReturn = "";
     for(DisplayObject d: getDisplayObjects()){
