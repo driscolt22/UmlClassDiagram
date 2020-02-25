@@ -85,7 +85,9 @@ public class AppModel {
       }
   }
 
-
+  /**
+   * saves the currently created file to the users machine
+   */
   public void save(String fileName)throws IOException{
     Iterable<DisplayObject> objects = getDisplayObjects();
     Saver saver = new Saver();
@@ -102,6 +104,9 @@ public class AppModel {
     writer.close();
   }
 
+  /**
+   * prints the save to a file
+   */
   public void printFile(String fileName)throws IOException{
     BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
     String line = bufferedReader.readLine();
@@ -113,6 +118,9 @@ public class AppModel {
 
 
 
+  /**
+   * loads a previously created file
+   */
   public void load(String fileName)throws IOException{
       clear();
       //FileReader reader = new FileReader(fileName);
@@ -236,6 +244,9 @@ public class AppModel {
           notifyListeners();
       }
 
+    /**
+      * @param x,y for selecting by a coordinate
+      */
   public void select(int x, int y){
        updateLinePositions();
       for(DisplayObject d: getDisplayObjects()){
@@ -366,6 +377,9 @@ public class AppModel {
       notifyListeners();
   }
 
+  /**
+   * @return int that represents the number of dislay objects in the model
+   */
   public int numObjects(){
     return displayObjects.size();
   }
@@ -400,6 +414,10 @@ public class AppModel {
     return false;
   }
 
+  /**
+   * @param other comparison object
+   * @return true/false depending on if the two objects are equal
+   */
   public boolean equals(Object other){
     if(other instanceof AppModel){
       return hasSameObjects((AppModel)other);
@@ -408,6 +426,9 @@ public class AppModel {
       return false;
   }
 
+  /**
+   * @return string representation of the app model
+   */
   public String toString(){
     String toReturn = "";
     for(DisplayObject d: getDisplayObjects()){
@@ -416,6 +437,9 @@ public class AppModel {
     return toReturn;
   }
 
+  /**
+   * clears the app model, gets rid of of all display objects and currently selected
+   */
   public void clear(){
       displayObjects = new ArrayList<DisplayObject>(0);
       //lines = new ArrayList<line>(0);
