@@ -13,11 +13,12 @@ import java.io.IOException;
 public class Saver implements Visitor{
 
   private String toSave;
+  private String fileName;
 
   /**
   * creates Strings to be saved to a text file that represent instances of DisplayObjects
   */
-  public Saver(){
+  public Saver(String fileName){
     toSave = "";
 
   }
@@ -38,6 +39,7 @@ public class Saver implements Visitor{
     this.toSave += b.getName() + "\n";
     this.toSave += addVariables(b) + "\n";
     this.toSave += addMethods(b) + "\n";
+
       //writer.write(toSave);
   }
 
@@ -132,9 +134,16 @@ public class Saver implements Visitor{
     //f(l.getHead() != null)
     //  toSave +=
       //writer.write(toSave);
+
      }
     public String getToSave(){
       return toSave;
+    }
+//jenfdjrn
+    private void addToFile(String toAdd) throws IOException{
+      BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+      writer.write(toAdd);
+      writer.close();
     }
 
 }
