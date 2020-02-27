@@ -21,7 +21,7 @@ import java.awt.Toolkit;
 import java.awt.Dimension;
 
 public class Main{
-
+//comment
     public Main() {
 
         JFrame mainFrame = new JFrame("Main app");
