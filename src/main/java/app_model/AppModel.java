@@ -19,7 +19,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 
 
-public class AppModel {
+public class AppModel implements Serializable{
   private ArrayList<DisplayObject> displayObjects;
   //private ArrayList<line> lines;
   private Vector<AppListener> listeners;
@@ -90,7 +90,7 @@ public class AppModel {
    */
   public void save(String fileName)throws IOException{
     Iterable<DisplayObject> objects = getDisplayObjects();
-    Saver saver = new Saver();
+    Saver saver = new Saver(fileName);
     //int count = 0;
     //FileUtils.write(new File(fileName), "");
     BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
@@ -116,6 +116,37 @@ public class AppModel {
       line = bufferedReader.readLine();
     }
   }
+
+  public static AppModel load2(String fileName){
+          try{
+            ObjectInputStream am = new ObjectInputStream(new FileInputStream(fileName));
+            AppModel toReturn = (AppModel) am.readObject();
+            am.close();
+            return toReturn;
+          } catch(FileNotFoundException e){
+            e.getStackTrace();
+            //System.out.println("fileNotFound");
+          } catch(IOException e){
+            e.getStackTrace();
+            //System.out.println("IOException");
+          } catch(ClassNotFoundException e){
+            e.getStackTrace();
+            //System.out.println("classNotFound");
+          }
+          return null;
+        }
+
+      public void save2(String fileName){
+        try{
+          ObjectOutputStream am = new ObjectOutputStream(new FileOutputStream(fileName));
+          am.writeObject(this);
+          am.close();
+        } catch(FileNotFoundException e){
+          e.getStackTrace();
+        } catch(IOException e){
+          e.getStackTrace();
+        }
+      }
 
 
 
@@ -449,7 +480,7 @@ public class AppModel {
   public String toString(){
     String toReturn = "";
     for(DisplayObject d: getDisplayObjects()){
-      toReturn += d.toString();
+      toReturn += d.toString() + "\n";
     }
     return toReturn;
   }

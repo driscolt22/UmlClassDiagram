@@ -134,16 +134,10 @@ public class Saver implements Visitor{
     //f(l.getHead() != null)
     //  toSave +=
       //writer.write(toSave);
-
      }
     public String getToSave(){
       return toSave;
     }
-//jenfdjrn
-    private void addToFile(String toAdd) throws IOException{
-      BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-      writer.write(toAdd);
-      writer.close();
-    }
+
 
 }

@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Represents a Class for a UML class diagram, with postion, name, and attributes
  */
-public class Block  implements DisplayObject{
+public class Block  implements DisplayObject, Serializable{
 
   private int x;
   private int y;

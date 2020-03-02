@@ -32,7 +32,7 @@ public class SaveLoaderTest{
   }
 
   @Test
-  public void testSaveLine()throws IOException{
+  public void testSaveLoadLine()throws IOException{
     Line l = LineFactory.createLine();
     Block b = BlockFactory.createBlock();
     b.setClassName("model");
@@ -56,8 +56,35 @@ public class SaveLoaderTest{
     assertTrue(file.length() > 2);
     AppModel a4 = new AppModel();
     a4.load("savedLine.txt");
-    System.out.println(a4);
+    //System.out.println(a4);
     assertEquals("saving an AppModel with a Block and Line",a.toString(),a4.toString());
+  }
+
+  @Test
+  public void testSaveLoad2(){
+    Line l = LineFactory.createLine();
+    Block b = BlockFactory.createBlock();
+    b.setClassName("model");
+    b.addInstanceVariable("length");
+    b.addInstanceVariable("width");
+    b.addMethod("get()");
+    b.setLocation(215, 150);
+    a.addObj(l);
+    a.addObj(b);
+    DisplayText t = new DisplayText();
+    t.setLocation(100, 45);
+    t.setText("hello");
+    a.addObj(t);
+    Line l2 = LineFactory.createInheritanceLine();
+    a.addObj(l2);
+    a.save2("savedModel.bin");
+
+    AppModel a2;
+    a2 = AppModel.load2("savedModel.bin");
+    System.out.println(a);
+    System.out.println();
+    System.out.println(a2);
+    assertEquals("saving an AppModel with a Block and Line",a.toString(),a2.toString());
   }
 
 }
