@@ -13,12 +13,11 @@ import java.io.IOException;
 public class Saver implements Visitor{
 
   private String toSave;
-  private String fileName;
 
   /**
   * creates Strings to be saved to a text file that represent instances of DisplayObjects
   */
-  public Saver(String fileName){
+  public Saver(){
     toSave = "";
 
   }

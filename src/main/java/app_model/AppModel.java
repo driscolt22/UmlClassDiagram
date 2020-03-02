@@ -90,7 +90,7 @@ public class AppModel implements Serializable{
    */
   public void save(String fileName)throws IOException{
     Iterable<DisplayObject> objects = getDisplayObjects();
-    Saver saver = new Saver(fileName);
+    Saver saver = new Saver();
     //int count = 0;
     //FileUtils.write(new File(fileName), "");
     BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
