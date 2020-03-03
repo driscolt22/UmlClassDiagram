@@ -7,39 +7,56 @@ import app_model.Block;
 import app_model.DisplayText;
 import app_model.lines.*;
 import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.File;
 
 
 public class Saver implements Visitor{
 
-  private String toSave;
+  private String fileName;
 
   /**
   * creates Strings to be saved to a text file that represent instances of DisplayObjects
   */
-  public Saver(){
-    toSave = "";
+  public Saver(String file){
+    fileName = file;
+    clearFile();
+  }
 
+  private void clearFile(){
+    try{
+      BufferedWriter writer = new BufferedWriter(new FileWriter(this.fileName));
+      writer.write("");
+      writer.close();
+    }catch(IOException e){
+      System.out.println("error saving");
+      e.getStackTrace();
+    }
   }
 
   public void visit(Line l){
-    this.toSave += "Line\n";
-    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
-    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    String toSave = "";
+    toSave += "Line\n";
+    toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
     //f(l.getHead() != null)
     //  toSave +=
       //writer.write(toSave);
+    addToFile(toSave);
   }
 
   public void visit(Block b){
-    this.toSave += "Block\n";
-    this.toSave += String.valueOf(b.getX()) + "\n" + String.valueOf(b.getY()) + "\n";
-    this.toSave += String.valueOf(b.getWidth()) + "\n" + String.valueOf(b.getLength()) + "\n";
-    this.toSave += b.getName() + "\n";
-    this.toSave += addVariables(b) + "\n";
-    this.toSave += addMethods(b) + "\n";
+    String toSave = "";
+    toSave += "Block\n";
+    toSave += String.valueOf(b.getX()) + "\n" + String.valueOf(b.getY()) + "\n";
+    toSave += String.valueOf(b.getWidth()) + "\n" + String.valueOf(b.getLength()) + "\n";
+    toSave += b.getName() + "\n";
+    toSave += addVariables(b) + "\n";
+    toSave += addMethods(b) + "\n";
 
       //writer.write(toSave);
+      addToFile(toSave);
   }
 
   /**
@@ -79,63 +96,90 @@ public class Saver implements Visitor{
   }
 
   public void visit(DisplayText t){
-    this.toSave += "DisplayText\n";
-    this.toSave += String.valueOf(t.getX()) + "\n" + String.valueOf(t.getY()) + "\n";
-    this.toSave += t.getText() + "\n";
+    String toSave = "";
+    toSave += "DisplayText\n";
+    toSave += String.valueOf(t.getX()) + "\n" + String.valueOf(t.getY()) + "\n";
+    toSave += t.getText() + "\n";
       //writer.write(toSave);
+      addToFile(toSave);
   }
 
   public void visit(AggregationLine l){
-    this.toSave += "AggregationLine\n";
-    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
-    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    String toSave = "";
+    toSave += "AggregationLine\n";
+    toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
     //f(l.getHead() != null)
     //  toSave +=
       //writer.write(toSave);
+      addToFile(toSave);
   }
 
   public void visit(AssociationLine l){
-    this.toSave += "AssociationLine\n";
-    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
-    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    String toSave = "";
+    toSave += "AssociationLine\n";
+    toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
     //f(l.getHead() != null)
     //  toSave +=
       //writer.write(toSave);
+      addToFile(toSave);
    }
   public void visit(CompostionLine l){
-    this.toSave += "CompostionLine\n";
-    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
-    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    String toSave = "";
+    toSave += "CompostionLine\n";
+    toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
     //f(l.getHead() != null)
     //  toSave +=
       //writer.write(toSave);
+      addToFile(toSave);
     }
   public void visit(DependencyLine l){
-    this.toSave += "DependencyLine\n";
-    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
-    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    String toSave = "";
+    toSave += "DependencyLine\n";
+    toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
     //f(l.getHead() != null)
     //  toSave +=
       //writer.write(toSave);
+      addToFile(toSave);
     }
   public void visit(ImplementationLine l){
-    this.toSave += "ImplementationLine\n";
-    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
-    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    String toSave = "";
+    toSave += "ImplementationLine\n";
+    toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
     //f(l.getHead() != null)
     //  toSave +=
       //writer.write(toSave);
+      addToFile(toSave);
     }
   public void visit(InheritanceLine l){
-    this.toSave += "InheritanceLine\n";
-    this.toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
-    this.toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
+    String toSave = "";
+    toSave += "InheritanceLine\n";
+    toSave += String.valueOf(l.getFirstX_Value()) + "\n" + String.valueOf(l.getFirstY_Value()) + "\n";
+    toSave += String.valueOf(l.getSecondX_Value()) + "\n" + String.valueOf(l.getSecondY_Value()) + "\n";
     //f(l.getHead() != null)
     //  toSave +=
       //writer.write(toSave);
+      addToFile(toSave);
      }
-    public String getToSave(){
-      return toSave;
+
+
+    //public String getToSave(){
+      //return toSave;
+  //  }
+
+    private void addToFile(String toAdd){
+        try{
+          BufferedWriter writer = new BufferedWriter(new FileWriter(new File(this.fileName), true));
+          writer.write(toAdd);
+          writer.close();
+        }catch(IOException e){
+          System.out.println("error saving");
+          e.getStackTrace();
+        }
     }
 
 

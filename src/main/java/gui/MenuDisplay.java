@@ -230,11 +230,7 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
         JFileChooser chooser = new JFileChooser();
         if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             File selectedFile = chooser.getSelectedFile();
-            try{
-                this.app.save((String)selectedFile.getPath());
-            }catch(IOException e){
-                System.out.print("Problem saving");
-            }
+            this.app.save((String)selectedFile.getPath());
         }
     }
 

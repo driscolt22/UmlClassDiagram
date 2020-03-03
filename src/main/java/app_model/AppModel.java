@@ -88,21 +88,15 @@ public class AppModel implements Serializable{
   /**
    * saves the currently created file to the users machine
    */
-  public void save(String fileName)throws IOException{
+  public void save(String fileName){
     Iterable<DisplayObject> objects = getDisplayObjects();
-    Saver saver = new Saver();
-    //int count = 0;
-    //FileUtils.write(new File(fileName), "");
-    BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-    for(DisplayObject d: objects){
-      //count++;
-      d.accept(saver);
-    }
-    //System.out.println(String.valueOf(count));
-    //System.out.println(saver.getToSave());
-    writer.write(saver.getToSave());
-    writer.close();
+    Saver saver = new Saver(fileName);
+      for(DisplayObject d: objects){
+        d.accept(saver);
+      }
   }
+
+
 
   /**
   * @param fileName: the given file path name

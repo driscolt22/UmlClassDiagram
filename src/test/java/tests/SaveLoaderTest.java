@@ -57,6 +57,9 @@ public class SaveLoaderTest{
     AppModel a4 = new AppModel();
     a4.load("savedLine.txt");
     //System.out.println(a4);
+    System.out.println(a);
+    System.out.println();
+    System.out.println(a4);
     assertEquals("saving an AppModel with a Block and Line",a.toString(),a4.toString());
   }
 
@@ -69,6 +72,7 @@ public class SaveLoaderTest{
     b.addInstanceVariable("width");
     b.addMethod("get()");
     b.setLocation(215, 150);
+    l.setTail(100, 50);
     a.addObj(l);
     a.addObj(b);
     DisplayText t = new DisplayText();
@@ -81,9 +85,6 @@ public class SaveLoaderTest{
 
     AppModel a2;
     a2 = AppModel.load2("savedModel.bin");
-    System.out.println(a);
-    System.out.println();
-    System.out.println(a2);
     assertEquals("saving an AppModel with a Block and Line",a.toString(),a2.toString());
   }
 
