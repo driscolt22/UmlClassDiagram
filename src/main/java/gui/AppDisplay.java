@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import app_model.AppListener;
 import app_model.AppModel;
 import app_model.DisplayObject;
+import app_model.Visitor;
 
 public class AppDisplay extends JComponent implements AppListener{
     private AppModel app;
@@ -47,18 +48,12 @@ public class AppDisplay extends JComponent implements AppListener{
         super.paintComponent(g);
         Render render = new Render(g);
 
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.white);
-        g2.fillRect(0, 0, WIDTH, HEIGHT);
+        render.paintBackground(HEIGHT, WIDTH);
 
 
 
         for(DisplayObject d: app.getDisplayObjects()){
-            if(app.isSelected(d)){
-                g.setColor(Color.blue);
-            }else{
-                g.setColor(Color.black);
-            }
+            render.setSelectedColor(app.isSelected(d));
             d.accept(render);
         }
     }
