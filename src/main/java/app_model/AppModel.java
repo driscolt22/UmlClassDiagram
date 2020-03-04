@@ -96,8 +96,6 @@ public class AppModel implements Serializable{
       }
   }
 
-
-
   /**
   * @param fileName: the given file path name
   * prints the contents of the given file
@@ -111,43 +109,12 @@ public class AppModel implements Serializable{
     }
   }
 
-  public static AppModel load2(String fileName){
-          try{
-            ObjectInputStream am = new ObjectInputStream(new FileInputStream(fileName));
-            AppModel toReturn = (AppModel) am.readObject();
-            am.close();
-            return toReturn;
-          } catch(FileNotFoundException e){
-            e.getStackTrace();
-            //System.out.println("fileNotFound");
-          } catch(IOException e){
-            e.getStackTrace();
-            //System.out.println("IOException");
-          } catch(ClassNotFoundException e){
-            e.getStackTrace();
-            //System.out.println("classNotFound");
-          }
-          return null;
-        }
-
-      public void save2(String fileName){
-        try{
-          ObjectOutputStream am = new ObjectOutputStream(new FileOutputStream(fileName));
-          am.writeObject(this);
-          am.close();
-        } catch(FileNotFoundException e){
-          e.getStackTrace();
-        } catch(IOException e){
-          e.getStackTrace();
-        }
-      }
-
-
 
   /**
    * loads a previously created file
    */
-  public void load(String fileName)throws IOException{
+  public void load(String fileName){
+    try{
       clear();
       //FileReader reader = new FileReader(fileName);
           BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
@@ -268,7 +235,51 @@ public class AppModel implements Serializable{
       }        // to add loading function
           bufferedReader.close();
           notifyListeners();
+    }catch(IOException e){
+      System.out.println("error loading");
+    }
       }
+
+      private static AppModel loader2(String fileName)throws FileNotFoundException, IOException, ClassNotFoundException{
+          ObjectInputStream am = new ObjectInputStream(new FileInputStream(fileName));
+          AppModel toReturn = (AppModel) am.readObject();
+          am.close();
+          return toReturn;
+      }
+
+      public void load2(String fileName){
+        try{
+          clear();
+          AppModel toCopy = loader2(fileName);
+
+          for(DisplayObject d: toCopy.getDisplayObjects()){
+            this.addObj(d);
+          }
+          notifyListeners();
+        } catch(FileNotFoundException e){
+          System.out.println("error loading1");
+          e.getStackTrace();
+        } catch(IOException e){
+          System.out.println("error loading2");
+          e.getStackTrace();
+        } catch(ClassNotFoundException e){
+          System.out.println("error loading3");
+          e.getStackTrace();
+        }
+      }
+
+      public void save2(String fileName){
+        try{
+          ObjectOutputStream am = new ObjectOutputStream(new FileOutputStream(fileName));
+          am.writeObject(this);
+          am.close();
+        } catch(FileNotFoundException e){
+          e.getStackTrace();
+        } catch(IOException e){
+          e.getStackTrace();
+        }
+      }
+
 
     /**
       * @param x,y for selecting by a coordinate

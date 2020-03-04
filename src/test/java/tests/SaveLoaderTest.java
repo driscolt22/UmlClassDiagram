@@ -67,7 +67,7 @@ public class SaveLoaderTest{
   public void testSaveLoad2(){
     Line l = LineFactory.createLine();
     Block b = BlockFactory.createBlock();
-    b.setClassName("model");
+    b.setClassName("model1");
     b.addInstanceVariable("length");
     b.addInstanceVariable("width");
     b.addMethod("get()");
@@ -83,8 +83,11 @@ public class SaveLoaderTest{
     a.addObj(l2);
     a.save2("savedModel.bin");
 
-    AppModel a2;
-    a2 = AppModel.load2("savedModel.bin");
+    AppModel a2 = new AppModel();
+    a2.load2("savedModel.bin");
+    System.out.println(a);
+    System.out.println();
+    System.out.println(a2);
     assertEquals("saving an AppModel with a Block and Line",a.toString(),a2.toString());
   }
 
