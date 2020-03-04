@@ -1,5 +1,6 @@
 package app_model;
 import app_model.*;
+import app_model.lines.*;
 import java.util.*;
 import java.io.Writer;
 import java.io.FileWriter;
@@ -115,7 +116,7 @@ public class AppModel {
       System.out.println(line);
       line = bufferedReader.readLine();
     }
-  }
+}
 
 
 
@@ -249,24 +250,16 @@ public class AppModel {
       * @param x,y for selecting by a coordinate
       */
   public void select(int x, int y){
-       updateLinePositions();
+      updateLinePositions();
+      SelectionVisitor s = new SelectionVisitor(x, y);
       for(DisplayObject d: getDisplayObjects()){
-          if(d.contains(x,y)){
-              currentlySelected = d;
-              if(currentlySelected instanceof Line){
-                  Line l = (Line)currentlySelected;
-                  selectHead = Math.hypot(x -l.getFirstX_Value(), y - l.getFirstY_Value()) <=
-                            Math.hypot(x- l.getSecondX_Value(), y-l.getSecondY_Value());
-              }
-              //System.out.println("Selected object");
-              notifyListeners();
-              return;
-          }
+          d.accept(s);
       }
+
       //System.out.println("Did not Select object");
-      currentlySelected = null;
+      currentlySelected = s.getSelected();
+      selectHead = s.isHeadSelected();
       notifyListeners();
-      return;
   }
 
   /**
@@ -298,35 +291,9 @@ public class AppModel {
    * @param dy [description]
    */
   public void moveSelected(int dx,int dy){
-      if(currentlySelected instanceof Block){
-          Block b = (Block) currentlySelected;
-          b.setLocation(b.getX() + dx, b.getY() +dy);
-          for(DisplayObject c: getDisplayObjects()){
-              if(c instanceof Line){
-                  ((Line)c).updatePosition();
-              }
-          }
-      }else if(currentlySelected instanceof DisplayText){
-          DisplayText t = (DisplayText) currentlySelected;
-          t.setLocation(t.getX() + dx, t.getY() +dy);
-      }else if(currentlySelected instanceof Line){
-          Line l = (Line) currentlySelected;
-          if(selectHead){
-              l.setHead(l.getFirstX_Value() + dx, l.getFirstY_Value() + dy);
-              l.connectHead(null);
-          }else{
-              l.setTail(l.getSecondX_Value() + dx, l.getSecondY_Value() + dy);
-              l.connectTail(null);
-          }
-          //reatach to the blocks
-          for(DisplayObject c: getDisplayObjects()){
-
-              if(c instanceof Block){
-                  //System.out.println("checking a block?");
-                  l.connectToBlock((Block) c);
-              }
-          }
-      }
+      MoveVisitor mv = new MoveVisitor(getDisplayObjects(), selectHead, dx, dy);
+      getSelected().accept(mv);
+      //updateLinePositions();
       notifyListeners();
   }
 
@@ -342,10 +309,18 @@ public class AppModel {
   }
 
   private void updateLinePositions(){
+      Visitor v = new Visitor(){
+          public void visit(Block b){}
+          public void visit(DisplayText t){}
+          public void visit(AggregationLine l){l.updatePosition();}
+          public void visit(AssociationLine l){l.updatePosition();}
+          public void visit(CompostionLine l){l.updatePosition();}
+          public void visit(DependencyLine l){l.updatePosition();}
+          public void visit(ImplementationLine l){l.updatePosition();}
+          public void visit(InheritanceLine l){l.updatePosition();}
+      };
       for(DisplayObject d: displayObjects){
-          if(d instanceof Line){
-              ((Line) d).updatePosition();
-          }
+          d.accept(v);
       }
   }
 
