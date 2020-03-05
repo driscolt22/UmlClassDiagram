@@ -5,7 +5,7 @@ import java.util.*;
 import app_model.Block;
 import java.io.Serializable;
 
-public abstract class Line implements DisplayObject{
+public abstract class Line implements DisplayObject, Serializable {
     private int x1;
     private int y1;
     private int x2;
@@ -331,7 +331,7 @@ public abstract class Line implements DisplayObject{
     */
     public String toString(){
       String toReturn = "x1: " + String.valueOf(getFirstX_Value()) + "\ny1: " + String.valueOf(getFirstY_Value()) + "\nx2: "
-              + String.valueOf(getSecondX_Value()) + "\ny2: " + String.valueOf(getSecondY_Value()) + "\n";
+              + String.valueOf(getSecondX_Value()) + "\ny2: " + String.valueOf(getSecondY_Value());
       return toReturn;
     }
 

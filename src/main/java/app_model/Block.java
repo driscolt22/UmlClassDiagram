@@ -1,4 +1,5 @@
 package app_model;
+import app_model.*;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.util.*;
@@ -7,15 +8,15 @@ import java.io.Serializable;
 /**
  * Represents a Class for a UML class diagram, with postion, name, and attributes
  */
-public class Block  implements DisplayObject{
+public class Block  implements DisplayObject, Serializable{
 
   private int x;
   private int y;
   private int width;
   private int length;
   private String className;
-  private ArrayList<String> instanceVariables;
-  private ArrayList<String> contents;
+  private ArrayList<Variable> instanceVariables;
+  private ArrayList<Method> contents;
 
 
   /**
@@ -28,8 +29,8 @@ public class Block  implements DisplayObject{
     this.width = 100;
     this.length = 100;
     this.className = "";
-    this.instanceVariables = new ArrayList<String>(0);
-    this.contents = new ArrayList<String>(0);
+    this.instanceVariables = new ArrayList<Variable>(0);
+    this.contents = new ArrayList<Method>(0);
   }
 
   /**
@@ -39,11 +40,24 @@ public class Block  implements DisplayObject{
     return this.className;
   }
 
+  private ArrayList<Method> getMethodList(){
+    return this.contents;
+  }
+
+  public ArrayList<Variable> getVariableList(){
+    return this.instanceVariables;
+  }
+
   /**
    * @return ArrayList of all instace vars in Class
    */
   public ArrayList<String> getInstanceVariables(){
-    return this.instanceVariables;
+    ArrayList<String> variables = new ArrayList<>(0);
+    ArrayList<Variable> list = getVariableList();
+    for(int i = 0; i < list.size(); i++){
+      variables.add((list.get(i)).getType() + " " + (list.get(i)).getVariableName());
+    }
+    return variables;
   }
 
   /**
@@ -62,7 +76,17 @@ public class Block  implements DisplayObject{
    * @return ArrayList of all methods inside class;
    */
   public ArrayList<String> getMethods(){
-    return this.contents;
+    ArrayList<String> methods = new ArrayList<>(0);
+    ArrayList<Method> list = getMethodList();
+    for(int i = 0; i < list.size(); i++){
+      Method m = list.get(i);
+      String methodToAdd = m.getReturnType() + " " + m.getMethodName();
+      for(String p: m.getParameters()){
+      methodToAdd +=  " " + p;
+      }
+      methods.add(methodToAdd);
+    }
+    return methods;
   }
 
   /**
@@ -72,8 +96,9 @@ public class Block  implements DisplayObject{
     String methods = "";
     ArrayList<String> list = methodList;
     for(int i = 0; i < list.size(); i++){
-      methods += list.get(i) + "\n";
-    }
+      methods = list.get(i) + "\n";
+
+      }
     return methods;
   }
 
@@ -116,15 +141,36 @@ public class Block  implements DisplayObject{
    * @param instanceVariable instance varible to add to list of instace vars
    */
   public void addInstanceVariable(String instanceVariable){
-    this.instanceVariables.add(instanceVariable);
+    String[] typeAndName = instanceVariable.split(" ");
+    if(typeAndName.length == 2){
+    Variable var = new Variable(typeAndName[0], typeAndName[1]);
+    this.instanceVariables.add(var);
+    }
+    else if(typeAndName.length == 1){
+      Variable var = new Variable("Object", typeAndName[0]);
+      this.instanceVariables.add(var);
+    }
   }
 
   /**
    * @param method method to add to list of methods in class
    */
   public void addMethod(String method){
-    this.contents.add(method);
+    String[] methodInfo = method.split(" ");
+    if(methodInfo.length == 1){
+      this.contents.add(new Method("void", methodInfo[0]));
+    }
+    else if(methodInfo.length == 2){
+      this.contents.add(new Method(methodInfo[0], methodInfo[1]));
+    }
+    else if(methodInfo.length >= 3){
+      Method m = new Method(methodInfo[0], methodInfo[1]);
+      for(int i = 2; i < methodInfo.length; i++){
+        m.addParameter(methodInfo[i]);
+      }
+      this.contents.add(m);
   }
+}
 
   /**
    * @param width new Width for this Block
@@ -193,6 +239,22 @@ public class Block  implements DisplayObject{
       return x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getLength();
   }
 
+  public boolean containsMethod(Method toFind){
+    for(Method m: getMethodList()){
+      if(m.equals(toFind))
+        return true;
+    }
+    return false;
+  }
+
+  public boolean containsVariable(Variable toFind){
+    for(Variable v: getVariableList()){
+      if(v.equals(toFind))
+        return true;
+    }
+    return false;
+  }
+
   /**
   * @param b: the Block we are checking for the same methods
   * @return: true if the list of methods has the same size and the elements regardless of order
@@ -200,8 +262,8 @@ public class Block  implements DisplayObject{
   */
   private boolean hasSameMethods(Block b){
     if(getMethods().size()==b.getMethods().size()){
-      for(String m: b.getMethods()){
-        if(!getMethods().contains(m))
+      for(Method m: b.getMethodList()){
+        if(!containsMethod(m))
           return false;
       }
       return true;
@@ -217,8 +279,8 @@ public class Block  implements DisplayObject{
   */
   private boolean hasSameVariables(Block b){
     if(getInstanceVariables().size()==b.getInstanceVariables().size()){
-      for(String v: b.getInstanceVariables()){
-        if(!getInstanceVariables().contains(v))
+      for(Variable v: b.getVariableList()){
+        if(!containsVariable(v))
           return false;
       }
       return true;

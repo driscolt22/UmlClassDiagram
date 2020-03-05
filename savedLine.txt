@@ -9,8 +9,8 @@ Block
 100
 100
 model
-length width 
-get() 
+Object length:Object width:
+void get():
 DisplayText
 100
 45
