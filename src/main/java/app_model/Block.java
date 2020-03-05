@@ -1,4 +1,5 @@
 package app_model;
+import app_model.*;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.util.*;
@@ -342,93 +343,4 @@ public class Block  implements DisplayObject, Serializable{
     }
     return toReturn;
     }
-}
-
-class Variable implements Serializable{
-  private String type;
-  private String variableName;
-
-  public Variable(){
-    this.type = "";
-    this.variableName = "";
-  }
-
-  public Variable(String varType, String varName){
-    this.type = varType;
-    this.variableName = varName;
-  }
-
-  public void setType(String newType){
-    this.type = newType;
-  }
-
-  public void setVariableName(String newVariable){
-    this.variableName = newVariable;
-  }
-
-  public String getType(){
-    return this.type;
-  }
-
-  public String getVariableName(){
-    return this.variableName;
-  }
-
-  public boolean equals(Object v){
-    if(v instanceof Variable)
-      return getType().equals(((Variable)v).getType())&&getVariableName().equals(((Variable)v).getVariableName());
-    else
-      return false;
-  }
-}
-
-class Method implements Serializable{
-  private String returnType;
-  private String methodName;
-  private ArrayList<String> parameters;
-
-  public Method(String type, String name){
-    this.methodName = name;
-    this.returnType = type;
-    this.parameters = new ArrayList<String>(0);
-  }
-
-  public Method(){
-    this.methodName = "";
-    this.returnType = "";
-    this.parameters= new ArrayList<String>(0);
-  }
-
-  public String getMethodName(){
-    return this.methodName;
-  }
-
-  public String getReturnType(){
-    return this.returnType;
-  }
-
-  public ArrayList<String> getParameters(){
-    return this.parameters;
-  }
-
-  public void setMethodName(String name){
-    this.methodName = name;
-  }
-
-  public void setReturnType(String type){
-    this.returnType = type;
-  }
-
-  public void addParameter(String type){
-    this.parameters.add(type);
-  }
-
-  public boolean equals(Object m){
-    if(m instanceof Method){
-      return getReturnType().equals(((Method)m).getReturnType())&&getMethodName().equals(((Method)m).getMethodName())
-      &&getParameters().equals(((Method)m).getParameters());
-    }
-    else
-      return false;
-  }
 }
