@@ -22,12 +22,12 @@ public class MoveVisitor implements Visitor{
         Visitor v = new Visitor(){
             public void visit(Block b){}
             public void visit(DisplayText t){}
-                public void visit(AggregationLine l){l.updatePosition();}
-                public void visit(AssociationLine l){l.updatePosition();}
-                public void visit(CompostionLine l){l.updatePosition();}
-                public void visit(DependencyLine l){l.updatePosition();}
-                public void visit(ImplementationLine l){l.updatePosition();}
-                public void visit(InheritanceLine l){l.updatePosition();}
+            public void visit(AggregationLine l){l.updatePosition();}
+            public void visit(AssociationLine l){l.updatePosition();}
+            public void visit(CompostionLine l){l.updatePosition();}
+            public void visit(DependencyLine l){l.updatePosition();}
+            public void visit(ImplementationLine l){l.updatePosition();}
+            public void visit(InheritanceLine l){l.updatePosition();}
         };
         for(DisplayObject d: displayObjects){
             d.accept(v);

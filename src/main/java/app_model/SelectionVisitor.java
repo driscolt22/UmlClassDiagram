@@ -63,7 +63,8 @@ public class SelectionVisitor implements Visitor{
         double d = Math.abs((y2-y1)*x -(x2-x1)*y+x2*y1-y2*x1)/
         Math.sqrt(Math.pow(y2-y1,2)+Math.pow(x2-x1,2));
         //System.out.println("Selected l, d =" + d);
-        if(d <= 5){
+        if(d <= 5 && x >= (int)Math.min(x1,x2) && x <= (int)Math.max(x1,x2) &&
+                     y >= (int)Math.min(y1,y2) && y <= (int)Math.max(y1,y2)){
             lineHeadSelected = Math.hypot(x -l.getFirstX_Value(), y - l.getFirstY_Value()) <=
                       Math.hypot(x- l.getSecondX_Value(), y-l.getSecondY_Value());
             currentlySelected = l;
