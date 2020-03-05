@@ -54,14 +54,13 @@ public class Saver implements Visitor{
     toSave += b.getName() + "\n";
     toSave += addVariables(b) + "\n";
     toSave += addMethods(b) + "\n";
-
       //writer.write(toSave);
       addToFile(toSave);
   }
 
   /**
   * @param the given block
-  * @return a string of the methods of the given block seperated by spaces
+  * @return a string of the methods of the given block seperated by a colon
   */
   private String addMethods(Block b){
     ArrayList<String> toAdd = b.getMethods();
@@ -71,7 +70,7 @@ public class Saver implements Visitor{
     String methods = "";
     for(String m: toAdd){
       if(m != null){
-        methods += m + " ";
+        methods += m + ":";
       }
     }
     return methods;
@@ -89,7 +88,7 @@ public class Saver implements Visitor{
     String varsToSave = "";
     for(String m: toAdd){
       if(m != null){
-        varsToSave += m + " ";
+        varsToSave += m + ":";
       }
     }
     return varsToSave;

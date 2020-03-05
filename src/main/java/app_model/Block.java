@@ -14,8 +14,8 @@ public class Block  implements DisplayObject, Serializable{
   private int width;
   private int length;
   private String className;
-  private ArrayList<String> instanceVariables;
-  private ArrayList<String> contents;
+  private ArrayList<Variable> instanceVariables;
+  private ArrayList<Method> contents;
 
 
   /**
@@ -28,8 +28,8 @@ public class Block  implements DisplayObject, Serializable{
     this.width = 100;
     this.length = 100;
     this.className = "";
-    this.instanceVariables = new ArrayList<String>(0);
-    this.contents = new ArrayList<String>(0);
+    this.instanceVariables = new ArrayList<Variable>(0);
+    this.contents = new ArrayList<Method>(0);
   }
 
   /**
@@ -39,11 +39,24 @@ public class Block  implements DisplayObject, Serializable{
     return this.className;
   }
 
+  private ArrayList<Method> getMethodList(){
+    return this.contents;
+  }
+
+  public ArrayList<Variable> getVariableList(){
+    return this.instanceVariables;
+  }
+
   /**
    * @return ArrayList of all instace vars in Class
    */
   public ArrayList<String> getInstanceVariables(){
-    return this.instanceVariables;
+    ArrayList<String> variables = new ArrayList<>(0);
+    ArrayList<Variable> list = getVariableList();
+    for(int i = 0; i < list.size(); i++){
+      variables.add((list.get(i)).getType() + " " + (list.get(i)).getVariableName());
+    }
+    return variables;
   }
 
   /**
@@ -62,7 +75,17 @@ public class Block  implements DisplayObject, Serializable{
    * @return ArrayList of all methods inside class;
    */
   public ArrayList<String> getMethods(){
-    return this.contents;
+    ArrayList<String> methods = new ArrayList<>(0);
+    ArrayList<Method> list = getMethodList();
+    for(int i = 0; i < list.size(); i++){
+      Method m = list.get(i);
+      String methodToAdd = m.getReturnType() + " " + m.getMethodName();
+      for(String p: m.getParameters()){
+      methodToAdd +=  " " + p;
+      }
+      methods.add(methodToAdd);
+    }
+    return methods;
   }
 
   /**
@@ -72,8 +95,9 @@ public class Block  implements DisplayObject, Serializable{
     String methods = "";
     ArrayList<String> list = methodList;
     for(int i = 0; i < list.size(); i++){
-      methods += list.get(i) + "\n";
-    }
+      methods = list.get(i) + "\n";
+
+      }
     return methods;
   }
 
@@ -116,15 +140,36 @@ public class Block  implements DisplayObject, Serializable{
    * @param instanceVariable instance varible to add to list of instace vars
    */
   public void addInstanceVariable(String instanceVariable){
-    this.instanceVariables.add(instanceVariable);
+    String[] typeAndName = instanceVariable.split(" ");
+    if(typeAndName.length == 2){
+    Variable var = new Variable(typeAndName[0], typeAndName[1]);
+    this.instanceVariables.add(var);
+    }
+    else if(typeAndName.length == 1){
+      Variable var = new Variable("Object", typeAndName[0]);
+      this.instanceVariables.add(var);
+    }
   }
 
   /**
    * @param method method to add to list of methods in class
    */
   public void addMethod(String method){
-    this.contents.add(method);
+    String[] methodInfo = method.split(" ");
+    if(methodInfo.length == 1){
+      this.contents.add(new Method("void", methodInfo[0]));
+    }
+    else if(methodInfo.length == 2){
+      this.contents.add(new Method(methodInfo[0], methodInfo[1]));
+    }
+    else if(methodInfo.length >= 3){
+      Method m = new Method(methodInfo[0], methodInfo[1]);
+      for(int i = 2; i < methodInfo.length; i++){
+        m.addParameter(methodInfo[i]);
+      }
+      this.contents.add(m);
   }
+}
 
   /**
    * @param width new Width for this Block
@@ -193,6 +238,22 @@ public class Block  implements DisplayObject, Serializable{
       return x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getLength();
   }
 
+  public boolean containsMethod(Method toFind){
+    for(Method m: getMethodList()){
+      if(m.equals(toFind))
+        return true;
+    }
+    return false;
+  }
+
+  public boolean containsVariable(Variable toFind){
+    for(Variable v: getVariableList()){
+      if(v.equals(toFind))
+        return true;
+    }
+    return false;
+  }
+
   /**
   * @param b: the Block we are checking for the same methods
   * @return: true if the list of methods has the same size and the elements regardless of order
@@ -200,8 +261,8 @@ public class Block  implements DisplayObject, Serializable{
   */
   private boolean hasSameMethods(Block b){
     if(getMethods().size()==b.getMethods().size()){
-      for(String m: b.getMethods()){
-        if(!getMethods().contains(m))
+      for(Method m: b.getMethodList()){
+        if(!containsMethod(m))
           return false;
       }
       return true;
@@ -217,8 +278,8 @@ public class Block  implements DisplayObject, Serializable{
   */
   private boolean hasSameVariables(Block b){
     if(getInstanceVariables().size()==b.getInstanceVariables().size()){
-      for(String v: b.getInstanceVariables()){
-        if(!getInstanceVariables().contains(v))
+      for(Variable v: b.getVariableList()){
+        if(!containsVariable(v))
           return false;
       }
       return true;
@@ -281,4 +342,93 @@ public class Block  implements DisplayObject, Serializable{
     }
     return toReturn;
     }
+}
+
+class Variable implements Serializable{
+  private String type;
+  private String variableName;
+
+  public Variable(){
+    this.type = "";
+    this.variableName = "";
+  }
+
+  public Variable(String varType, String varName){
+    this.type = varType;
+    this.variableName = varName;
+  }
+
+  public void setType(String newType){
+    this.type = newType;
+  }
+
+  public void setVariableName(String newVariable){
+    this.variableName = newVariable;
+  }
+
+  public String getType(){
+    return this.type;
+  }
+
+  public String getVariableName(){
+    return this.variableName;
+  }
+
+  public boolean equals(Object v){
+    if(v instanceof Variable)
+      return getType().equals(((Variable)v).getType())&&getVariableName().equals(((Variable)v).getVariableName());
+    else
+      return false;
+  }
+}
+
+class Method implements Serializable{
+  private String returnType;
+  private String methodName;
+  private ArrayList<String> parameters;
+
+  public Method(String type, String name){
+    this.methodName = name;
+    this.returnType = type;
+    this.parameters = new ArrayList<String>(0);
+  }
+
+  public Method(){
+    this.methodName = "";
+    this.returnType = "";
+    this.parameters= new ArrayList<String>(0);
+  }
+
+  public String getMethodName(){
+    return this.methodName;
+  }
+
+  public String getReturnType(){
+    return this.returnType;
+  }
+
+  public ArrayList<String> getParameters(){
+    return this.parameters;
+  }
+
+  public void setMethodName(String name){
+    this.methodName = name;
+  }
+
+  public void setReturnType(String type){
+    this.returnType = type;
+  }
+
+  public void addParameter(String type){
+    this.parameters.add(type);
+  }
+
+  public boolean equals(Object m){
+    if(m instanceof Method){
+      return getReturnType().equals(((Method)m).getReturnType())&&getMethodName().equals(((Method)m).getMethodName())
+      &&getParameters().equals(((Method)m).getParameters());
+    }
+    else
+      return false;
+  }
 }

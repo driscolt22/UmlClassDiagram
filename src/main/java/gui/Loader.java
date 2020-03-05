@@ -36,14 +36,14 @@ public class Loader implements Visitor{
     b.setClassName(lineInfo[4]);
     if(!lineInfo[5].equals("null")||lineInfo[5].equals(" ")){
       String vars = lineInfo[5];
-      String[] varsArray = vars.split(" ");
+      String[] varsArray = vars.split(":");
       for(int i = 0; i < varsArray.length; i++){
         b.addInstanceVariable(varsArray[i]);
       }
     }
     if(!lineInfo[6].equals("null")||lineInfo[6].equals(" ")){
       String methods = lineInfo[6];
-      String[] methodsArray = methods.split(" ");
+      String[] methodsArray = methods.split(":");
       for(int i = 0; i < methodsArray.length; i++){
         b.addMethod(methodsArray[i]);
       }
