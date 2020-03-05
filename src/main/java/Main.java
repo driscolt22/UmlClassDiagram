@@ -24,6 +24,7 @@ public class Main{
 //comment
     public Main() {
 
+        //test commit!!
         JFrame mainFrame = new JFrame("Main app");
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 

@@ -2,8 +2,9 @@ package app_model;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.util.*;
+import java.io.Serializable;
 
-public class DisplayText implements DisplayObject{
+public class DisplayText implements DisplayObject, Serializable{
     private int x;
     private int y;
     private String t;

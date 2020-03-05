@@ -19,7 +19,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 
 
-public class AppModel {
+public class AppModel implements Serializable{
   private ArrayList<DisplayObject> displayObjects;
   //private ArrayList<line> lines;
   private Vector<AppListener> listeners;
@@ -88,20 +88,12 @@ public class AppModel {
   /**
    * saves the currently created file to the users machine
    */
-  public void save(String fileName)throws IOException{
+  public void save(String fileName){
     Iterable<DisplayObject> objects = getDisplayObjects();
-    Saver saver = new Saver();
-    //int count = 0;
-    //FileUtils.write(new File(fileName), "");
-    BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-    for(DisplayObject d: objects){
-      //count++;
-      d.accept(saver);
-    }
-    //System.out.println(String.valueOf(count));
-    //System.out.println(saver.getToSave());
-    writer.write(saver.getToSave());
-    writer.close();
+    Saver saver = new Saver(fileName);
+      for(DisplayObject d: objects){
+        d.accept(saver);
+      }
   }
 
   /**
@@ -118,11 +110,11 @@ public class AppModel {
   }
 
 
-
   /**
    * loads a previously created file
    */
-  public void load(String fileName)throws IOException{
+  public void load(String fileName){
+    try{
       clear();
       //FileReader reader = new FileReader(fileName);
           BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
@@ -243,7 +235,51 @@ public class AppModel {
       }        // to add loading function
           bufferedReader.close();
           notifyListeners();
+    }catch(IOException e){
+      System.out.println("error loading");
+    }
       }
+
+      private static AppModel loader2(String fileName)throws FileNotFoundException, IOException, ClassNotFoundException{
+          ObjectInputStream am = new ObjectInputStream(new FileInputStream(fileName));
+          AppModel toReturn = (AppModel) am.readObject();
+          am.close();
+          return toReturn;
+      }
+
+      public void load2(String fileName){
+        try{
+          clear();
+          AppModel toCopy = loader2(fileName);
+
+          for(DisplayObject d: toCopy.getDisplayObjects()){
+            this.addObj(d);
+          }
+          notifyListeners();
+        } catch(FileNotFoundException e){
+          System.out.println("error loading1");
+          e.getStackTrace();
+        } catch(IOException e){
+          System.out.println("error loading2");
+          e.getStackTrace();
+        } catch(ClassNotFoundException e){
+          System.out.println("error loading3");
+          e.getStackTrace();
+        }
+      }
+
+      public void save2(String fileName){
+        try{
+          ObjectOutputStream am = new ObjectOutputStream(new FileOutputStream(fileName));
+          am.writeObject(this);
+          am.close();
+        } catch(FileNotFoundException e){
+          e.getStackTrace();
+        } catch(IOException e){
+          e.getStackTrace();
+        }
+      }
+
 
     /**
       * @param x,y for selecting by a coordinate
@@ -449,7 +485,7 @@ public class AppModel {
   public String toString(){
     String toReturn = "";
     for(DisplayObject d: getDisplayObjects()){
-      toReturn += d.toString();
+      toReturn += d.toString() + "\n";
     }
     return toReturn;
   }

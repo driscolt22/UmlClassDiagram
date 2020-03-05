@@ -25,18 +25,12 @@ import java.awt.event.*;
 import javax.swing.event.*;
 import java.io.IOException;
 import java.io.File;
+import java.io.Serializable;
 
-
-import app_model.AppListener;
-import app_model.AppModel;
-import app_model.DisplayObject;
-import app_model.Block;
-import app_model.BlockFactory;
-import app_model.LineFactory;
-import app_model.DisplayText;
+import app_model.*;
 import gui.*;
 
-public class MenuDisplay extends JComponent implements ActionListener, AppListener, DocumentListener  {
+public class MenuDisplay extends JComponent implements ActionListener, AppListener, DocumentListener, Serializable  {
     public static int WIDTH = 200;
     public static int HEIGHT = 800;
     private AppModel app;
@@ -230,23 +224,29 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
         JFileChooser chooser = new JFileChooser();
         if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             File selectedFile = chooser.getSelectedFile();
-            try{
-                this.app.save((String)selectedFile.getPath());
-            }catch(IOException e){
-                System.out.print("Problem saving");
-            }
+            AppModel a = copyDisplayObjects();
+            a.save2((String)selectedFile.getPath());
         }
+    }
+
+    private void setAppModel(AppModel a){
+      this.app = a;
+    }
+
+    private AppModel copyDisplayObjects(){
+      AppModel toReturn = new AppModel();
+      for(DisplayObject d: this.app.getDisplayObjects()){
+        toReturn.addObj(d);
+      }
+      return toReturn;
     }
 
     public void loadButtonPressed(){
         JFileChooser chooser = new JFileChooser();
         if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             File selectedFile = chooser.getSelectedFile();
-            try{
-                this.app.load((String)selectedFile.getPath());
-            }catch(IOException e){
-                System.out.print("Problem loading");
-            }
+            this.app.load2((String)selectedFile.getPath());
+            //System.out.println(this.app);
         }
     }
 

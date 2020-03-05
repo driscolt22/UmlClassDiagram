@@ -16,6 +16,7 @@ import app_model.Line;
 import app_model.Block;
 import app_model.DisplayText;
 import app_model.lines.*;
+import java.awt.Color;
 
 public class Render implements Visitor{
 
@@ -32,6 +33,20 @@ public class Render implements Visitor{
      */
     public Render(Graphics g){
         this.g = g;
+    }
+
+    public void paintBackground(int h, int w){
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(Color.white);
+        g2.fillRect(0, 0, w, h);
+    }
+
+    public void setSelectedColor(boolean selected){
+        if(selected){
+            g.setColor(Color.blue);
+        }else{
+            g.setColor(Color.black);
+        }
     }
 
     public void updateGraphics(Graphics g){
