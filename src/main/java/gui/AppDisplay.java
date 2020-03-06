@@ -29,14 +29,18 @@ public class AppDisplay extends JComponent implements AppListener{
     public static int HEIGHT = 800;
     private AppControl controller;
 
+    private Render render;
+
     public AppDisplay(AppModel app)
     {
         this.app = app;
+        this.render = new Render();
 
         controller = new AppControl(app, this);
 
         setSize(new Dimension(WIDTH, HEIGHT));
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
+
     }
 
     /**
@@ -46,8 +50,7 @@ public class AppDisplay extends JComponent implements AppListener{
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        Render render = new Render(g);
-
+        render.setGraphics(g);
         render.paintBackground(HEIGHT, WIDTH);
 
 
@@ -56,6 +59,10 @@ public class AppDisplay extends JComponent implements AppListener{
             render.setSelectedColor(app.isSelected(d));
             d.accept(render);
         }
+    }
+
+    public void setRender(Render r){
+        this.render = r;
     }
 
     /**

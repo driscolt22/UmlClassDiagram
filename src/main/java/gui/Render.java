@@ -31,7 +31,11 @@ public class Render implements Visitor{
     /**
      * @param g Creates a render for the display given the graphics
      */
-    public Render(Graphics g){
+    public Render(){
+        this.g = null;
+    }
+
+    public void setGraphics(Graphics g){
         this.g = g;
     }
 

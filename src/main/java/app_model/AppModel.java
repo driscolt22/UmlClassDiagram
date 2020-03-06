@@ -328,7 +328,7 @@ public class AppModel implements Serializable{
    */
   public void moveSelected(int dx,int dy){
       MoveVisitor mv = new MoveVisitor(getDisplayObjects(), selectHead, dx, dy);
-      getSelected().accept(mv);
+      if(getSelected() != null) getSelected().accept(mv);
       //updateLinePositions();
       notifyListeners();
   }
