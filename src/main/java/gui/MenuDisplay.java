@@ -29,6 +29,7 @@ import java.io.Serializable;
 
 import app_model.*;
 import gui.*;
+import commands.*;
 
 public class MenuDisplay extends JComponent implements ActionListener, AppListener, DocumentListener, Serializable  {
     public static int WIDTH = 200;
@@ -142,28 +143,19 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     }
 
     public void actionPerformed(ActionEvent e){
+        Command c = null;
       if(e.getActionCommand().equals("block")){
-        blockButtonPressed();
-      }else if(e.getActionCommand().equals("association")){
-        associationLineButtonPressed();
-      }else if(e.getActionCommand().equals("inheritance")){
-        inheritanceLineButtonPressed();
-      }else if(e.getActionCommand().equals("implementation")){
-        implementationLineButtonPressed();
-      }else if(e.getActionCommand().equals("dependency")){
-        dependencyLineButtonPressed();
-      }else if(e.getActionCommand().equals("aggregation")){
-        aggregationLineButtonPressed();
-      }else if(e.getActionCommand().equals("composition")){
-        compositionLineButtonPressed();
+          c = new CreateBlockCommand(app);
+      }else if(e.getActionCommand().equals("line")){
+          c = new CreateLineCommand(app);
       }else if(e.getActionCommand().equals("text")){
-        textButtonPressed();
+          c = new CreateTextCommand(app);
       }else if(e.getActionCommand().equals("delete")){
-        deleteSelectedPressed();
+          c = new DeleteCommand(app);
       }else if(e.getActionCommand().equals("save")){
-        saveButtonPressed();
+          c = new SaveCommand(app);
       }else if(e.getActionCommand().equals("load")){
-        loadButtonPressed();
+          c = new LoadCommand(app);
         }else if(e.getActionCommand().equals("setClass")){
             ((Block)app.getSelected()).setClassName(classText.getText());
             app.select(app.getSelected());
@@ -174,9 +166,10 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
                 app.select(app.getSelected());
             }
         }else if(e.getActionCommand().equals("export")){
-            if(display1 != null){
-                display1.export("output.png");
-            }
+            c = new ExportCommand(display1);
+        }
+        if(c != null){
+            c.execute();
         }
     }
 
@@ -257,42 +250,12 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       blockButton.addActionListener(this);
       this.buttonMenu.add(blockButton);
 
-      JButton associationLineButton = new JButton("New Association Line");
-      associationLineButton.setPreferredSize(new Dimension(25, 100));
-      associationLineButton.setActionCommand("association");
-      associationLineButton.addActionListener(this);
+      JButton lineButton = new JButton("New Line");
+      lineButton.setPreferredSize(new Dimension(25, 100));
+      lineButton.setActionCommand("line");
+      lineButton.addActionListener(this);
 
-      this.buttonMenu.add(associationLineButton);
-
-      JButton inheritanceLineButton = new JButton("New Inheritance Line");
-      inheritanceLineButton.setPreferredSize(new Dimension(25, 100));
-      inheritanceLineButton.setActionCommand("inheritance");
-      inheritanceLineButton.addActionListener(this);
-      this.buttonMenu.add(inheritanceLineButton);
-
-      JButton implementationLineButton = new JButton("New Implementation Line");
-      implementationLineButton.setPreferredSize(new Dimension(25, 100));
-      implementationLineButton.setActionCommand("implementation");
-      implementationLineButton.addActionListener(this);
-      this.buttonMenu.add(implementationLineButton);
-
-      JButton dependencyLineButton = new JButton("New Dependency Line");
-      dependencyLineButton.setPreferredSize(new Dimension(25, 100));
-      dependencyLineButton.setActionCommand("dependency");
-      dependencyLineButton.addActionListener(this);
-      this.buttonMenu.add(dependencyLineButton);
-
-      JButton aggregationLineButton = new JButton("New Aggregation Line");
-      aggregationLineButton.setPreferredSize(new Dimension(25, 100));
-      aggregationLineButton.setActionCommand("aggregation");
-      aggregationLineButton.addActionListener(this);
-      this.buttonMenu.add(aggregationLineButton);
-
-      JButton compositionLineButton = new JButton("New Compositon Line");
-      compositionLineButton.setPreferredSize(new Dimension(25, 100));
-      compositionLineButton.setActionCommand("composition");
-      compositionLineButton.addActionListener(this);
-      this.buttonMenu.add(compositionLineButton);
+      this.buttonMenu.add(lineButton);
 
       JButton textButton = new JButton("New Text");
       textButton.setPreferredSize(new Dimension(25, 100));

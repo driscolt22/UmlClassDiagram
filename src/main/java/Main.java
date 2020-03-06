@@ -20,6 +20,8 @@ import java.awt.event.WindowEvent;
 import java.awt.Toolkit;
 import java.awt.Dimension;
 
+import commands.*;
+
 public class Main{
 
     public Main() {

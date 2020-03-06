@@ -67,13 +67,16 @@ public class AppDisplay extends JComponent implements AppListener{
         //export("output.png");
 	}
 
-    public void export(String s){
+    public void export(File f, String fileType){
         BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB);
         Graphics g = bi.createGraphics();
         this.paint(g);  //this == JComponent
         g.dispose();
+        System.out.println("saving file: " + f + " as: " + fileType);
         try{
-            ImageIO.write(bi,"PNG",new File(s));
-        }catch (Exception e) {}
+            ImageIO.write(bi,fileType, f);
+        }catch (Exception e) {
+            System.out.println("error Exporting file: " + f);
+        }
     }
 }
