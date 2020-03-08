@@ -156,6 +156,8 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
           c = new SaveCommand(app);
       }else if(e.getActionCommand().equals("load")){
           c = new LoadCommand(app);
+      }else if(e.getActionCommand().equals("clear")){
+          c = new ClearCommand(app);
       }else if(e.getActionCommand().equals("theme")){
           c = new ChangeThemeCommand(display1);
         }else if(e.getActionCommand().equals("setClass")){
@@ -294,6 +296,12 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       themeButton.setActionCommand("theme");
       themeButton.addActionListener(this);
       this.buttonMenu.add(themeButton);
+
+      JButton clearButton = new JButton("Clear");
+      clearButton.setPreferredSize(new Dimension(25, 100));
+      clearButton.setActionCommand("clear");
+      clearButton.addActionListener(this);
+      this.buttonMenu.add(clearButton);
     }
 
     public void insertUpdate(DocumentEvent e) {
