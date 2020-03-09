@@ -36,9 +36,10 @@ public class SaveLoaderTest{
     Line l = LineFactory.createLine();
     Block b = BlockFactory.createBlock();
     b.setClassName("model");
-    b.addInstanceVariable("length");
-    b.addInstanceVariable("width");
-    b.addMethod("get()");
+    b.addInstanceVariable("int length");
+    b.addInstanceVariable("int width");
+    b.addMethod("int getLength String int");
+    b.addMethod("int getWidth String int");
     b.setLocation(215, 150);
     a.addObj(l);
     a.addObj(b);
@@ -70,7 +71,8 @@ public class SaveLoaderTest{
     b.setClassName("model1");
     b.addInstanceVariable("length");
     b.addInstanceVariable("width");
-    b.addMethod("get()");
+    b.addMethod("int getLength String int");
+    b.addMethod("int getWidth String int");
     b.setLocation(215, 150);
     l.setTail(100, 50);
     a.addObj(l);

@@ -9,8 +9,8 @@ Block
 100
 100
 model
-Object length:Object width:
-void get():
+int length:int width:
+int getLength String int:int getWidth String int:
 DisplayText
 100
 45

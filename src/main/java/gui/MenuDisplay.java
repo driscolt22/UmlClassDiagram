@@ -30,7 +30,7 @@ import java.io.Serializable;
 import app_model.*;
 import gui.*;
 
-public class MenuDisplay extends JComponent implements ActionListener, AppListener, DocumentListener, Serializable  {
+public class MenuDisplay extends JComponent implements ActionListener, AppListener, DocumentListener  {
     public static int WIDTH = 200;
     public static int HEIGHT = 800;
     private AppModel app;
