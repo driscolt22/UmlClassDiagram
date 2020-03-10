@@ -3,6 +3,8 @@ import app_model.*;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.util.*;
+import app_model.Variable;
+import app_model.Method;
 import java.io.Serializable;
 
 /**
@@ -17,8 +19,6 @@ public class Block  implements DisplayObject, Serializable{
   private String className;
   private ArrayList<Variable> instanceVariables;
   private ArrayList<Method> contents;
-
-
   /**
    * Creates a empty square Block at 0,0 with size 100
    */
@@ -31,6 +31,7 @@ public class Block  implements DisplayObject, Serializable{
     this.className = "";
     this.instanceVariables = new ArrayList<Variable>(0);
     this.contents = new ArrayList<Method>(0);
+
   }
 
   /**
@@ -40,13 +41,14 @@ public class Block  implements DisplayObject, Serializable{
     return this.className;
   }
 
-  private ArrayList<Method> getMethodList(){
+  public ArrayList<Method> getMethodList(){
     return this.contents;
   }
 
   public ArrayList<Variable> getVariableList(){
     return this.instanceVariables;
   }
+
 
   /**
    * @return ArrayList of all instace vars in Class
