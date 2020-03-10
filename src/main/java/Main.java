@@ -34,6 +34,7 @@ public class Main{
 
         AppDisplay mainDisplay = new AppDisplay(app);
         app.addListener(mainDisplay);
+        mainFrame.addKeyListener(mainDisplay.getController());
 
 
 //

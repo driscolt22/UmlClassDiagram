@@ -137,7 +137,7 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
 
     private void initButtonMenu(JPanel panel){
       panel.setMaximumSize(new Dimension(300, 400));
-      panel.setLayout(new GridLayout(12, 1));
+      panel.setLayout(new GridLayout(10, 1));
       panel.setBackground(Color.black);
       addButtonsToMenu();
     }
@@ -185,69 +185,69 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     public JPanel getSelectedContents(){
       return this.selectedContents;
     }
-    public void blockButtonPressed(){
-      this.app.addObj(BlockFactory.createBlock());
-    }
-    public void associationLineButtonPressed(){
-      this.app.addObj(LineFactory.createAssociationLine());
-    }
-    public void inheritanceLineButtonPressed(){
-      this.app.addObj(LineFactory.createInheritanceLine());
-    }
-    public void implementationLineButtonPressed(){
-      this.app.addObj(LineFactory.createImplementationLine());
-    }
-    public void dependencyLineButtonPressed(){
-      this.app.addObj(LineFactory.createDependencyLine());
-    }
-    public void aggregationLineButtonPressed(){
-      this.app.addObj(LineFactory.createAggregationLine());
-    }
-    public void compositionLineButtonPressed(){
-      this.app.addObj(LineFactory.createCompositionLine());
-    }
-    public void textButtonPressed(){
-      this.app.addObj(new DisplayText());
-    }
-    public void deleteSelectedPressed(){
-      this.app.removeSelected();
-    }
-    public void submitClassButtonPressed(){
-      Block curretlySelected = (Block)this.app.getSelected();
-      //currentlySelected.setClassName(classText.getText());
-      //currentlySelected.addInstanceVariable(instanceVariableText.getText());
-      //currentlySelected.addMethod(classMethodText.getText());
-    }
-
-    public void saveButtonPressed(){
-        JFileChooser chooser = new JFileChooser();
-        if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = chooser.getSelectedFile();
-            AppModel a = copyDisplayObjects();
-            a.save2((String)selectedFile.getPath());
-        }
-    }
-
-    private void setAppModel(AppModel a){
-      this.app = a;
-    }
-
-    private AppModel copyDisplayObjects(){
-      AppModel toReturn = new AppModel();
-      for(DisplayObject d: this.app.getDisplayObjects()){
-        toReturn.addObj(d);
-      }
-      return toReturn;
-    }
-
-    public void loadButtonPressed(){
-        JFileChooser chooser = new JFileChooser();
-        if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = chooser.getSelectedFile();
-            this.app.load2((String)selectedFile.getPath());
-            //System.out.println(this.app);
-        }
-    }
+    // public void blockButtonPressed(){
+    //   this.app.addObj(BlockFactory.createBlock());
+    // }
+    // public void associationLineButtonPressed(){
+    //   this.app.addObj(LineFactory.createAssociationLine());
+    // }
+    // public void inheritanceLineButtonPressed(){
+    //   this.app.addObj(LineFactory.createInheritanceLine());
+    // }
+    // public void implementationLineButtonPressed(){
+    //   this.app.addObj(LineFactory.createImplementationLine());
+    // }
+    // public void dependencyLineButtonPressed(){
+    //   this.app.addObj(LineFactory.createDependencyLine());
+    // }
+    // public void aggregationLineButtonPressed(){
+    //   this.app.addObj(LineFactory.createAggregationLine());
+    // }
+    // public void compositionLineButtonPressed(){
+    //   this.app.addObj(LineFactory.createCompositionLine());
+    // }
+    // public void textButtonPressed(){
+    //   this.app.addObj(new DisplayText());
+    // }
+    // public void deleteSelectedPressed(){
+    //   this.app.removeSelected();
+    // }
+    // public void submitClassButtonPressed(){
+    //   Block curretlySelected = (Block)this.app.getSelected();
+    //   //currentlySelected.setClassName(classText.getText());
+    //   //currentlySelected.addInstanceVariable(instanceVariableText.getText());
+    //   //currentlySelected.addMethod(classMethodText.getText());
+    // }
+    //
+    // public void saveButtonPressed(){
+    //     JFileChooser chooser = new JFileChooser();
+    //     if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+    //         File selectedFile = chooser.getSelectedFile();
+    //         AppModel a = copyDisplayObjects();
+    //         a.save2((String)selectedFile.getPath());
+    //     }
+    // }
+    //
+    // private void setAppModel(AppModel a){
+    //   this.app = a;
+    // }
+    //
+    // private AppModel copyDisplayObjects(){
+    //   AppModel toReturn = new AppModel();
+    //   for(DisplayObject d: this.app.getDisplayObjects()){
+    //     toReturn.addObj(d);
+    //   }
+    //   return toReturn;
+    // }
+    //
+    // public void loadButtonPressed(){
+    //     JFileChooser chooser = new JFileChooser();
+    //     if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+    //         File selectedFile = chooser.getSelectedFile();
+    //         this.app.load2((String)selectedFile.getPath());
+    //         //System.out.println(this.app);
+    //     }
+    // }
 
     private void addButtonsToMenu(){
       JButton blockButton = new JButton("New Class");
