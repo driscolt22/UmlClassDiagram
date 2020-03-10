@@ -96,8 +96,7 @@ public class Block  implements DisplayObject, Serializable{
     String methods = "";
     ArrayList<String> list = methodList;
     for(int i = 0; i < list.size(); i++){
-      methods = list.get(i) + "\n";
-
+      methods += list.get(i) + "\n";
       }
     return methods;
   }
@@ -110,7 +109,7 @@ public class Block  implements DisplayObject, Serializable{
     if(instanceVariables.equals("")){
         return;
     }
-    String[] variables = instanceVariables.split("\n",0);
+    String[] variables = instanceVariables.split("\n");
     for (String variable: variables){
       this.addInstanceVariable(variable);
     }
@@ -124,7 +123,7 @@ public class Block  implements DisplayObject, Serializable{
     if(methods.equals("")){
         return;
     }
-    String[] methodList = methods.split("\n",0);
+    String[] methodList = methods.split("\n");
     for (String method: methodList){
       this.addMethod(method);
     }
