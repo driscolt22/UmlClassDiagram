@@ -158,6 +158,8 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
           c = new LoadCommand(app);
       }else if(e.getActionCommand().equals("clear")){
           c = new ClearCommand(app);
+      }else if(e.getActionCommand().equals("genCode")){
+          c = new GenCodeCommand(app);
       }else if(e.getActionCommand().equals("theme")){
           c = new ChangeThemeCommand(display1);
         }else if(e.getActionCommand().equals("setClass")){
@@ -302,6 +304,12 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       clearButton.setActionCommand("clear");
       clearButton.addActionListener(this);
       this.buttonMenu.add(clearButton);
+
+      JButton codeGenButton = new JButton("Generate Code");
+      codeGenButton.setPreferredSize(new Dimension(25, 100));
+      codeGenButton.setActionCommand("genCode");
+      codeGenButton.addActionListener(this);
+      this.buttonMenu.add(codeGenButton);
     }
 
     public void insertUpdate(DocumentEvent e) {
