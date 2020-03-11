@@ -17,6 +17,7 @@ import app_model.Block;
 import app_model.Line;
 import app_model.LineFactory;
 import app_model.BlockFactory;
+import app_model.DisplayText;
 
 
 @RunWith(JUnit4.class)
@@ -58,9 +59,9 @@ public class AppModelTest{
         a.addObj(b);
         a.addObj(d);
         Line l = LineFactory.createLine();
-        l.connectHead(b);
-        l.connectTail(d);
-        l.updatePosition();
+        //l.connectHead(b);
+        //l.connectTail(d);
+        //l.updatePosition();
         l.setLine(b,d);
         assertEquals("connected line has right X1 cord", 50, l.getFirstX_Value());
         assertEquals("connected line has right X2 cord", 50, l.getSecondX_Value());
@@ -104,12 +105,20 @@ public class AppModelTest{
     @Test
     public void testEquals(){
       Block b = BlockFactory.createBlock();
+      b.setClassName("model1");
+      b.addInstanceVariable("length");
+      b.addInstanceVariable("width");
+      b.addMethod("int getLength String int");
+      b.addMethod("int getWidth String int");
+      b.setLocation(215, 150);
       a.addObj(b);
       AppModel a2 = new AppModel();
       a2.addObj(b);
       assertTrue("two AppModels holding the same block are equal", a.equals(a2));
       Line l = LineFactory.createCompositionLine();
       Line l2 = LineFactory.createCompositionLine();
+      l.setTail(100, 50);
+      l2.setTail(100, 50);
       a2.addObj(l2);
       a.addObj(l);
       assertEquals("two AppModels holding lines that are equal are equal", a, a2);
@@ -117,7 +126,42 @@ public class AppModelTest{
       Block b3 = BlockFactory.createBlock();
       a.addObj(b2);
       a2.addObj(b3);
+      DisplayText t = new DisplayText();
+      t.setLocation(100, 45);
+      t.setText("hello");
+      a.addObj(t);
+      a2.addObj(t);
       assertEquals("two AppModels holding lines that are equal are equal", a, a2);
+    }
+
+    @Test
+    public void testToString(){
+      Block b = BlockFactory.createBlock();
+      b.setClassName("model1");
+      b.addInstanceVariable("length");
+      b.addInstanceVariable("width");
+      b.addMethod("int getLength String int");
+      b.addMethod("int getWidth String int");
+      b.setLocation(215, 150);
+      a.addObj(b);
+      AppModel a2 = new AppModel();
+      a2.addObj(b);
+      Line l = LineFactory.createCompositionLine();
+      Line l2 = LineFactory.createCompositionLine();
+      l.setTail(100, 50);
+      l2.setTail(100, 50);
+      a2.addObj(l2);
+      a.addObj(l);
+      Block b2 = BlockFactory.createBlock();
+      Block b3 = BlockFactory.createBlock();
+      a.addObj(b2);
+      a2.addObj(b3);
+      DisplayText t = new DisplayText();
+      t.setLocation(100, 45);
+      t.setText("hello");
+      a.addObj(t);
+      a2.addObj(t);
+      assertEquals("they have equal objects in the same order so toString method calls should be equal", a.toString(), a2.toString());
     }
 
 }
