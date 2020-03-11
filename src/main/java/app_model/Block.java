@@ -40,10 +40,16 @@ public class Block  implements DisplayObject, Serializable{
     return this.className;
   }
 
+  /**
+  * @return the ArrayList of Method Objects for this class
+  */
   public ArrayList<Method> getMethodList(){
     return this.contents;
   }
 
+  /**
+  * @return the ArrayList of Variable Objects for this class
+  */
   public ArrayList<Variable> getVariableList(){
     return this.instanceVariables;
   }

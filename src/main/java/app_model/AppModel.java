@@ -110,6 +110,7 @@ public class AppModel implements Serializable{
     }
 }
 
+
   /**
    * loads a previously created file
    */
@@ -240,6 +241,9 @@ public class AppModel implements Serializable{
     }
       }
 
+      /**
+      * @return the AppModel that is created from the serializable file
+      */
       private static AppModel loader2(String fileName)throws FileNotFoundException, IOException, ClassNotFoundException{
           ObjectInputStream am = new ObjectInputStream(new FileInputStream(fileName));
           AppModel toReturn = (AppModel) am.readObject();
@@ -247,6 +251,9 @@ public class AppModel implements Serializable{
           return toReturn;
       }
 
+      /**
+      *loads an serializable appmodel file that was saved to a file to this AppModel
+      */
       public void load2(String fileName){
         try{
           clear();
