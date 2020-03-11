@@ -23,6 +23,7 @@ import app_model.BlockFactory;
 import gui.CodeGenerator;
 import app_model.lines.InheritanceLine;
 import app_model.lines.ImplementationLine;
+import app_model.DisplayText;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
