@@ -11,6 +11,9 @@ public class CreateLineCommand implements Command{
         this.appmodel = appmodel;
     }
 
+    /**
+     * prompts the user for what sort of line, then adds it to the model.
+     */
     public void execute(){
         Object[] possibilities = {"AggregationLine", "AssociationLine", "CompostionLine",
             "DependencyLine","ImplementationLine","InheritanceLine"};

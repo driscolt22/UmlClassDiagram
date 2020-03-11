@@ -11,6 +11,9 @@ public class LoadCommand implements Command{
         this.appmodel = appmodel;
     }
 
+    /**
+     * prompts the user to load a file
+     */
     public void execute(){
         JFileChooser chooser = new JFileChooser();
         if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {

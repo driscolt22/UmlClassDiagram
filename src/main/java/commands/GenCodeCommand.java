@@ -13,6 +13,9 @@ public class GenCodeCommand implements Command{
         this.appmodel = appmodel;
     }
 
+    /**
+     * asks the user to what folder they want to save to. then Generates Java code
+     */
     public void execute(){
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

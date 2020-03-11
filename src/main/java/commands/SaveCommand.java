@@ -11,6 +11,9 @@ public class SaveCommand implements Command{
         this.appmodel = appmodel;
     }
 
+    /**
+     * propmts the user asto where to save, then saves.
+     */
     public void execute(){
         JFileChooser chooser = new JFileChooser();
         if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {

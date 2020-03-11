@@ -10,6 +10,9 @@ public class ClearCommand implements Command{
         this.appmodel = appmodel;
     }
 
+    /**
+     * asks to confirm, then clears the AppModel
+     */
     public void execute(){
         int input = JOptionPane.showConfirmDialog(null, "Are sure you want to Clear?","Confirm",JOptionPane.OK_CANCEL_OPTION);
         if(input == 0){
