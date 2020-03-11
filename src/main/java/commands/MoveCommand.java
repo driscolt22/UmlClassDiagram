@@ -13,6 +13,9 @@ public class MoveCommand implements Command{
         this.dy = dy;
     }
 
+    /**
+     * moves the selected by dx,dy
+     */
     public void execute(){
         appmodel.moveSelected(dx,dy);
     }

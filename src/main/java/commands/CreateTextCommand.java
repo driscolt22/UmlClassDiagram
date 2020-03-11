@@ -10,6 +10,9 @@ public class CreateTextCommand implements Command{
         this.appmodel = appmodel;
     }
 
+    /**
+     * Adds a new line to appmodel
+     */
     public void execute(){
         appmodel.addObj(new DisplayText());
     }

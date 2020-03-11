@@ -13,6 +13,9 @@ public class ExportCommand implements Command{
         this.ad = ad;
     }
 
+    /**
+     * propmts the user to where they want to export the image, then saves it
+     */
     public void execute(){
         JFileChooser chooser = new JFileChooser();
         for(String s: ImageIO.getReaderFileSuffixes()){

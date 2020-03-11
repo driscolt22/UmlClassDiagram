@@ -10,6 +10,9 @@ public class CreateBlockCommand implements Command{
         this.appmodel = appmodel;
     }
 
+    /**
+     * Adds a new Block to the appmodel
+     */
     public void execute(){
         appmodel.addObj(BlockFactory.createBlock());
     }

@@ -12,6 +12,9 @@ public class ChangeThemeCommand implements Command{
         this.ad = ad;
     }
 
+    /**
+     * Propmpots the user for a new theme, then changes it in AppDisplay
+     */
     public void execute(){
         Object[] possibilities = {"Default", "DarkMode"};
         String s = (String)JOptionPane.showInputDialog(
