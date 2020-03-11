@@ -5,11 +5,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 
 import javax.swing.JOptionPane;
 
 import app_model.AppModel;
 import gui.AppDisplay;
+import commands.*;
 
 public class AppControl
 implements MouseListener, MouseMotionListener, KeyListener
@@ -18,6 +20,8 @@ implements MouseListener, MouseMotionListener, KeyListener
     private AppDisplay appDisplay;
     private int pressX;
     private int pressY;
+
+    private boolean ctrlPressed;
 
     /**
      * Initizes the mouse contorl for An appmodel, given the display
@@ -29,8 +33,11 @@ implements MouseListener, MouseMotionListener, KeyListener
         this.app = app;
         this.appDisplay = appDisplay;
 
+        ctrlPressed = false;
+
         appDisplay.addMouseListener(this);
         appDisplay.addMouseMotionListener(this);
+        //appDisplay.addKeyListener(this);
 
     }
 
@@ -85,21 +92,56 @@ implements MouseListener, MouseMotionListener, KeyListener
             e.getX() < AppDisplay.WIDTH && e.getY() < AppDisplay.HEIGHT){
             int dx = e.getX() - pressX;
             int dy = e.getY() - pressY;
-            app.moveSelected(dx, dy);
+            Command c = new MoveCommand(app, dx, dy);
+            c.execute();
             pressX = e.getX();
             pressY = e.getY();
         }
     }
 
     public void keyPressed(KeyEvent e) {
-        System.out.println(e);
+        //System.out.println(e);
+        System.out.println(e.getModifiers());
+        Command c = null;
+        if(e.isControlDown()){
+            int k = e.getKeyCode();
+            if(k == KeyEvent.VK_S){
+                c = new SaveCommand(app);
+            }else if(k == KeyEvent.VK_A){
+                c = new LoadCommand(app);
+            }else if(k == KeyEvent.VK_B){
+                c = new CreateBlockCommand(app);
+            }else if(k == KeyEvent.VK_L){
+                c = new CreateLineCommand(app);
+            }else if(k == KeyEvent.VK_T){
+                c = new CreateTextCommand(app);
+            }else if(k == KeyEvent.VK_E){
+                c = new ExportCommand(appDisplay);
+            }
+        }else{
+            int k = e.getKeyCode();
+            if(k == KeyEvent.VK_RIGHT){
+                c = new MoveCommand(app, 10,0);
+            }else if(k == KeyEvent.VK_LEFT){
+                c = new MoveCommand(app, -10,0);
+            }else if(k == KeyEvent.VK_UP){
+                c = new MoveCommand(app, 0,-10);
+            }else if(k == KeyEvent.VK_DOWN){
+                c = new MoveCommand(app, 0,10);
+            }else if(k == KeyEvent.VK_ESCAPE){
+                app.select(-100,-100);
+            }
+        }
+        if(c != null){
+            c.execute();
+        }
     }
     public void keyReleased(KeyEvent e) {
-        System.out.println(e);
+        //System.out.println(e);
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        System.out.println(e);
+
     }
 }

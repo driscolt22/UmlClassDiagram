@@ -29,6 +29,7 @@ import java.io.Serializable;
 
 import app_model.*;
 import gui.*;
+import commands.*;
 
 public class MenuDisplay extends JComponent implements ActionListener, AppListener, DocumentListener  {
     public static int WIDTH = 200;
@@ -136,34 +137,31 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
 
     private void initButtonMenu(JPanel panel){
       panel.setMaximumSize(new Dimension(300, 400));
-      panel.setLayout(new GridLayout(12, 1));
+      panel.setLayout(new GridLayout(10, 1));
       panel.setBackground(Color.black);
       addButtonsToMenu();
     }
 
     public void actionPerformed(ActionEvent e){
+        Command c = null;
       if(e.getActionCommand().equals("block")){
-        blockButtonPressed();
-      }else if(e.getActionCommand().equals("association")){
-        associationLineButtonPressed();
-      }else if(e.getActionCommand().equals("inheritance")){
-        inheritanceLineButtonPressed();
-      }else if(e.getActionCommand().equals("implementation")){
-        implementationLineButtonPressed();
-      }else if(e.getActionCommand().equals("dependency")){
-        dependencyLineButtonPressed();
-      }else if(e.getActionCommand().equals("aggregation")){
-        aggregationLineButtonPressed();
-      }else if(e.getActionCommand().equals("composition")){
-        compositionLineButtonPressed();
+          c = new CreateBlockCommand(app);
+      }else if(e.getActionCommand().equals("line")){
+          c = new CreateLineCommand(app);
       }else if(e.getActionCommand().equals("text")){
-        textButtonPressed();
+          c = new CreateTextCommand(app);
       }else if(e.getActionCommand().equals("delete")){
-        deleteSelectedPressed();
+          c = new DeleteCommand(app);
       }else if(e.getActionCommand().equals("save")){
-        saveButtonPressed();
+          c = new SaveCommand(app);
       }else if(e.getActionCommand().equals("load")){
-        loadButtonPressed();
+          c = new LoadCommand(app);
+      }else if(e.getActionCommand().equals("clear")){
+          c = new ClearCommand(app);
+      }else if(e.getActionCommand().equals("genCode")){
+          c = new GenCodeCommand(app);
+      }else if(e.getActionCommand().equals("theme")){
+          c = new ChangeThemeCommand(display1);
         }else if(e.getActionCommand().equals("setClass")){
             ((Block)app.getSelected()).setClassName(classText.getText());
             app.select(app.getSelected());
@@ -174,9 +172,10 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
                 app.select(app.getSelected());
             }
         }else if(e.getActionCommand().equals("export")){
-            if(display1 != null){
-                display1.export("output.png");
-            }
+            c = new ExportCommand(display1);
+        }
+        if(c != null){
+            c.execute();
         }
     }
 
@@ -186,69 +185,69 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
     public JPanel getSelectedContents(){
       return this.selectedContents;
     }
-    public void blockButtonPressed(){
-      this.app.addObj(BlockFactory.createBlock());
-    }
-    public void associationLineButtonPressed(){
-      this.app.addObj(LineFactory.createAssociationLine());
-    }
-    public void inheritanceLineButtonPressed(){
-      this.app.addObj(LineFactory.createInheritanceLine());
-    }
-    public void implementationLineButtonPressed(){
-      this.app.addObj(LineFactory.createImplementationLine());
-    }
-    public void dependencyLineButtonPressed(){
-      this.app.addObj(LineFactory.createDependencyLine());
-    }
-    public void aggregationLineButtonPressed(){
-      this.app.addObj(LineFactory.createAggregationLine());
-    }
-    public void compositionLineButtonPressed(){
-      this.app.addObj(LineFactory.createCompositionLine());
-    }
-    public void textButtonPressed(){
-      this.app.addObj(new DisplayText());
-    }
-    public void deleteSelectedPressed(){
-      this.app.removeSelected();
-    }
-    public void submitClassButtonPressed(){
-      Block curretlySelected = (Block)this.app.getSelected();
-      //currentlySelected.setClassName(classText.getText());
-      //currentlySelected.addInstanceVariable(instanceVariableText.getText());
-      //currentlySelected.addMethod(classMethodText.getText());
-    }
-
-    public void saveButtonPressed(){
-        JFileChooser chooser = new JFileChooser();
-        if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = chooser.getSelectedFile();
-            AppModel a = copyDisplayObjects();
-            a.save2((String)selectedFile.getPath());
-        }
-    }
-
-    private void setAppModel(AppModel a){
-      this.app = a;
-    }
-
-    private AppModel copyDisplayObjects(){
-      AppModel toReturn = new AppModel();
-      for(DisplayObject d: this.app.getDisplayObjects()){
-        toReturn.addObj(d);
-      }
-      return toReturn;
-    }
-
-    public void loadButtonPressed(){
-        JFileChooser chooser = new JFileChooser();
-        if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = chooser.getSelectedFile();
-            this.app.load2((String)selectedFile.getPath());
-            //System.out.println(this.app);
-        }
-    }
+    // public void blockButtonPressed(){
+    //   this.app.addObj(BlockFactory.createBlock());
+    // }
+    // public void associationLineButtonPressed(){
+    //   this.app.addObj(LineFactory.createAssociationLine());
+    // }
+    // public void inheritanceLineButtonPressed(){
+    //   this.app.addObj(LineFactory.createInheritanceLine());
+    // }
+    // public void implementationLineButtonPressed(){
+    //   this.app.addObj(LineFactory.createImplementationLine());
+    // }
+    // public void dependencyLineButtonPressed(){
+    //   this.app.addObj(LineFactory.createDependencyLine());
+    // }
+    // public void aggregationLineButtonPressed(){
+    //   this.app.addObj(LineFactory.createAggregationLine());
+    // }
+    // public void compositionLineButtonPressed(){
+    //   this.app.addObj(LineFactory.createCompositionLine());
+    // }
+    // public void textButtonPressed(){
+    //   this.app.addObj(new DisplayText());
+    // }
+    // public void deleteSelectedPressed(){
+    //   this.app.removeSelected();
+    // }
+    // public void submitClassButtonPressed(){
+    //   Block curretlySelected = (Block)this.app.getSelected();
+    //   //currentlySelected.setClassName(classText.getText());
+    //   //currentlySelected.addInstanceVariable(instanceVariableText.getText());
+    //   //currentlySelected.addMethod(classMethodText.getText());
+    // }
+    //
+    // public void saveButtonPressed(){
+    //     JFileChooser chooser = new JFileChooser();
+    //     if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+    //         File selectedFile = chooser.getSelectedFile();
+    //         AppModel a = copyDisplayObjects();
+    //         a.save2((String)selectedFile.getPath());
+    //     }
+    // }
+    //
+    // private void setAppModel(AppModel a){
+    //   this.app = a;
+    // }
+    //
+    // private AppModel copyDisplayObjects(){
+    //   AppModel toReturn = new AppModel();
+    //   for(DisplayObject d: this.app.getDisplayObjects()){
+    //     toReturn.addObj(d);
+    //   }
+    //   return toReturn;
+    // }
+    //
+    // public void loadButtonPressed(){
+    //     JFileChooser chooser = new JFileChooser();
+    //     if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+    //         File selectedFile = chooser.getSelectedFile();
+    //         this.app.load2((String)selectedFile.getPath());
+    //         //System.out.println(this.app);
+    //     }
+    // }
 
     private void addButtonsToMenu(){
       JButton blockButton = new JButton("New Class");
@@ -257,42 +256,12 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       blockButton.addActionListener(this);
       this.buttonMenu.add(blockButton);
 
-      JButton associationLineButton = new JButton("New Association Line");
-      associationLineButton.setPreferredSize(new Dimension(25, 100));
-      associationLineButton.setActionCommand("association");
-      associationLineButton.addActionListener(this);
+      JButton lineButton = new JButton("New Line");
+      lineButton.setPreferredSize(new Dimension(25, 100));
+      lineButton.setActionCommand("line");
+      lineButton.addActionListener(this);
 
-      this.buttonMenu.add(associationLineButton);
-
-      JButton inheritanceLineButton = new JButton("New Inheritance Line");
-      inheritanceLineButton.setPreferredSize(new Dimension(25, 100));
-      inheritanceLineButton.setActionCommand("inheritance");
-      inheritanceLineButton.addActionListener(this);
-      this.buttonMenu.add(inheritanceLineButton);
-
-      JButton implementationLineButton = new JButton("New Implementation Line");
-      implementationLineButton.setPreferredSize(new Dimension(25, 100));
-      implementationLineButton.setActionCommand("implementation");
-      implementationLineButton.addActionListener(this);
-      this.buttonMenu.add(implementationLineButton);
-
-      JButton dependencyLineButton = new JButton("New Dependency Line");
-      dependencyLineButton.setPreferredSize(new Dimension(25, 100));
-      dependencyLineButton.setActionCommand("dependency");
-      dependencyLineButton.addActionListener(this);
-      this.buttonMenu.add(dependencyLineButton);
-
-      JButton aggregationLineButton = new JButton("New Aggregation Line");
-      aggregationLineButton.setPreferredSize(new Dimension(25, 100));
-      aggregationLineButton.setActionCommand("aggregation");
-      aggregationLineButton.addActionListener(this);
-      this.buttonMenu.add(aggregationLineButton);
-
-      JButton compositionLineButton = new JButton("New Compositon Line");
-      compositionLineButton.setPreferredSize(new Dimension(25, 100));
-      compositionLineButton.setActionCommand("composition");
-      compositionLineButton.addActionListener(this);
-      this.buttonMenu.add(compositionLineButton);
+      this.buttonMenu.add(lineButton);
 
       JButton textButton = new JButton("New Text");
       textButton.setPreferredSize(new Dimension(25, 100));
@@ -323,6 +292,24 @@ public class MenuDisplay extends JComponent implements ActionListener, AppListen
       exportButton.setActionCommand("export");
       exportButton.addActionListener(this);
       this.buttonMenu.add(exportButton);
+
+      JButton themeButton = new JButton("Change Theme");
+      themeButton.setPreferredSize(new Dimension(25, 100));
+      themeButton.setActionCommand("theme");
+      themeButton.addActionListener(this);
+      this.buttonMenu.add(themeButton);
+
+      JButton clearButton = new JButton("Clear");
+      clearButton.setPreferredSize(new Dimension(25, 100));
+      clearButton.setActionCommand("clear");
+      clearButton.addActionListener(this);
+      this.buttonMenu.add(clearButton);
+
+      JButton codeGenButton = new JButton("Generate Code");
+      codeGenButton.setPreferredSize(new Dimension(25, 100));
+      codeGenButton.setActionCommand("genCode");
+      codeGenButton.addActionListener(this);
+      this.buttonMenu.add(codeGenButton);
     }
 
     public void insertUpdate(DocumentEvent e) {

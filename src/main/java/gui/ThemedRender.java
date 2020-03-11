@@ -31,15 +31,27 @@ public class ThemedRender extends Render{
     /**
      * @param g Creates a render for the display given the graphics
      */
-    public ThemedRender(Graphics g){
-        super(g);
+    public ThemedRender(){
+        super();
+    }
+
+    public void setGraphics(Graphics g){
+        super.setGraphics(g);
         this.g = g;
     }
 
     public void paintBackground(int h, int w){
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.lightGray);
+        g2.setColor(Color.darkGray);
         g2.fillRect(0, 0, w, h);
+    }
+
+    public void setSelectedColor(boolean selected){
+        if(selected){
+            g.setColor(Color.blue);
+        }else{
+            g.setColor(Color.white);
+        }
     }
 
     private void setLineWidth(int l)
