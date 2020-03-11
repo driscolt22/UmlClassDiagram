@@ -110,7 +110,6 @@ public class AppModel implements Serializable{
     }
 }
 
-
   /**
    * loads a previously created file
    */

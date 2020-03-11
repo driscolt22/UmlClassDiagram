@@ -49,7 +49,7 @@ public class AppDisplay extends JComponent implements AppListener{
     public AppControl getController(){
         return controller;
     }
-    
+
     /**
      * Repaints the whole display from the appmodel
      * @param g graphics, called by Swing

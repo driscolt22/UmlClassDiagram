@@ -11,13 +11,21 @@ import org.junit.Before;
 import org.junit.After;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
 
 import app_model.AppModel;
 import app_model.Block;
 import app_model.Line;
 import app_model.LineFactory;
 import app_model.BlockFactory;
-import app_model.DisplayText;
+import gui.CodeGenerator;
+import app_model.lines.InheritanceLine;
+import app_model.lines.ImplementationLine;
+
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 
 @RunWith(JUnit4.class)
@@ -134,6 +142,210 @@ public class AppModelTest{
       assertEquals("two AppModels holding lines that are equal are equal", a, a2);
     }
 
+    @Test
+    public void testCodeGenerator(){
+      Block b = BlockFactory.createBlock();
+      b.setClassName("Example");
+      b.addMethod("Method");
+      a.addObj(b);
+      String path = System.getProperty("user.dir");
+      CodeGenerator gen = new CodeGenerator(a, path);
+      b.accept(gen);
+      //gen.writeStringToFile();
+      try{
+          BufferedReader objReader = new BufferedReader(new FileReader(path + "/Example.java"));
+
+          assertEquals("first line is correct", objReader.readLine(), "public class Example {");
+          assertEquals("second line is correct", objReader.readLine(), "   public void Method(){}");
+          assertEquals("thrid line is correct", objReader.readLine(), "}");
+      }catch(Exception e){
+          assertTrue("File not found", false);
+      }
+      }
+
+      @Test
+      public void testCodeGenerator2(){
+        Block b = BlockFactory.createBlock();
+        b.setClassName("Example");
+        b.addInstanceVariable("Object Variable");
+        b.addMethod("String Method int param1 String param2");
+        a.addObj(b);
+        String path = System.getProperty("user.dir");
+        CodeGenerator gen = new CodeGenerator(a, path);
+        b.accept(gen);
+        //gen.writeStringToFile();
+        try{
+            BufferedReader objReader = new BufferedReader(new FileReader(path + "/Example.java"));
+
+            assertEquals("first line is correct", objReader.readLine(), "public class Example {");
+            assertEquals("second line is correct", objReader.readLine(), "   private Object Variable;");
+            assertEquals("third line is correct", objReader.readLine(), "   public String Method(int param1, String param2){}");
+            assertEquals("fourth line is correct", objReader.readLine(), "}");
+        }catch(Exception e){
+            assertTrue("File not found", false);
+        }
+        }
+        @Test
+        public void testCodeGeneratorExtends(){
+          Block b = BlockFactory.createBlock();
+          Block b2 = BlockFactory.createBlock();
+          b.setClassName("Example");
+          b.addInstanceVariable("Object Variable");
+          b.addMethod("String Method int param1 String param2");
+          b2.setClassName("Example2");
+          b2.addInstanceVariable("Object Variable");
+          b2.addMethod("String Method int param1 String param2");
+          InheritanceLine l = new InheritanceLine(b2, b);
+          a.addObj(b);
+          a.addObj(b2);
+          a.addObj(l);
+          String path = System.getProperty("user.dir");
+          CodeGenerator gen = new CodeGenerator(a, path);
+          b.accept(gen);
+          //gen.writeStringToFile();
+          try{
+              BufferedReader objReader = new BufferedReader(new FileReader(path + "/Example.java"));
+
+              assertEquals("first line is correct", objReader.readLine(), "public class Example extends Example2{");
+              assertEquals("second line is correct", objReader.readLine(), "   private Object Variable;");
+              assertEquals("third line is correct", objReader.readLine(), "   public String Method(int param1, String param2){}");
+              assertEquals("fourth line is correct", objReader.readLine(), "}");
+          }catch(Exception e){
+              assertTrue("File not found", false);
+          }
+          }
+
+          @Test
+          public void testCodeGeneratorExtendsMultiple(){
+            Block b = BlockFactory.createBlock();
+            Block b2 = BlockFactory.createBlock();
+            Block b3 = BlockFactory.createBlock();
+            b.setClassName("Example");
+            b.addInstanceVariable("Object Variable");
+            b.addMethod("String Method int param1 String param2");
+            b2.setClassName("Example2");
+            b2.addInstanceVariable("Object Variable");
+            b2.addMethod("String Method int param1 String param2");
+            b3.setClassName("Example3");
+            b3.addInstanceVariable("Object Variable");
+            b3.addMethod("String Method int param1 String param2");
+            InheritanceLine l = new InheritanceLine(b2, b);
+            InheritanceLine l2 = new InheritanceLine(b3, b);
+            a.addObj(b);
+            a.addObj(b2);
+            a.addObj(l);
+            a.addObj(l2);
+            String path = System.getProperty("user.dir");
+            CodeGenerator gen = new CodeGenerator(a, path);
+            b.accept(gen);
+            //gen.writeStringToFile();
+            try{
+                BufferedReader objReader = new BufferedReader(new FileReader(path + "/Example.java"));
+
+                assertEquals("first line is correct", objReader.readLine(), "public class Example extends Example2, Example3{");
+                assertEquals("second line is correct", objReader.readLine(), "   private Object Variable;");
+                assertEquals("third line is correct", objReader.readLine(), "   public String Method(int param1, String param2){}");
+                assertEquals("fourth line is correct", objReader.readLine(), "}");
+            }catch(Exception e){
+                assertTrue("File not found", false);
+            }
+            }
+
+            @Test
+            public void testCodeGeneratorImplements(){
+              Block b = BlockFactory.createBlock();
+              Block b2 = BlockFactory.createBlock();
+              b.setClassName("Example");
+              b.addInstanceVariable("Object Variable");
+              b.addMethod("String Method int param1 String param2");
+              b2.setClassName("Example2");
+              b2.addInstanceVariable("Object Variable");
+              b2.addMethod("String Method int param1 String param2");
+              ImplementationLine l = new ImplementationLine(b2, b);
+              a.addObj(b);
+              a.addObj(b2);
+              a.addObj(l);
+              String path = System.getProperty("user.dir");
+              CodeGenerator gen = new CodeGenerator(a, path);
+              b.accept(gen);
+              //gen.writeStringToFile();
+              try{
+                  BufferedReader objReader = new BufferedReader(new FileReader(path + "/Example.java"));
+
+                  assertEquals("first line is correct", objReader.readLine(), "public class Example implements Example2{");
+                  assertEquals("second line is correct", objReader.readLine(), "   private Object Variable;");
+                  assertEquals("third line is correct", objReader.readLine(), "   public String Method(int param1, String param2){}");
+                  assertEquals("fourth line is correct", objReader.readLine(), "}");
+              }catch(Exception e){
+                  assertTrue("File not found", false);
+              }
+              }
+
+              @Test
+              public void testCodeGeneratorImplementsMultiple(){
+                Block b = BlockFactory.createBlock();
+                Block b2 = BlockFactory.createBlock();
+                Block b3 = BlockFactory.createBlock();
+                b.setClassName("Example");
+                b.addInstanceVariable("Object Variable");
+                b.addMethod("String Method int param1 String param2");
+                b2.setClassName("Example2");
+                b2.addInstanceVariable("Object Variable");
+                b2.addMethod("String Method int param1 String param2");
+                b3.setClassName("Example3");
+                b3.addInstanceVariable("Object Variable");
+                b3.addMethod("String Method int param1 String param2");
+                ImplementationLine l = new ImplementationLine(b2, b);
+                ImplementationLine l2 = new ImplementationLine(b3, b);
+                a.addObj(b);
+                a.addObj(b2);
+                a.addObj(l);
+                a.addObj(l2);
+                String path = System.getProperty("user.dir");
+                CodeGenerator gen = new CodeGenerator(a, path);
+                b.accept(gen);
+                //gen.writeStringToFile();
+                try{
+                    BufferedReader objReader = new BufferedReader(new FileReader(path + "/Example.java"));
+
+                    assertEquals("first line is correct", objReader.readLine(), "public class Example implements Example2, Example3{");
+                    assertEquals("second line is correct", objReader.readLine(), "   private Object Variable;");
+                    assertEquals("third line is correct", objReader.readLine(), "   public String Method(int param1, String param2){}");
+                    assertEquals("fourth line is correct", objReader.readLine(), "}");
+                }catch(Exception e){
+                    assertTrue("File not found", false);
+                }
+                }
+
+                @Test
+                public void testCodeGeneratorInterface(){
+                  Block b = BlockFactory.createBlock();
+                  Block b2 = BlockFactory.createBlock();
+                  b.setClassName("Example");
+                  b.addInstanceVariable("Object Variable");
+                  b.addMethod("String Method int param1 String param2");
+                  b2.setClassName("Example2");
+                  b2.addInstanceVariable("Object Variable");
+                  b2.addMethod("String Method int param1 String param2");
+                  ImplementationLine l = new ImplementationLine(b, b2);
+                  a.addObj(b);
+                  a.addObj(b2);
+                  a.addObj(l);
+                  String path = System.getProperty("user.dir");
+                  CodeGenerator gen = new CodeGenerator(a, path);
+                  b.accept(gen);
+                  //gen.writeStringToFile();
+                  try{
+                      BufferedReader objReader = new BufferedReader(new FileReader(path + "/Example.java"));
+
+                      assertEquals("first line is correct", objReader.readLine(), "public interface Example {");
+                      assertEquals("second line is correct", objReader.readLine(), "   private Object Variable;");
+                      assertEquals("third line is correct", objReader.readLine(), "   public String Method(int param1, String param2){}");
+                      assertEquals("fourth line is correct", objReader.readLine(), "}");
+                  }catch(Exception e){
+                      assertTrue("File not found", false);
+                  }
+                  }
     @Test
     public void testToString(){
       Block b = BlockFactory.createBlock();
