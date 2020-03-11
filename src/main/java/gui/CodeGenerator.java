@@ -34,10 +34,12 @@ public class CodeGenerator implements Visitor{
 
   public void visit(Block b){
     String modelCode = "";
-    String classType = "Class";
+    final Boolean[] isInterface = new Boolean[1];
+    isInterface[0] = false;
     ArrayList<String> extendsList = new ArrayList<String>();
     ArrayList<String> implementsList = new ArrayList<String>();
     Visitor v = new Visitor(){
+
         public void visit(Block b){}
         public void visit(DisplayText t){}
         public void visit(AggregationLine l){}
@@ -46,7 +48,7 @@ public class CodeGenerator implements Visitor{
         public void visit(DependencyLine l){}
         public void visit(ImplementationLine l){
             if(l.getHead() == b){
-                String interfaceType = "Interface";
+                isInterface[0] = true;
             }else if(l.getTail() == b){
                implementsList.add(b.getName());
             }
@@ -60,7 +62,11 @@ public class CodeGenerator implements Visitor{
     for(DisplayObject d: app.getDisplayObjects()){
       d.accept(v);
     }
-    modelCode += "public" + " " + classType + b.getName() + " ";
+    String classType = "class";
+    if(isInterface[0]){
+        classType = "interface";
+    }
+    modelCode += "public" + " " + classType +" " + b.getName() + " ";
     if(!implementsList.isEmpty()){
       modelCode += "implements" + " " + convertList(implementsList);
     }
@@ -81,9 +87,10 @@ public class CodeGenerator implements Visitor{
       "(";
       modelCode += convertList(methodList.get(i).getParameters());
       modelCode += "){}";
-      modelCode+= "}";
-      writeStringToFile(file + b.getName() + ".txt", modelCode);
+
     }
+    modelCode+= "\n}";
+    writeStringToFile(file +"/" +  b.getName() + ".java", modelCode);
   }
 
   private String convertList(ArrayList<String> list){

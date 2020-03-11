@@ -22,6 +22,9 @@ import app_model.LineFactory;
 import app_model.BlockFactory;
 import gui.CodeGenerator;
 
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 
 @RunWith(JUnit4.class)
 public class AppModelTest{
@@ -130,10 +133,18 @@ public class AppModelTest{
       b.setClassName("Example");
       b.addMethod("Method");
       a.addObj(b);
-      CodeGenerator gen = new CodeGenerator(a, "/Users/kanejaklitsch/Desktop/");
-      gen.writeStringToFile()
-      BufferedReader objReader = new BufferedReader(new FileReader("/Users/kanejaklitsch/Desktop/Example.txt"));
-      system.out.println(gen);
+      CodeGenerator gen = new CodeGenerator(a, "/mnt/c/Users/jaspe/project2");
+      b.accept(gen);
+      //gen.writeStringToFile();
+      try{
+          BufferedReader objReader = new BufferedReader(new FileReader("/mnt/c/Users/jaspe/project2/Example.java"));
+
+          assertEquals("first line is correct", objReader.readLine(), "public class Example {");
+          assertEquals("second line is correct", objReader.readLine(), "   public void Method(){}");
+          assertEquals("thrid line is correct", objReader.readLine(), "}");
+      }catch(Exception e){
+          assertTrue("File not found", false);
+      }
       }
 
 }
