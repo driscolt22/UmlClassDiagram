@@ -201,6 +201,7 @@ public class AppModelTest{
               assertTrue("File not found", false);
           }
           }
+
           @Test
           public void testCodeGeneratorExtendsMultiple(){
             Block b = BlockFactory.createBlock();
@@ -236,5 +237,35 @@ public class AppModelTest{
                 assertTrue("File not found", false);
             }
             }
+
+            @Test
+            public void testCodeGeneratorImplements(){
+              Block b = BlockFactory.createBlock();
+              Block b2 = BlockFactory.createBlock();
+              b.setClassName("Example");
+              b.addInstanceVariable("Object Variable");
+              b.addMethod("String Method int param1 String param2");
+              b2.setClassName("Example2");
+              b2.addInstanceVariable("Object Variable");
+              b2.addMethod("String Method int param1 String param2");
+              ImplementationLine l = new ImplementationLine(b2, b);
+              a.addObj(b);
+              a.addObj(b2);
+              a.addObj(l);
+              String path = System.getProperty("user.dir");
+              CodeGenerator gen = new CodeGenerator(a, path);
+              b.accept(gen);
+              //gen.writeStringToFile();
+              try{
+                  BufferedReader objReader = new BufferedReader(new FileReader(path + "/Example.java"));
+
+                  assertEquals("first line is correct", objReader.readLine(), "public class Example implements Example2{");
+                  assertEquals("second line is correct", objReader.readLine(), "   private Object Variable;");
+                  assertEquals("third line is correct", objReader.readLine(), "   public String Method(int param1, String param2){}");
+                  assertEquals("fourth line is correct", objReader.readLine(), "}");
+              }catch(Exception e){
+                  assertTrue("File not found", false);
+              }
+              }
 
 }

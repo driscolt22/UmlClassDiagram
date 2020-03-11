@@ -50,7 +50,7 @@ public class CodeGenerator implements Visitor{
             if(l.getHead() == b){
                 isInterface[0] = true;
             }else if(l.getTail() == b){
-               implementsList.add(b.getName());
+               implementsList.add(l.getHead().getName());
             }
         }
         public void visit(InheritanceLine l){
