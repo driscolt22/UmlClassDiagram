@@ -55,7 +55,7 @@ public class CodeGenerator implements Visitor{
         }
         public void visit(InheritanceLine l){
           if(l.getTail() == b){
-            extendsList.add(b.getName());
+            extendsList.add(l.getHead().getName());
           }
         }
     };
@@ -96,11 +96,11 @@ public class CodeGenerator implements Visitor{
   private String convertList(ArrayList<String> list){
     String convertedStr = "";
     for(int i = 0; i < list.size(); i++){
-      if(i < list.size()){
+      if(i < list.size() - 1){
         convertedStr += list.get(i) + ", ";
       }
-      else if(i < list.size()){
-        convertedStr += list.get(i) + ", ";
+      else if(i == list.size() -1){
+        convertedStr += list.get(i);
       }
     }
     return convertedStr;
