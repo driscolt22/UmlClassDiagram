@@ -11,12 +11,16 @@ import org.junit.Before;
 import org.junit.After;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
 
 import app_model.AppModel;
 import app_model.Block;
 import app_model.Line;
 import app_model.LineFactory;
 import app_model.BlockFactory;
+import gui.CodeGenerator;
 
 
 @RunWith(JUnit4.class)
@@ -119,5 +123,17 @@ public class AppModelTest{
       a2.addObj(b3);
       assertEquals("two AppModels holding lines that are equal are equal", a, a2);
     }
+
+    @Test
+    public void testCodeGenerator(){
+      Block b = BlockFactory.createBlock();
+      b.setClassName("Example");
+      b.addMethod("Method");
+      a.addObj(b);
+      CodeGenerator gen = new CodeGenerator(a, "/Users/kanejaklitsch/Desktop/");
+      gen.writeStringToFile()
+      BufferedReader objReader = new BufferedReader(new FileReader("/Users/kanejaklitsch/Desktop/Example.txt"));
+      system.out.println(gen);
+      }
 
 }
