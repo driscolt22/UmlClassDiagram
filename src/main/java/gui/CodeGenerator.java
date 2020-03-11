@@ -85,7 +85,7 @@ public class CodeGenerator implements Visitor{
     for(int i = 0; i < methodList.size(); i++){
       modelCode += "   " + "public" + " " + methodList.get(i).getReturnType() + " " + methodList.get(i).getMethodName() +
       "(";
-      modelCode += convertList(methodList.get(i).getParameters());
+      modelCode += convertParams(methodList.get(i).getParameters());
       modelCode += "){}";
 
     }
@@ -96,8 +96,8 @@ public class CodeGenerator implements Visitor{
   private String convertList(ArrayList<String> list){
     String convertedStr = "";
     for(int i = 0; i < list.size(); i++){
-      if(i == list.size() - 1){
-        convertedStr += list.get(i);
+      if(i < list.size()){
+        convertedStr += list.get(i) + ", ";
       }
       else if(i < list.size()){
         convertedStr += list.get(i) + ", ";
@@ -105,6 +105,19 @@ public class CodeGenerator implements Visitor{
     }
     return convertedStr;
   }
+
+  private String convertParams(ArrayList<String> list){
+    String convertedStr = "";
+    for(int i = 0; i < list.size(); i+=2){
+      int j = i + 1;
+      if(j < list.size() - 1){
+        convertedStr += list.get(i) + " " + list.get(j) + ", ";
+      }else if(j == list.size() - 1){
+        convertedStr += list.get(i) + " " + list.get(j);
+      }
+    }
+    return convertedStr;
+    }
 
   public void writeStringToFile(String file, String data){
       try (PrintWriter toExport = new PrintWriter(file)) {

@@ -133,11 +133,12 @@ public class AppModelTest{
       b.setClassName("Example");
       b.addMethod("Method");
       a.addObj(b);
-      CodeGenerator gen = new CodeGenerator(a, "/mnt/c/Users/jaspe/project2");
+      String path = System.getProperty("user.dir");
+      CodeGenerator gen = new CodeGenerator(a, path);
       b.accept(gen);
       //gen.writeStringToFile();
       try{
-          BufferedReader objReader = new BufferedReader(new FileReader("/mnt/c/Users/jaspe/project2/Example.java"));
+          BufferedReader objReader = new BufferedReader(new FileReader(path + "/Example.java"));
 
           assertEquals("first line is correct", objReader.readLine(), "public class Example {");
           assertEquals("second line is correct", objReader.readLine(), "   public void Method(){}");
@@ -146,5 +147,28 @@ public class AppModelTest{
           assertTrue("File not found", false);
       }
       }
+
+      @Test
+      public void testCodeGenerator2(){
+        Block b = BlockFactory.createBlock();
+        b.setClassName("Example");
+        b.addInstanceVariable("Object Variable");
+        b.addMethod("String Method int param1 String param2");
+        a.addObj(b);
+        String path = System.getProperty("user.dir");
+        CodeGenerator gen = new CodeGenerator(a, path);
+        b.accept(gen);
+        //gen.writeStringToFile();
+        try{
+            BufferedReader objReader = new BufferedReader(new FileReader(path + "/Example.java"));
+
+            assertEquals("first line is correct", objReader.readLine(), "public class Example {");
+            assertEquals("second line is correct", objReader.readLine(), "   private Object Variable;");
+            assertEquals("third line is correct", objReader.readLine(), "   public String Method(int param1, String param2){}");
+            assertEquals("fourth line is correct", objReader.readLine(), "}");
+        }catch(Exception e){
+            assertTrue("File not found", false);
+        }
+        }
 
 }
