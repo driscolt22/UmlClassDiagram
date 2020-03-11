@@ -101,7 +101,7 @@ implements MouseListener, MouseMotionListener, KeyListener
 
     public void keyPressed(KeyEvent e) {
         //System.out.println(e);
-        System.out.println(e.getModifiers());
+        //System.out.println(e.getModifiers());
         Command c = null;
         if(e.isControlDown()){
             int k = e.getKeyCode();
