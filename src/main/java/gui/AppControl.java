@@ -92,7 +92,8 @@ implements MouseListener, MouseMotionListener, KeyListener
             e.getX() < AppDisplay.WIDTH && e.getY() < AppDisplay.HEIGHT){
             int dx = e.getX() - pressX;
             int dy = e.getY() - pressY;
-            app.moveSelected(dx, dy);
+            Command c = new MoveCommand(app, dx, dy);
+            c.execute();
             pressX = e.getX();
             pressY = e.getY();
         }
@@ -116,6 +117,19 @@ implements MouseListener, MouseMotionListener, KeyListener
                 c = new CreateTextCommand(app);
             }else if(k == KeyEvent.VK_E){
                 c = new ExportCommand(appDisplay);
+            }
+        }else{
+            int k = e.getKeyCode();
+            if(k == KeyEvent.VK_RIGHT){
+                c = new MoveCommand(app, 10,0);
+            }else if(k == KeyEvent.VK_LEFT){
+                c = new MoveCommand(app, -10,0);
+            }else if(k == KeyEvent.VK_UP){
+                c = new MoveCommand(app, 0,-10);
+            }else if(k == KeyEvent.VK_DOWN){
+                c = new MoveCommand(app, 0,10);
+            }else if(k == KeyEvent.VK_ESCAPE){
+                app.select(-100,-100);
             }
         }
         if(c != null){
