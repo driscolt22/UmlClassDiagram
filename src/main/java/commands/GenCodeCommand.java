@@ -3,6 +3,8 @@ package commands;
 import app_model.AppModel;
 import javax.swing.*;
 import java.io.File;
+import gui.CodeGenerator;
+import app_model.DisplayObject;
 
 public class GenCodeCommand implements Command{
     private AppModel appmodel;
@@ -17,7 +19,11 @@ public class GenCodeCommand implements Command{
         chooser.setAcceptAllFileFilterUsed(false);
         if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             String folderPath = chooser.getSelectedFile().toString();
-            System.out.println("File Path: " + folderPath);
+            CodeGenerator g = new CodeGenerator(appmodel, folderPath);
+            for(DisplayObject d: appmodel.getDisplayObjects()){
+                d.accept(g);
+            }
+            //System.out.println("File Path: " + folderPath);
         }
     }
 }

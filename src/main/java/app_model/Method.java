@@ -3,7 +3,7 @@ import java.io.Serializable;
 import java.util.*;
 
 
-class Method implements Serializable{
+public class Method implements Serializable{
   private String returnType;
   private String methodName;
   private ArrayList<String> parameters;

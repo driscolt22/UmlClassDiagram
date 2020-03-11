@@ -40,6 +40,14 @@ public abstract class Line implements DisplayObject, Serializable {
         updatePosition();
     }
 
+    public Block getHead(){
+      return this.head;
+    }
+
+    public Block getTail(){
+      return this.tail;
+    }
+
     /**
      * @return x-cord of the head
      */
